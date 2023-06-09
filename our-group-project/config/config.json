@@ -2,7 +2,7 @@
 {
   "development": {
     "username": "root",
-    "password": "Ba$il2001",
+    "password": "rootloretta",
     "database": "groupproject",
     "host": "127.0.0.1",
     "dialect": "mysql"
