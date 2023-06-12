@@ -2,6 +2,20 @@ var express = require("express");
 var router = express.Router();
 const models = require("../models/index");
 
+
+router.get('/', async function (req,res) {
+  try {
+   const pets = await models.Pet.findAll();
+   res.send(pets);
+  } catch (error) {
+   res.status(500).send(error);
+  }
+ 
+ });
+
+
+
+
 router.get("/:user_id", async function (req, res, next) {
   const { user_id } = req.params;
   try {

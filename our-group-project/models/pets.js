@@ -1,5 +1,11 @@
+
+
 "use strict";
+
+ 
 const { Model } = require("sequelize");
+const User = require("./user"); // Modify the file path if necessary
+
 module.exports = (sequelize, DataTypes) => {
   class Pet extends Model {
     /**
@@ -9,7 +15,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Pet.belongsTo(models.User, { foreignKey: "user_id"})
+      Pet.belongsTo(models.User, { foreignKey: "user_id"});
+      
+      Pet.belongsTo(models.Breed, { foreignKey: 'breed_id' });
 
       Pet.hasMany(models.Photo, {
         foreignKey: "external_id",
