@@ -35,10 +35,10 @@ router.post("/register", async function (req, res, next) {
 
 //LOGIN
 router.post("/login", async function (req, res, next) {
-  const { userN, password } = req.body;
+  const { username, password } = req.body;
   try {
     const results = await models.User.findOne({
-      where: { username: `${userN}` },
+      where: { username: username },
     });
     const user = results.data[0];
     if (user) {
