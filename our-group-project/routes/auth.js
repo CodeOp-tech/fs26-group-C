@@ -9,8 +9,9 @@ const supersecret = process.env.SUPER_SECRET;
 
 //REGISTRATION
 router.post("/register", async function (req, res, next) {
-    let { username, email, password, name, surname, date_of_birth, location } = req.body;
-    console.log(req.body)
+  let { username, email, password, name, surname, date_of_birth, location } =
+    req.body;
+  console.log(req.body);
   try {
     let hash = await bcrypt.hash(password, saltRounds);
     // await models.User.findOne({
@@ -24,9 +25,17 @@ router.post("/register", async function (req, res, next) {
     //     location,
     //   },
     // });
-      password = hash;
-      const user = await models.User.create({ username, email, password, name, surname, date_of_birth, location });
-      console.log(user)
+    password = hash;
+    const user = await models.User.create({
+      username,
+      email,
+      password,
+      name,
+      surname,
+      date_of_birth,
+      location,
+    });
+    console.log(user);
     res.send("Registered successfully");
   } catch (err) {
     res.status(400).send({ message: err.message });
@@ -35,12 +44,12 @@ router.post("/register", async function (req, res, next) {
 
 //LOGIN
 router.post("/login", async function (req, res, next) {
-  const { userN, password } = req.body;
+  const { username, password } = req.body;
   try {
-    const results = await models.User.findOne({
-      where: { username: `${userN}` },
+    const user = await models.User.findOne({
+      where: { username },
     });
-    const user = results.data[0];
+
     if (user) {
       const userID = user.id;
       const correctPass = await bcrypt.compare(password, user.password);
