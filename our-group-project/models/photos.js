@@ -20,11 +20,11 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
 
-    getCommentable(options) {
-      if (!this.type) return Promise.resolve(null);
-      const mixinMethodName = `get${uppercaseFirst(this.type)}`;
-      return this[mixinMethodName](options);
-    }
+    // getCommentable(options) {
+    //   if (!this.type) return Promise.resolve(null);
+    //   const mixinMethodName = `get${uppercaseFirst(this.type)}`;
+    //   return this[mixinMethodName](options);
+    // }
   }
   Photo.init(
     {
