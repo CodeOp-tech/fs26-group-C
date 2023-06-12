@@ -1,9 +1,7 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class photos extends Model {
+  class Photo extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,15 +9,34 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Photo.belongsTo(models.Pet, {
+        foreignKey: "external_id",
+        constraints: false,
+      });
+
+      Photo.belongsTo(models.UserProfile, {
+        foreignKey: "external_id",
+        constraints: false,
+      });
+    }
+
+    getCommentable(options) {
+      if (!this.type) return Promise.resolve(null);
+      const mixinMethodName = `get${uppercaseFirst(this.type)}`;
+      return this[mixinMethodName](options);
     }
   }
-  photos.init({
-    filename: DataTypes.STRING,
-    external_id: DataTypes.INTEGER,
-    type: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'photos',
-  });
-  return photos;
+  Photo.init(
+    {
+      filename: DataTypes.STRING,
+      external_id: DataTypes.INTEGER,
+      type: DataTypes.STRING,
+    },
+    {
+      sequelize,
+      modelName: "Photo",
+    }
+  );
+
+  return Photo;
 };
