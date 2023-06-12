@@ -17,7 +17,6 @@ router.get("/:user_id", async function (req, res, next) {
 });
 
 /* Post new pet listing. */
-//posting as null - why?
 router.post("/", async function (req, res, next) {
   const {
     name,
