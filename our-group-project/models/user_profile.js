@@ -9,6 +9,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      User_profile.belongsTo(models.User, { foreignKey: "user_id" });
+      
       User_profile.hasMany(models.Photo, {
         foreignKey: "external_id",
         constraints: false,

@@ -14,17 +14,17 @@ module.exports = (sequelize, DataTypes) => {
         constraints: false,
       });
 
-      Photo.belongsTo(models.UserProfile, {
+      Photo.belongsTo(models.User_profile, {
         foreignKey: "external_id",
         constraints: false,
       });
     }
 
-    getCommentable(options) {
-      if (!this.type) return Promise.resolve(null);
-      const mixinMethodName = `get${uppercaseFirst(this.type)}`;
-      return this[mixinMethodName](options);
-    }
+    // getCommentable(options) {
+    //   if (!this.type) return Promise.resolve(null);
+    //   const mixinMethodName = `get${uppercaseFirst(this.type)}`;
+    //   return this[mixinMethodName](options);
+    // }
   }
   Photo.init(
     {
