@@ -10,7 +10,11 @@ module.exports = {
     const { data } = await axios.get('https://api.thedogapi.com/v1/breeds?/&api_key=live_Gn9vHzYy4ihx41hkxTZfLlm1w6FnHL3msR1dv60JmEKGx9fZuqTCZh5A78WZDcFp');
 
     const breedData = data.map(d => ({
-      breed: d.name
+      breed: d.name,
+      height: d.height.metric,
+      weight: d.weight.metric,
+      life_expectancy: d.life_span,
+      temperament: d.temperament
     }));
 
     breedData.push({ breed: 'Other' });

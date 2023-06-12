@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
         constraints: false,
       });
 
-      Photo.belongsTo(models.UserProfile, {
+      Photo.belongsTo(models.User_profile, {
         foreignKey: "external_id",
         constraints: false,
       });
