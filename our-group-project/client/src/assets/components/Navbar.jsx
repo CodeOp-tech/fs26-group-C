@@ -1,59 +1,88 @@
 import { useState } from "react";
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
+  Stack,
+  Button,
+} from "@mui/material";
+import Dog from "@mui/icons-material/Pets";
 import { Link } from "react-router-dom";
 
 export default function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   return (
     <div>
-      <nav>
-        {isLoggedIn ? (
-          <div>
-            <ul style={{listStyle: "none", display:"flex", justifyContent:"space-around"}}>
-              <li>
-                <Link to="/">Home </Link> <Link to="/about">About </Link>
-              </li>
-              <li>
-                <Link to="/user_profile">User Profile </Link>
-              </li>
-              <li>
+      <AppBar position="static" color="secondary" id="appbar">
+        <Toolbar>
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="logo"
+          >
+            <Link to="/">
+              <Dog />
+            </Link>
+          </IconButton>
+          <Typography variant="subtitle2" component="div" sx={{ flexGrow: 1 }} style={{ fontSize: "0.75rem" }}>
+            website name
+          </Typography>
+          {isLoggedIn ? (
+            <Stack direction="row" spacing={2}  sx={{flexWrap:"wrap", justifyContent:"flex-end" }}>
+              <Button color="inherit" style={{ fontSize: "0.75rem" }}>
+                <Link to="/">Home </Link>
+              </Button>
+              <Button color="inherit" style={{ fontSize: "0.75rem" }}>
+                <Link to="/user_profile">Profile </Link>
+              </Button>
+              <Button color="inherit" style={{ fontSize: "0.75rem" }}>
+                <Link to="/about">About us </Link>
+              </Button>
+              <Button color="inherit" style={{ fontSize: "0.75rem" }}>
                 <Link to="/forum">Forum </Link>
-              </li>
-              <li>
+              </Button>
+              <Button color="inherit" style={{ fontSize: "0.75rem" }}>
                 <Link to="/contact_us">Contact us </Link>
-              </li>
-              <li>
+              </Button>
+              <Button color="inherit" style={{ fontSize: "0.75rem" }}>
                 <Link to="/search_pets">Find a Pet</Link>
-              </li>
-              <li>
-                <Link to="/login">
-                  <button> Logout</button>
+              </Button>
+              <button>
+                <Link to="/login" style={{ fontSize: "0.75rem" }}>
+                  Logout
                 </Link>
-              </li>
-            </ul>
-          </div>
-        ) : (
-          <div>
-            <ul style={{listStyle: "none", display:"flex", justifyContent:"space-around"}}>
-              <li>
-                <Link to="/">Home </Link> <Link to="/about">About </Link>
-              </li>
-              <li>
+              </button>
+            </Stack>
+          ) : (
+            <Stack direction="row" spacing={2} sx={{flexWrap:"wrap", justifyContent:"flex-end" }}>
+              <Button color="inherit" style={{ fontSize: "0.75rem" }}>
+                <Link to="/">Home </Link>
+              </Button>
+              <Button color="inherit" style={{ fontSize: "0.75rem" }}>
+                <Link to="/about">About us </Link>
+              </Button>
+              <Button color="inherit" style={{ fontSize: "0.75rem" }}>
                 <Link to="/forum">Forum </Link>
-              </li>
-              <li>
-                <Link to="/login">
-                  <button> Login</button>
+              </Button>
+              <Button color="inherit" style={{ fontSize: "0.75rem" }}>
+                <Link to="/contact_us">Contact us </Link>
+              </Button>
+              <button>
+                <Link to="/login" style={{ fontSize: "0.75rem" }}>
+                  Login
                 </Link>
-              </li>
-              <li>
-                <Link to="/register">
-                  <button> Sign Up!</button>
+              </button>
+              <button>
+                <Link to="/register" style={{ fontSize: "0.75rem" }}>
+                  Sign Up!
                 </Link>
-              </li>
-            </ul>
-          </div>
-        )}
-      </nav>
+              </button>
+            </Stack>
+          )}
+        </Toolbar>
+      </AppBar>
     </div>
   );
 }
