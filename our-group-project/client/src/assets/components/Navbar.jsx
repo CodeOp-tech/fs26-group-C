@@ -19,21 +19,21 @@ export default function Navbar() {
           <IconButton
             size="large"
             edge="start"
-            color="inherit"
+           color="secondary"
             aria-label="logo"
           >
             <Link to="/">
               <Dog />
             </Link>
           </IconButton>
-          <Typography variant="subtitle2" component="div" sx={{ flexGrow: 1 }} style={{ fontSize: "0.75rem" }}>
-            website name
+          <Typography variant="subtitle2" component="div" sx={{ flexGrow: 1 }} style={{ fontSize: "2rem" }}>
+            Website Name
           </Typography>
           {isLoggedIn ? (
             <Stack direction="row" spacing={2}  sx={{flexWrap:"wrap", justifyContent:"flex-end" }}>
-              <Button color="inherit" style={{ fontSize: "0.75rem" }}>
-                <Link to="/">Home </Link>
-              </Button>
+              <Typography color="neutral.contrastText" style={{ fontSize: "0.75rem"}}>
+                <Link variant='button' to="/">Home </Link>
+              </Typography>
               <Button color="inherit" style={{ fontSize: "0.75rem" }}>
                 <Link to="/user_profile">Profile </Link>
               </Button>
