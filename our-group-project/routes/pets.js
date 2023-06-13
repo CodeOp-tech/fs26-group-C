@@ -2,36 +2,34 @@ var express = require("express");
 var router = express.Router();
 const models = require("../models/index");
 
-
-router.get('/', async function (req,res) {
+/* GET all pets. */
+router.get("/", async function (req, res) {
   try {
-   const pets = await models.Pet.findAll();
-   res.send(pets);
-  } catch (error) {
-   res.status(500).send(error);
-  }
- 
- });
-
-
-
-
-router.get("/:user_id", async function (req, res, next) {
-  const { user_id } = req.params;
-  try {
-    const value = await models.Value.findOne({
-      where: {
-        id: user_id,
-      },
-    });
-    res.send(value);
+    const pets = await models.Pet.findAll();
+    res.send(pets);
   } catch (error) {
     res.status(500).send(error);
   }
 });
 
+/* GET pets by user_id. */
+router.get("/user/:user_id", async function (req, res, next) {
+  const { user_id } = req.params;
+  try {
+    const pets = await models.Pet.findAll({
+      where: {
+        user_id
+      }
+    });
+
+    res.send(pets);
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+});
+
 /* Post new pet listing. */
-//posting as null - why?
+// true = 1 , false = 0 for boolean values
 router.post("/", async function (req, res, next) {
   const {
     name,
@@ -50,7 +48,7 @@ router.post("/", async function (req, res, next) {
     diet,
   } = req.body;
 
-    try {
+  try {
     const pets = await models.Pet.create({
       name,
       breed_id,
@@ -67,7 +65,7 @@ router.post("/", async function (req, res, next) {
       personality,
       diet,
     });
-      
+
     res.send(pets);
   } catch (err) {
     res.status(500).send({ message: err.message });

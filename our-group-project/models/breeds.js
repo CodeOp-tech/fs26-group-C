@@ -11,8 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      //Breed.belongsTo(models.Pet)
-      //models.Pet.hasMany(Breed)
+      Breed.hasMany(models.Pet,  {foreignKey: "breed_id"})
     }
   }
   Breed.init({
