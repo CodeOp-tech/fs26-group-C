@@ -1,10 +1,11 @@
 import React from "react";
 
-export default function ContactUs() {
+
+export default function PetProfile() {
   return (
       <div>
-        <h1>Contsct Us</h1>  
+        <h1>Pet Profile</h1>  
       </div>
    
   );
-};
+}
