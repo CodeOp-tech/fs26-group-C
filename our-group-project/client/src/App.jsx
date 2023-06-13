@@ -11,6 +11,8 @@ import Login from './assets/components/Login';
 import Quiz from './assets/components/Quiz';
 import Registration from './assets/components/Registration';
 import SearchPets from './assets/pages/SearchPets';
+import "./App.css";
+
 
 
 function App() {
