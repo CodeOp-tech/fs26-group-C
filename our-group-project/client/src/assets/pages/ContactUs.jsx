@@ -1,6 +1,5 @@
 import React from "react";
 
-
 export default function ContactUs() {
   return (
       <div>
@@ -8,4 +7,4 @@ export default function ContactUs() {
       </div>
    
   );
-}
+};
