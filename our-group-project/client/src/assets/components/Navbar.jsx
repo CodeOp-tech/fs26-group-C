@@ -11,7 +11,7 @@ import Dog from "@mui/icons-material/Pets";
 import { Link } from "react-router-dom";
 
 export default function Navbar() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   return (
     <div>
       <AppBar position="static" color="secondary" id="appbar">
@@ -23,7 +23,8 @@ export default function Navbar() {
             aria-label="logo"
           >
             <Link to="/">
-              <Dog />
+              <Dog 
+              color="primary"/>
             </Link>
           </IconButton>
           <Typography variant="subtitle2" component="div" sx={{ flexGrow: 1 }} style={{ fontSize: "2rem" }}>
@@ -31,9 +32,9 @@ export default function Navbar() {
           </Typography>
           {isLoggedIn ? (
             <Stack direction="row" spacing={2}  sx={{flexWrap:"wrap", justifyContent:"flex-end" }}>
-              <Typography color="neutral.contrastText" style={{ fontSize: "0.75rem"}}>
-                <Link variant='button' to="/">Home </Link>
-              </Typography>
+              <Button  color="inherit" style={{ fontSize: "0.75rem"}}>
+                <Link to="/">Home </Link>
+              </Button>
               <Button color="inherit" style={{ fontSize: "0.75rem" }}>
                 <Link to="/user_profile">Profile </Link>
               </Button>
@@ -49,11 +50,12 @@ export default function Navbar() {
               <Button color="inherit" style={{ fontSize: "0.75rem" }}>
                 <Link to="/search_pets">Find a Pet</Link>
               </Button>
-              <button>
+              <Button
+              variant="contained">
                 <Link to="/login" style={{ fontSize: "0.75rem" }}>
                   Logout
                 </Link>
-              </button>
+              </Button>
             </Stack>
           ) : (
             <Stack direction="row" spacing={2} sx={{flexWrap:"wrap", justifyContent:"flex-end" }}>
@@ -69,16 +71,18 @@ export default function Navbar() {
               <Button color="inherit" style={{ fontSize: "0.75rem" }}>
                 <Link to="/contact_us">Contact us </Link>
               </Button>
-              <button>
+              <Button
+              variant="contained">
                 <Link to="/login" style={{ fontSize: "0.75rem" }}>
                   Login
                 </Link>
-              </button>
-              <button>
+              </Button>
+              <Button
+              variant="contained">
                 <Link to="/register" style={{ fontSize: "0.75rem" }}>
-                  Sign Up!
+                  Sign Up
                 </Link>
-              </button>
+              </Button>
             </Stack>
           )}
         </Toolbar>

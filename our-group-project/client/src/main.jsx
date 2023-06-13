@@ -19,7 +19,7 @@ const defaultTheme = createTheme({
       main: "#116A7B",
     },
     neutral: {
-      contrastText: "#FFFFFF",
+      contrastText: "#FFFFF",
     },
   },
 });
