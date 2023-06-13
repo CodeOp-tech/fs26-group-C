@@ -76,6 +76,7 @@ export default function Navbar() {
                 <Link to="/login" style={{ fontSize: "0.75rem" }}>
                   Login
                 </Link>
+                </Button>
               <Button
               variant="contained">
                 <Link to="/register" style={{ fontSize: "0.75rem" }}>
