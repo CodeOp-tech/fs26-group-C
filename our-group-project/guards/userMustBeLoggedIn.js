@@ -2,6 +2,7 @@ var jwt = require("jsonwebtoken");
 require("dotenv").config();
 const supersecret = process.env.SUPER_SECRET;
 const models = require("../models/index");
+
 function userMustBeLoggedIn(req, res, next) {
   const authorization = req.headers["authorization"] || "";
   const token = authorization.replace(/^Bearer\s/, "");
