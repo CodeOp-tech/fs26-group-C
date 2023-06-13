@@ -5,7 +5,10 @@ const models = require("../models/index");
 /* GET all pets. */
 router.get("/", async function (req, res) {
   try {
-    const pets = await models.Pet.findAll();
+    const pets = await models.Pet.findAll({
+      include: [{ model: models.Breed }]
+    }
+    );
     res.send(pets);
   } catch (error) {
     res.status(500).send(error);

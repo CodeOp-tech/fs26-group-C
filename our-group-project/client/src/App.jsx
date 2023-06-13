@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link, Routes, Route } from "react-router-dom";
 import AuthContext from "./assets/contexts/AuthContext";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import Home from "./assets/pages/Home";
 import About from "./assets/pages/About";
 import UserProfile from "./assets/pages/UserProfile";
@@ -35,21 +37,23 @@ function App() {
 
   return (
     <AuthContext.Provider value={authObj}>
-      <Navbar />
-      <div>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/user_profile" element={<UserProfile />} />
-          <Route path="/contact_us" element={<ContactUs />} />
-          <Route path="/pet_profile" element={<PetProfile />} />
-          <Route path="/forum" element={<Forum />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/quiz" element={<Quiz />} />
-          <Route path="/registration" element={<Registration />} />
-          <Route path="search_pets" element={<SearchPets />} />
-        </Routes>
-      </div>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <Navbar />
+        <div>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/user_profile" element={<UserProfile />} />
+            <Route path="/contact_us" element={<ContactUs />} />
+            <Route path="/pet_profile" element={<PetProfile />} />
+            <Route path="/forum" element={<Forum />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/quiz" element={<Quiz />} />
+            <Route path="/registration" element={<Registration />} />
+            <Route path="search_pets" element={<SearchPets />} />
+          </Routes>
+        </div>
+      </LocalizationProvider>
     </AuthContext.Provider>
   );
 }

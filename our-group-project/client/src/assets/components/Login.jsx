@@ -14,9 +14,6 @@ import axios from "axios";
 import { useState, useContext } from "react";
 import AuthContext from "../contexts/AuthContext";
 
-const api = axios.create({
-  baseURL: "http://localhost:4000/api/auth",
-});
 
 function Copyright(props) {
   return (
