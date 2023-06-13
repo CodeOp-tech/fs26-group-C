@@ -11,7 +11,7 @@ import Dog from "@mui/icons-material/Pets";
 import { Link } from "react-router-dom";
 
 export default function Navbar() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   return (
     <div>
       <AppBar position="static" color="secondary" id="appbar">
