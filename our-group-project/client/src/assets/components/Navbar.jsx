@@ -76,9 +76,10 @@ export default function Navbar() {
                 <Link to="/login" style={{ fontSize: "0.75rem" }}>
                   Login
                 </Link>
+                </Button>
               <Button
               variant="contained">
-                <Link to="/register" style={{ fontSize: "0.75rem" }}>
+                <Link to="/registration" style={{ fontSize: "0.75rem" }}>
                   Sign Up
                 </Link>
               </Button>
@@ -89,3 +90,4 @@ export default function Navbar() {
     </div>
   );
 }
+
