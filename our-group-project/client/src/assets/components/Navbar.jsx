@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {
   AppBar,
   Toolbar,
@@ -9,11 +9,13 @@ import {
 } from "@mui/material";
 import Dog from "@mui/icons-material/Pets";
 import { Link } from "react-router-dom";
+import AuthContext from "../contexts/AuthContext";
 
 export default function Navbar() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  //const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  
+  const auth = useContext(AuthContext);
+
   return (
     <div>
       <AppBar position="static" color="secondary" id="appbar">
@@ -36,7 +38,7 @@ export default function Navbar() {
           >
             Website Name
           </Typography>
-          {isLoggedIn ? (
+          {auth.user ? (
             <Stack
               direction="row"
               spacing={2}
@@ -60,7 +62,7 @@ export default function Navbar() {
               <Button color="inherit" style={{ fontSize: "0.75rem" }}>
                 <Link to="/search_pets">Find a Pet</Link>
               </Button>
-              <Button variant="contained">
+              <Button variant="contained" onClick={auth.logout}>
                 <Link to="/login" style={{ fontSize: "0.75rem" }}>
                   Logout
                 </Link>
@@ -90,7 +92,7 @@ export default function Navbar() {
                 </Link>
               </Button>
               <Button variant="contained">
-                <Link to="/register" style={{ fontSize: "0.75rem" }}>
+                <Link to="/registration" style={{ fontSize: "0.75rem" }}>
                   Sign Up
                 </Link>
               </Button>

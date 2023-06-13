@@ -4,7 +4,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useLocation} from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -40,11 +40,12 @@ export default function Login() {
   const auth = useContext(AuthContext); //this will have user, login and logout functions
 
   const [credentials, setCredentials] = useState({
-    username: "test",
-    password: "test",
+    username: "loginUsername",
+    password: "loginPassword",
   });
 
   const [data, setData] = useState(null);
+  const location = useLocation()
 
   const { username, password } = credentials;
 
@@ -62,6 +63,7 @@ export default function Login() {
 
       localStorage.setItem("token", data.token);
       auth.login();
+      
       console.log(data.message, data.token);
     } catch (error) {
       console.log(error);
@@ -72,6 +74,7 @@ export default function Login() {
     auth.logout();
     localStorage.removeItem("token");
   };
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -99,11 +102,11 @@ export default function Login() {
             margin="normal"
             required
             fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
+            id="username"
+            label="Username"
+            name="username"
             autoFocus
+            onChange={handleChange}
           />
           <TextField
             margin="normal"
@@ -114,7 +117,9 @@ export default function Login() {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange={handleChange}
           />
+          {/* IF WE USE THIS WE NEED TO EXTEND THE TOKENS' DURATION FOR LIKE 30DAYS */}
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
@@ -142,6 +147,10 @@ export default function Login() {
           </Grid>
         </Box>
       </Box>
+
+      {
+        auth.user ? <Navigate to="/home"state={{from: location}} replace/> : null
+      }
       <Copyright sx={{ mt: 8, mb: 4 }} />
     </Container>
   );

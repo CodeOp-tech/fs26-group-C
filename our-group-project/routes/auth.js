@@ -60,6 +60,7 @@ router.post("/login", async function (req, res, next) {
       //generating token if username + password is correct
       // useriD is the payload - the middle part - whatever we want to inject in there basically
       var token = jwt.sign({ userID }, supersecret);
+      //var token = jwt.sign({ userID }, supersecret, {expiresIn: 60*60*24*31});
       res.send({ message: `Login successful, get your token`, token });
     } else {
       throw new Error("user does not exist");
@@ -71,11 +72,12 @@ router.post("/login", async function (req, res, next) {
 
 //ACCESSING PRIVATE INFO
 router.get("/profile", userMustBeLoggedIn, async function (req, res, next) {
- 
+ //filter through data to get the ones where user_id matches
   
   res.send({
     message: "you are logged in",
     //return private data
+
   })
   
 })
