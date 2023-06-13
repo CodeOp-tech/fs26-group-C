@@ -52,7 +52,7 @@ export default function SignUp() {
   
 
   return (
-    
+
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -158,6 +158,6 @@ export default function SignUp() {
         </Box>
         <Registration sx={{ mt: 5 }} />
       </Container>
-   
+
   );
 }

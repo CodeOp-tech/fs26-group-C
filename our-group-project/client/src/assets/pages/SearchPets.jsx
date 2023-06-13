@@ -2,17 +2,34 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { Container, Box, Typography, Stack, Grid, Button } from '@mui/material';
 import Select from 'react-select';
+import PetCard from '../components/PetCard';
+import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 
 export default function SearchPets() {
 const [ breeds, setBreeds ] = useState([]);
 const [ selectedBreed, setSelectedBreed ] = useState('');
 const [selectedOption, setSelectedOption] = useState("");
+const [ searchLocation, setSearchLocation] = useState('');
+const [searchInput, setSearchInput] = useState({});
+const [ pets, setPets ] = useState([]);
 
 useEffect(() => {
   getBreeds();
-}, []);
+  onChangeGooglePlaces(searchLocation);
+  getPets();
+}, [searchLocation]);
 
-
+const getPets = async () => {
+    try {
+      const response = await fetch(`/api/pets`, {
+        method: "GET",
+      });
+      const data = await response.json();
+      setPets(data);
+  } catch(error) {
+    console.log(error);
+  }
+};
 
 const getBreeds = async () => {
   try {
@@ -28,7 +45,30 @@ const getBreeds = async () => {
 
 const handleBreedChange = (selectedOption) => {
   setSelectedOption(selectedOption);
+  setSearchInput((state) => ({
+    ...state,
+    id: selectedOption.value
+  }))
 }
+
+
+async function onChangeGooglePlaces(e) {
+  console.log(e);
+  if(e) {
+  const result = await geocodeByAddress(e.label);
+  const locationname = result[0].formatted_address
+  const latLng = await getLatLng(result[0]);
+
+  const locationLat = latLng.lat;
+  const locationLng = latLng.lng;
+
+  setSearchInput((state) => ({
+    ...state,
+    latitude: +locationLat,
+    longitude: +locationLng,
+    locationname: locationname
+  }))}};
+
   return (
     <main>
       <Box sx={{
@@ -70,7 +110,13 @@ const handleBreedChange = (selectedOption) => {
       <Box>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={5}>
-            <Select placeholder="this is a placeholder for the location"></Select>
+          <PlacesAutocomplete
+        selectProps={{
+          value: searchLocation,
+          onChange: setSearchLocation,
+          placeholder: "Location"
+        }}
+        />
           </Grid>
           <Grid item xs={12} sm={5}>
         <Select
@@ -92,6 +138,21 @@ const handleBreedChange = (selectedOption) => {
           </Grid> */}
           </Grid>
       </Box>
+      </Container >
+
+      <Container sx={{ py: 8 }} maxWidth="lg">
+        <Grid container spacing={4}>
+          {pets.map((pet) => (
+           <Grid item key={pet.id} xs={12} sm={6} md={4}>
+            <PetCard
+            name={pet.name}
+            bio={pet.bio}
+            age={pet.age}
+            breed={pet.Breed.breed}/>
+           </Grid>
+          ))}
+        </Grid>
+
       </Container>
 
 
