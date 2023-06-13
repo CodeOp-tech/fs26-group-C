@@ -2,15 +2,20 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { Container, Box, Typography, Stack, Grid, Button } from '@mui/material';
 import Select from 'react-select';
+import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 
 export default function SearchPets() {
 const [ breeds, setBreeds ] = useState([]);
 const [ selectedBreed, setSelectedBreed ] = useState('');
 const [selectedOption, setSelectedOption] = useState("");
+const [ searchLocation, setSearchLocation] = useState('');
+const [searchInput, setSearchInput] = useState({});
 
 useEffect(() => {
   getBreeds();
-}, []);
+  onChangeGooglePlaces(searchLocation);
+}, [searchLocation]);
+
 
 
 
@@ -28,7 +33,30 @@ const getBreeds = async () => {
 
 const handleBreedChange = (selectedOption) => {
   setSelectedOption(selectedOption);
+  setSearchInput((state) => ({
+    ...state,
+    id: selectedOption.value
+  }))
 }
+
+
+async function onChangeGooglePlaces(e) {
+  console.log(e);
+  if(e) {
+  const result = await geocodeByAddress(e.label);
+  const locationname = result[0].formatted_address
+  const latLng = await getLatLng(result[0]);
+
+  const locationLat = latLng.lat;
+  const locationLng = latLng.lng;
+
+  setSearchInput((state) => ({
+    ...state,
+    latitude: +locationLat,
+    longitude: +locationLng,
+    locationname: locationname
+  }))}};
+
   return (
     <main>
       <Box sx={{
@@ -70,7 +98,13 @@ const handleBreedChange = (selectedOption) => {
       <Box>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={5}>
-            <Select placeholder="this is a placeholder for the location"></Select>
+          <PlacesAutocomplete
+        selectProps={{
+          value: searchLocation,
+          onChange: setSearchLocation,
+          placeholder: "Location"
+        }}
+        />
           </Grid>
           <Grid item xs={12} sm={5}>
         <Select
