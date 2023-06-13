@@ -1,9 +1,9 @@
 import { useState } from 'react';
 
-export default function PetProfile() {
+export default function Forum() {
     return (
         <div>
-          <h1>Pet Profile</h1>  
+          <h1>Forum</h1>  
         </div>
      
     );
