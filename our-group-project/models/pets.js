@@ -1,8 +1,5 @@
-
-
 "use strict";
 
- 
 const { Model } = require("sequelize");
 const User = require("./user"); // Modify the file path if necessary
 
@@ -15,9 +12,22 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Pet.belongsTo(models.User, { foreignKey: "user_id"});
+      Pet.belongsTo(models.User, { foreignKey: "user_id" });
+
+      Pet.belongsTo(models.Breed, { foreignKey: "breed_id" });
+
+      /*
       
-      Pet.belongsTo(models.Breed, { foreignKey: 'breed_id' });
+      The A.hasOne(B) association means that a One-To-One relationship exists between A and B, 
+      with the foreign key being defined in the target model (B).
+
+      The A.belongsTo(B) association means that a One-To-One relationship exists between A and B, 
+      with the foreign key being defined in the source model (A).
+
+      The A.hasMany(B) association means that a One-To-Many relationship exists between A and B, 
+      with the foreign key being defined in the target model (B).
+
+      */
 
       Pet.hasMany(models.Photo, {
         foreignKey: "external_id",

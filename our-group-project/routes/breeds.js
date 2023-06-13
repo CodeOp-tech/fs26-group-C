@@ -1,17 +1,18 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
-const models = require("../models");
+const models = require("../models/index");
 
-//get all breeds 
-router.get('/', async function (req, res) {
+
+/* GET breeds */
+router.get("/", async function (req, res) {
+
   try {
-   const breeds = await models.Breed.findAll();
-   res.send(breeds);
+    const breeds = await models.Breed.findAll();
+    res.send(breeds);
   } catch (error) {
-   res.status(500).send(error);
+    res.status(500).send(error);
   }
- 
- });
+});
 
  //get breed by ID 
  router.get('/:id', async function (req, res) {
@@ -47,3 +48,4 @@ router.get('/', async function (req, res) {
  })
 
  module.exports = router;
+
