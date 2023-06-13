@@ -6,6 +6,8 @@ var bcrypt = require("bcrypt");
 const saltRounds = 10;
 require("dotenv").config();
 const supersecret = process.env.SUPER_SECRET;
+const userMustBeLoggedIn = require('../guards/userMustBeLoggedIn')
+ 
 
 //REGISTRATION
 router.post("/register", async function (req, res, next) {
@@ -65,5 +67,12 @@ router.post("/login", async function (req, res, next) {
 });
 
 //ACCESSING PRIVATE INFO
+router.get("/profile", userMustBeLoggedIn, async function (req, res, next) {
+  res.send({
+    message: "you are logged in",
+    user_id: req.user_id
+  })
+  
+})
 
 module.exports = router;

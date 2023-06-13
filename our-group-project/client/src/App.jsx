@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { Link, Routes, Route } from 'react-router-dom';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import Home from './assets/pages/Home';
 import About from './assets/pages/About';
 import UserProfile from './assets/pages/UserProfile';
@@ -17,7 +19,8 @@ import "./App.css";
 
 function App() {
   return (
-    <>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+
       <Navbar />
       <div>
         <Routes>
@@ -33,7 +36,7 @@ function App() {
           <Route path="search_pets" element={<SearchPets/>}/>
         </Routes>
       </div>
-    </>
+      </LocalizationProvider>
   );
 };
 
