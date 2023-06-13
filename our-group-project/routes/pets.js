@@ -2,19 +2,17 @@ var express = require("express");
 var router = express.Router();
 const models = require("../models/index");
 
-router.get("/:user_id", async function (req, res, next) {
-  const { user_id } = req.params;
+router.get("/", async function (req, res, next) {
   try {
-    const value = await models.Value.findOne({
-      where: {
-        id: user_id,
-      },
-    });
-    res.send(value);
-  } catch (error) {
-    res.status(500).send(error);
+    const pets = await models.Pet.findAll();
+    console.log(pets)
+    res.send(pets);
+  } catch (err) {
+    res.status(500).send({ message: err.message });
   }
 });
+
+
 
 /* Post new pet listing. */
 router.post("/", async function (req, res, next) {
