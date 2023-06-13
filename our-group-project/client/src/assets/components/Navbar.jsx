@@ -8,6 +8,7 @@ export default function Navbar() {
     <Link to="/user_profile">User Profile </Link>
     <Link to="/forum">Forum </Link>
     <Link to="/contact_us">Contact us </Link>
+    <Link to="/search_pets">Find a Pet</Link>
     
   </nav>
   );

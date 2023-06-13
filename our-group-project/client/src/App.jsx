@@ -10,6 +10,7 @@ import Navbar from './assets/components/Navbar';
 import Login from './assets/components/Login';
 import Quiz from './assets/components/Quiz';
 import Registration from './assets/components/Registration';
+import SearchPets from './assets/pages/SearchPets';
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
           <Route path="/login" element={<Login/>}/>
           <Route path="/quiz" element={<Quiz/>}/>
           <Route path="/registration" element={<Registration/>}/>
+          <Route path="search_pets" element={<SearchPets/>}/>
         </Routes>
       </div>
     </>
