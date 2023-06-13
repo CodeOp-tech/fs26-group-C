@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { DatePicker } from "@mui/x-date-pickers";
+import { useState } from "react";
+//import { DatePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -15,7 +15,6 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 
 import DateOfBirth from "./DateOfBirth";
-import Login from "./Login";
 
 function Registration(data) {
   return (
@@ -149,7 +148,7 @@ export default function SignUp() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="/Login" variant="body2">
+                <Link href="/login" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
