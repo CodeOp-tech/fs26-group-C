@@ -41,25 +41,6 @@ router.get("/:id", async function (req, res, next) {
 });
 
 /* Post new user listing. */
-router.post("/", async function (req, res, next) {
-  const { username, email, password, name, surname, date_of_birth, location } =
-    req.body;
-
-    try {
-    const users = await models.User.create({
-      username,
-      email,
-      password,
-      name,
-      surname,
-      date_of_birth,
-      location,
-    });
-      
-    res.send(users);
-  } catch (err) {
-    res.status(500).send({ message: err.message });
-  }
-});
+// not needed cz of register in auth
 
 module.exports = router;

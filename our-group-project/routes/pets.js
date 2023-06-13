@@ -2,19 +2,34 @@ var express = require("express");
 var router = express.Router();
 const models = require("../models/index");
 
-router.get("/", async function (req, res, next) {
+/* GET all pets. */
+router.get("/", async function (req, res) {
   try {
     const pets = await models.Pet.findAll();
-    console.log(pets)
+    res.send(pets);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+/* GET pets by user_id. */
+router.get("/user/:user_id", async function (req, res, next) {
+  const { user_id } = req.params;
+  try {
+    const pets = await models.Pet.findAll({
+      where: {
+        user_id
+      }
+    });
+
     res.send(pets);
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
 });
 
-
-
 /* Post new pet listing. */
+// true = 1 , false = 0 for boolean values
 router.post("/", async function (req, res, next) {
   const {
     name,
@@ -33,7 +48,7 @@ router.post("/", async function (req, res, next) {
     diet,
   } = req.body;
 
-    try {
+  try {
     const pets = await models.Pet.create({
       name,
       breed_id,
@@ -50,7 +65,7 @@ router.post("/", async function (req, res, next) {
       personality,
       diet,
     });
-      
+
     res.send(pets);
   } catch (err) {
     res.status(500).send({ message: err.message });
