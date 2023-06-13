@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { Container, Box, Typography, Stack, Grid, Button } from '@mui/material';
 import Select from 'react-select';
+import PetCard from '../components/PetCard';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 
 export default function SearchPets() {
@@ -10,14 +11,25 @@ const [ selectedBreed, setSelectedBreed ] = useState('');
 const [selectedOption, setSelectedOption] = useState("");
 const [ searchLocation, setSearchLocation] = useState('');
 const [searchInput, setSearchInput] = useState({});
+const [ pets, setPets ] = useState([]);
 
 useEffect(() => {
   getBreeds();
   onChangeGooglePlaces(searchLocation);
+  getPets();
 }, [searchLocation]);
 
-
-
+const getPets = async () => {
+    try {
+      const response = await fetch(`/api/pets`, {
+        method: "GET",
+      });
+      const data = await response.json();
+      setPets(data);
+  } catch(error) {
+    console.log(error);
+  }
+};
 
 const getBreeds = async () => {
   try {
@@ -126,6 +138,21 @@ async function onChangeGooglePlaces(e) {
           </Grid> */}
           </Grid>
       </Box>
+      </Container >
+
+      <Container sx={{ py: 8 }} maxWidth="lg">
+        <Grid container spacing={4}>
+          {pets.map((pet) => (
+           <Grid item key={pet.id} xs={12} sm={6} md={4}>
+            <PetCard
+            name={pet.name}
+            bio={pet.bio}
+            age={pet.age}
+            breed={pet.Breed.breed}/>
+           </Grid>
+          ))}
+        </Grid>
+
       </Container>
 
 
