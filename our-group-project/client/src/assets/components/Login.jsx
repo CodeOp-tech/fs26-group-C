@@ -72,7 +72,7 @@ export default function Login() {
 
   const logout = () => {
     auth.logout();
-    localStorage.removeItem("token");
+   
   };
 
 
