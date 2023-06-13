@@ -13,7 +13,7 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+
 import DateOfBirth from "./DateOfBirth";
 import Login from "./Login";
 
@@ -29,8 +29,6 @@ function Registration(data) {
     </Typography>
   );
 }
-
-const defaultTheme = createTheme();
 
 export default function SignUp() {
   const [selectedDate, handleDateChange] = useState(dayjs(new Date()));
@@ -49,7 +47,6 @@ export default function SignUp() {
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -161,6 +158,5 @@ export default function SignUp() {
         </Box>
         <Registration sx={{ mt: 5 }} />
       </Container>
-    </ThemeProvider>
   );
 }
