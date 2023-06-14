@@ -27,11 +27,20 @@ export default function UserProfile() {
       <div className="col-5">
         <ProfileAvatar />
       </div>
-        <div className="col-4">
-          <h3> Someone's Name</h3>
-        <h6> Some catchy Phrase</h6>
-        <LocationOnIcon color="secondary"/>  Barcelona 
+      <div className="col-4">
+
+        <div className="row" style={{paddingTop: "2vw" }}>
+            <h3> Some Awesome Name</h3>
+          <div className="row" style={{paddingTop: "2vw" }}>
+            <h6> Some catchy Phrase</h6>
+          </div>
+          <div className="row" style={{paddingTop: "2vw" }}>
+            <LocationOnIcon color="secondary" /> {/* NOT SHOWING WHY? */}
+            Barcelona
+          </div>
+
         </div>
+      </div>
     </div>
   );
 }
