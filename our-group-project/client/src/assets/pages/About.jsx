@@ -62,6 +62,7 @@ function About() {
   const featuredPosts = [
     {
       title: "Re-Homing",
+      date: "2022-02-02",
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ac arcu mollis, tincidunt erat et, scelerisque leo. Nam commodo felis dolor, eget volutpat ante eleifend aliquet. Sed in viverra odio.",
       image: "/public/dog_2.jpg",
@@ -69,6 +70,7 @@ function About() {
     },
     {
       title: "Adoption",
+      date: "2022-01-02",
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ac arcu mollis, tincidunt erat et, scelerisque leo. Nam commodo felis dolor, eget volutpat ante eleifend aliquet. Sed in viverra odio.",
       image: "/public/dog_2.jpg",
@@ -104,21 +106,21 @@ function About() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
-      <Container container justifyContent="center" maxWidth>
+      <Container maxWidth="xl">
         <main>
           <MainFeaturedPost post={mainFeaturedPost} />
-          <Grid container spacing={4}>
+          <Grid container={true} spacing={4}>
             {featuredPosts.map((post) => (
-              <FeaturedPost key={post.title} post={post} />
+              <FeaturedPost  key={post.title} post={post} />
             ))}
           </Grid>
 
-          <Grid container spacing={5} sx={{ mt: 3 }}>
+          <Grid container={true} spacing={5} sx={{ mt: 3 }}>
             <Grid item xs={12} md={8}>
-              <Typography justifyContent="center" variant="h2" component="h2">
+              <Typography variant="h2" component="h2">
                 About Us
               </Typography>
-              <Typography variant="body1">
+              <Typography textAlign="justify" variant="body1">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
                 lobortis nibh ac risus venenatis, sed tincidunt est posuere.
                 Nulla facilisi. Morbi vestibulum lorem in elit sagittis
@@ -128,7 +130,7 @@ function About() {
               </Typography>
             </Grid>
 
-            <Grid item xs={12} md={8}>
+            <Grid item xs={12} md={8} textAlign="justify" >
               <Main title="Forum" posts={posts} />
             </Grid>
             <Grid item xs={12} md={4}>
