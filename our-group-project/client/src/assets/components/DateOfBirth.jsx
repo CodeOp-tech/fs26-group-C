@@ -7,7 +7,7 @@ const DateOfBirth = (props) => {
 
   return (
     <Fragment>
-      <DatePicker label="Basic date picker" />
+      <DatePicker label="Date of Birth" />
     </Fragment>
   );
 };

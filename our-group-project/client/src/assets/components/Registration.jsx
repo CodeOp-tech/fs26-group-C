@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { DatePicker } from "@mui/x-date-pickers";
+import { useState } from "react";
+//import { DatePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -13,9 +13,8 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+
 import DateOfBirth from "./DateOfBirth";
-import Login from "./Login";
 
 function Registration(data) {
   return (
@@ -30,10 +29,9 @@ function Registration(data) {
   );
 }
 
-// const defaultTheme = createTheme();
-
 export default function SignUp() {
   const [selectedDate, handleDateChange] = useState(dayjs(new Date()));
+  
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -48,8 +46,9 @@ export default function SignUp() {
     });
   };
 
+  
+
   return (
-   
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -58,18 +57,16 @@ export default function SignUp() {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-          }}>
+          }}
+        >
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box
-            component="form"
-            noValidate
-            onSubmit={handleSubmit}
-            sx={{ mt: 3 }}>
+
+          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -143,16 +140,12 @@ export default function SignUp() {
                 />
               </Grid>
             </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}>
+            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
               Sign Up
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="/Login" variant="body2">
+                <Link href="/login" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
@@ -161,6 +154,5 @@ export default function SignUp() {
         </Box>
         <Registration sx={{ mt: 5 }} />
       </Container>
-  
   );
 }
