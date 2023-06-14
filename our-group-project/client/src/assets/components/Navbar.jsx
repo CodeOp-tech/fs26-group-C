@@ -6,6 +6,7 @@ import {
   Typography,
   Stack,
   Button,
+  Box,
 } from "@mui/material";
 import Dog from "@mui/icons-material/Pets";
 import { Link } from "react-router-dom";
@@ -17,7 +18,7 @@ export default function Navbar() {
   const auth = useContext(AuthContext);
 
   return (
-    <div>
+    <Box marginBottom="10px">
       <AppBar position="static" color="secondary" id="appbar">
         <Toolbar>
           <IconButton
@@ -100,7 +101,7 @@ export default function Navbar() {
           )}
         </Toolbar>
       </AppBar>
-    </div>
+    </Box>
   );
 }
 
