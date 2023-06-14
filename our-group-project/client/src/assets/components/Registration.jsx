@@ -1,14 +1,16 @@
 import React from 'react';
-import {Container, TextField, Box, Grid, Button, FormControlLabel} from "@mui/material";
-import { useState } from 'react';
+import {Container, TextField, Box, Grid, Button, FormControlLabel, Link, Avatar, Typography } from "@mui/material";
+import { useState, useEffect } from 'react';
 import CssBaseline from "@mui/material/CssBaseline";
 import Select from 'react-select'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
 
 
 
-export default function Registration() {
+export default function Registration({ dateAdapter }) {
   const [ userInfo, setUserInfo] = useState({
     name:"",
     surname: "",
@@ -17,10 +19,16 @@ export default function Registration() {
     password: "",
     location: "",
     date_of_birth: "",
-    adopter: false,
+    adopter: null,
   })
 
   const [ selectedDate, setSelectedDate ] = useState(null);
+  const [ selectAdopter, setSelectedAdopter] = useState(null);
+  const [ userLocation, setUserLocation ] = useState("");
+
+  useEffect(() => {
+    onChangeGooglePlaces(userLocation);
+  }, [userLocation]);
 
   const handleFormChange = (e) => {
     const value = e.target.value;
@@ -30,7 +38,48 @@ export default function Registration() {
       ...state, 
       [name]: value,
     }));
+  }
 
+  const handleDateChange = (selectedDate) => {
+    setSelectedDate(selectedDate);
+    console.log(selectedDate)
+
+    const { $D, $M, $y } = selectedDate;
+
+    setUserInfo((state) => ({
+      ...state,
+      date_of_birth: `${$y}-${$M+1}-${$D}`
+    }))
+
+  }
+
+  async function onChangeGooglePlaces(e) {
+    console.log(e);
+    if(e) {
+    const result = await geocodeByAddress(e.label);
+    const locationname = result[0].formatted_address
+    const latLng = await getLatLng(result[0]);
+  
+    const locationLat = latLng.lat;
+    const locationLng = latLng.lng;
+  
+    setUserInfo((state) => ({
+      ...state,
+      location: locationname
+    }))}};
+
+  const options = ([
+    { label: "Yes", value: true },
+    { label: "No", value: false }
+  ])
+
+  const handleAdopter = (selectAdopter) => {
+    setSelectedAdopter(selectAdopter);
+
+    setUserInfo((state) => ({
+      ...state,
+      adopter: selectAdopter.value
+    }))
   }
 
   return (
@@ -45,6 +94,15 @@ export default function Registration() {
           flexDirection: "column",
           alignItems: "center",
         }}>
+       <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Box sx={{ mb: 2}}>
+        <Typography component="h1" variant="h5">
+          Register
+        </Typography>
+        </Box>
+          
       <Grid container spacing={2}>
 
        <Grid item xs={12} sm={6}>
@@ -93,18 +151,39 @@ export default function Registration() {
       fullWidth
       name="password"
       label="Password"
+      type="password"
       value={userInfo.password}
       onChange={handleFormChange}>
       </TextField>
       </Grid>
 
       <Grid item xs={12} sm={12}>
-        <DatePicker/>
+        <DatePicker
+        label="Date of Birth"
+        value={selectedDate}
+        renderInput={(params) => <TextField {...params} />}
+        onChange={handleDateChange}
+        dateAdapter={dateAdapter}/>
+
+      </Grid>
+
+      <Grid item xs={12} sm={12}>
+        <PlacesAutocomplete
+        selectProps={{
+          placeholder: "Set your location",
+          value: userLocation,
+          onChange: setUserLocation
+
+        }}
+        />
       </Grid>
 
       <Grid item xs={12} sm={12}>
         <Select
-        placeholder="Are you joining to adopt?"/>
+        placeholder="Are you joining to adopt?"
+        options={options}
+        value={selectAdopter}
+        onChange={handleAdopter}/>
       </Grid>
 
       
@@ -119,6 +198,17 @@ export default function Registration() {
         >Register</Button>
       </Grid>
 
+      <Grid item sm={2}></Grid>
+
+     
+      <Grid item sm={8}>
+        <Link to="/login" variant="body2" color="#000000" id="loginline">
+        {"Already have an account? Log In."}
+       </Link>
+      </Grid>
+
+      <Grid item sm={2}></Grid>
+      
 
 
 
