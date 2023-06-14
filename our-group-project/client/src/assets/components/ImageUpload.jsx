@@ -1,10 +1,11 @@
 
 export default function ImageUpload() {
 
-    
+
   return (
       <div>
-          ImageUpload
+          <label> Upload Image </label>
+          <input type="url" />
       </div>
   )
 }
