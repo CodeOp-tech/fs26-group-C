@@ -135,7 +135,7 @@ export default function Login() {
       </Box>
 
       {auth.user ? (
-        <Navigate to="/home" state={{ from: location }} replace />
+        <Navigate to="/" state={{ from: location }} replace />
       ) : null}
       <Copyright sx={{ mt: 8, mb: 4 }} />
     </Container>

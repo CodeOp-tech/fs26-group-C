@@ -1,12 +1,11 @@
-import React from 'react';
-import {Container, TextField, Box, Grid, Button, FormControlLabel, Link, Avatar, Typography } from "@mui/material";
+import {Container, TextField, Box, Grid, Button, Link, Avatar, Typography } from "@mui/material";
 import { useState, useEffect } from 'react';
 import CssBaseline from "@mui/material/CssBaseline";
 import Select from 'react-select'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-
+import axios from 'axios';
 
 
 
@@ -80,6 +79,23 @@ export default function Registration({ dateAdapter }) {
       ...state,
       adopter: selectAdopter.value
     }))
+  }
+
+  function handleRegistration() {
+    registerUser();
+  }
+
+  const registerUser = async () => {
+    try {
+      const { data } = await axios("/api/auth/register", {
+        method: "POST",
+        data: userInfo
+      })
+      console.log(data.message)
+    } catch (error) {
+      console.log(error)
+    }
+    
   }
 
   return (
@@ -193,7 +209,8 @@ export default function Registration({ dateAdapter }) {
 
       <Grid item xs={12} sm={12}>
         <Button 
-        variant="contained"
+              variant="contained"
+              onClick={handleRegistration}
         fullWidth
         >Register</Button>
       </Grid>
