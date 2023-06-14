@@ -1,7 +1,6 @@
 var jwt = require("jsonwebtoken");
 require("dotenv").config();
 const supersecret = process.env.SUPER_SECRET;
-const models = require("../models/index");
 
 function userMustBeLoggedIn(req, res, next) {
   const authorization = req.headers["authorization"] || "";
@@ -12,10 +11,7 @@ function userMustBeLoggedIn(req, res, next) {
     jwt.verify(token, supersecret, async function (err, decoded) {
       if (err) res.status(401).send({ message: err.message });
       else {
-        const user = await models.User.findOne({
-          where: { id: decoded.user_id },
-        });
-        req.user = user;
+        req.user_id = decoded.user_id;
         next();
       }
     });
@@ -23,3 +19,4 @@ function userMustBeLoggedIn(req, res, next) {
 }
 
 module.exports = userMustBeLoggedIn;
+  
