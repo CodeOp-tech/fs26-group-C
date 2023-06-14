@@ -4,7 +4,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import { Link, Navigate, useLocation} from "react-router-dom";
+import { Link, Navigate, useLocation } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -13,7 +13,6 @@ import Container from "@mui/material/Container";
 import axios from "axios";
 import { useState, useContext } from "react";
 import AuthContext from "../contexts/AuthContext";
-
 
 function Copyright(props) {
   return (
@@ -38,19 +37,16 @@ function Copyright(props) {
 
 export default function Login() {
   const auth = useContext(AuthContext); //this will have user, login and logout functions
+  const location = useLocation();
 
   const [credentials, setCredentials] = useState({
-    username: "loginUsername",
-    password: "loginPassword",
+    username: "",
+    password: "",
   });
-
-  const [data, setData] = useState(null);
-  const location = useLocation()
-
-  const { username, password } = credentials;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    //console.log(name, value)
     setCredentials({ ...credentials, [name]: value });
   };
 
@@ -63,18 +59,12 @@ export default function Login() {
 
       localStorage.setItem("token", data.token);
       auth.login();
-      
+
       console.log(data.message, data.token);
     } catch (error) {
       console.log(error);
     }
   };
-
-  const logout = () => {
-    auth.logout();
-   
-  };
-
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -102,10 +92,8 @@ export default function Login() {
             margin="normal"
             required
             fullWidth
-            id="username"
             label="Username"
             name="username"
-            autoFocus
             onChange={handleChange}
           />
           <TextField
@@ -115,8 +103,6 @@ export default function Login() {
             name="password"
             label="Password"
             type="password"
-            id="password"
-            autoComplete="current-password"
             onChange={handleChange}
           />
           {/* IF WE USE THIS WE NEED TO EXTEND THE TOKENS' DURATION FOR LIKE 30DAYS */}
@@ -148,9 +134,9 @@ export default function Login() {
         </Box>
       </Box>
 
-      {
-        auth.user ? <Navigate to="/home"state={{from: location}} replace/> : null
-      }
+      {auth.user ? (
+        <Navigate to="/home" state={{ from: location }} replace />
+      ) : null}
       <Copyright sx={{ mt: 8, mb: 4 }} />
     </Container>
   );
