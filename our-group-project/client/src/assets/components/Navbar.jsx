@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
 
 export default function Navbar() {
-  //const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const auth = useContext(AuthContext);
 
