@@ -51,12 +51,12 @@ function About() {
   }, []);
 
   const mainFeaturedPost = {
-    title: "Title",
+    title: "Website Name",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ac arcu mollis, tincidunt erat et, scelerisque leo. Nam commodo felis dolor, eget volutpat ante eleifend aliquet. ",
+    "Hi there! We believe that dogs deserve the perfect home. We also believe that the way to do this is through education and encouragement. We want to ensure you find your perfect pooch. Let us help! ",
     image: "/public/cover_2.jpg",
     imageText: "main image description",
-    linkText: "Continue reading…",
+    linkText: "Join Now",
   };
 
   const featuredPosts = [
@@ -99,10 +99,10 @@ function About() {
 
   const posts = [post1];
 
-  const defaultTheme = createTheme();
+
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <>
       <CssBaseline />
       <Container container justifyContent="center" maxWidth>
         <main>
@@ -142,7 +142,8 @@ function About() {
           </Grid>
         </main>
       </Container>
-    </ThemeProvider>
+      </>
+    
   );
 }
 
