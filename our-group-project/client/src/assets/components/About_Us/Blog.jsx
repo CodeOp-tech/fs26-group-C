@@ -1,11 +1,9 @@
-import React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Header from './Header';
 import MainFeaturedPost from './MainFeaturedPost';
 import FeaturedPost from './FeaturedPost';
@@ -83,12 +81,10 @@ const sidebar = {
   ],
 };
 
-// TODO remove, this demo shouldn't need to reset the theme.
-const defaultTheme = createTheme();
 
 export default function Blog() {
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <div>
       <CssBaseline />
       <Container maxWidth="lg">
         <Header title="Blog" sections={sections} />
@@ -114,6 +110,6 @@ export default function Blog() {
         title="Footer"
         description="Something here to give the footer a purpose!"
       />
-    </ThemeProvider>
+    </div>
   );
 }
