@@ -8,4 +8,10 @@ a {
 
 a:visited {
   color: inherit;
+  text-decoration: none;
+
+}
+
+#loginline {
+  text-decoration: none;
 }
