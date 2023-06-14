@@ -7,6 +7,7 @@ const saltRounds = 10;
 require("dotenv").config();
 const supersecret = process.env.SUPER_SECRET;
 const userMustBeLoggedIn = require('../guards/userMustBeLoggedIn')
+
  
 
 //REGISTRATION
@@ -73,6 +74,7 @@ router.post("/login", async function (req, res, next) {
 //ACCESSING PRIVATE INFO
 router.get("/profile", userMustBeLoggedIn, async function (req, res, next) {
  //filter through data to get the ones where user_id matches
+  
   
   res.send({
     message: "you are logged in",
