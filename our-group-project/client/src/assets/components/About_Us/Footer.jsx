@@ -1,11 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
+import Paper from '@mui/material/Paper';
+import Heart from "@mui/icons-material/HeartBroken"
 
-export default function GuestFooter() {
+export default function Footer() {
   return (
     <Paper sx={{marginTop: 'calc(10% + 60px)',
     position: 'sticky',
@@ -21,8 +20,9 @@ export default function GuestFooter() {
             my:1
           }}
         >
-            <div>
-            <Image priority src="/Logo.svg" width={75} height={30} alt="Logo" />
+          <div>
+            <Heart sx={{color:"#116A7B"}} />
+            {/* <img  src="./dog_1.jpg" width={75} height={30} alt="Logo" /> */}
             </div>
         </Box>
 
@@ -35,7 +35,7 @@ export default function GuestFooter() {
           }}
         >
           <Typography variant="caption" color="initial">
-            Copyright ©2022. [] Limited
+            Copyright ©2023
           </Typography>
         </Box>
       </Container>
