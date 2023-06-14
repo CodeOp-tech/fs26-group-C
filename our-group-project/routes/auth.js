@@ -75,6 +75,7 @@ router.post("/login", async function (req, res, next) {
 router.get("/profile", userMustBeLoggedIn, async function (req, res, next) {
  //filter through data to get the ones where user_id matches
   
+  
   res.send({
     message: "you are logged in",
     //return private data
