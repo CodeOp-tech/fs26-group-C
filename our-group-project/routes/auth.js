@@ -7,6 +7,7 @@ const saltRounds = 10;
 require("dotenv").config();
 const supersecret = process.env.SUPER_SECRET;
 const userMustBeLoggedIn = require('../guards/userMustBeLoggedIn')
+
  
 
 //REGISTRATION
