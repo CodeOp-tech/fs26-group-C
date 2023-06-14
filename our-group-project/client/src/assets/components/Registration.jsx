@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { DatePicker } from "@mui/x-date-pickers";
+import { useState } from "react";
+//import { DatePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -13,9 +13,8 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+
 import DateOfBirth from "./DateOfBirth";
-import Login from "./Login";
 
 function Registration(data) {
   return (
@@ -29,8 +28,6 @@ function Registration(data) {
     </Typography>
   );
 }
-
-
 
 export default function SignUp() {
   const [selectedDate, handleDateChange] = useState(dayjs(new Date()));
@@ -52,7 +49,6 @@ export default function SignUp() {
   
 
   return (
-
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -149,7 +145,7 @@ export default function SignUp() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="/Login" variant="body2">
+                <Link href="/login" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
@@ -158,6 +154,5 @@ export default function SignUp() {
         </Box>
         <Registration sx={{ mt: 5 }} />
       </Container>
-
   );
 }
