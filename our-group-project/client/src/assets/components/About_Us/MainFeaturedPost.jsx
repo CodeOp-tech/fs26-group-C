@@ -5,9 +5,13 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
+import { Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 function MainFeaturedPost(props) {
   const { post } = props;
+
+  const navigate = useNavigate();
 
   return (
     <Paper
@@ -49,9 +53,14 @@ function MainFeaturedPost(props) {
             <Typography variant="h5" color="inherit" paragraph>
               {post.description}
             </Typography>
-            <Link variant="subtitle1" href="#">
+           
+            <Link  variant="subtitle1"
+            onClick={() => navigate("/registration")}>
+              <Button variant="contained" color="secondary">
               {post.linkText}
+              </Button>
             </Link>
+            
           </Box>
         </Grid>
       </Grid>

@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
+import Paper from '@mui/material/Paper'
 
 export default function GuestFooter() {
   return (
@@ -22,7 +23,7 @@ export default function GuestFooter() {
           }}
         >
             <div>
-            <Image priority src="/Logo.svg" width={75} height={30} alt="Logo" />
+            {/* <Image priority src="/Logo.svg" width={75} height={30} alt="Logo" /> */}
             </div>
         </Box>
 
