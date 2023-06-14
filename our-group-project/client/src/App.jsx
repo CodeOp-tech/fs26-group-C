@@ -15,6 +15,7 @@ import Quiz from "./assets/components/Quiz";
 import Registration from "./assets/components/Registration";
 import SearchPets from "./assets/pages/SearchPets";
 import RequireAuth from "./assets/components/RequireAuth";
+import Footer from "./assets/components/About_Us/Footer";
 import "./App.css";
 //import { Tune } from "@mui/icons-material";
 
@@ -86,6 +87,8 @@ function App() {
             />
           </Routes>
         </div>
+        <Footer/>
+        
       </LocalizationProvider>
     </AuthContext.Provider>
   );
