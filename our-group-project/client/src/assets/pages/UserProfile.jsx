@@ -1,6 +1,5 @@
 //import axios from "axios";
 //import { useEffect, useState } from "react";
-import ImageUpload from "../components/ImageUpload";
 import ProfileAvatar from "../components/ProfileAvatar";
 
 
@@ -25,15 +24,9 @@ export default function UserProfile() {
   // };
   return (
     <div>
-      <h1>User Profile</h1>
-      <div>
-        Image Upload Testing:
-        <ImageUpload />
-      </div>
-
+      <h1>User Profile</h1>   
       <div>
         <ProfileAvatar />
-        <button className="btn btn-success"> Test </button>
       </div>
     </div>
   );
