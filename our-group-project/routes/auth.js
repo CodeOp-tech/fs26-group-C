@@ -57,13 +57,14 @@ router.post("/login", async function (req, res, next) {
     if (user) {
       const user_id = user.id;
       const location = user.location;
+      const adopter = user.adopter;
       const correctPass = await bcrypt.compare(password, user.password);
       if (!correctPass) throw new Error("Incorrect Password");
       //generating token if username + password is correct
       // useriD is the payload - the middle part - whatever we want to inject in there basically
       var token = jwt.sign({ user_id }, supersecret);
       //var token = jwt.sign({ userID }, supersecret, {expiresIn: 60*60*24*31});
-      res.send({ message: `Login successful, get your token`, token, username, user_id, location });
+      res.send({token, username, user_id, location, adopter});
     } else {
       throw new Error("user does not exist");
     }

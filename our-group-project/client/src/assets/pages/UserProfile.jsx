@@ -6,7 +6,13 @@ import AuthContext from "../contexts/AuthContext";
 //import TextField from "@mui/material/TextField";
 import { IconButton, Button } from "@mui/material";
 import { NearMeOutlined } from "@mui/icons-material";
+<<<<<<< HEAD
 import TextareaAutosize from "@mui/base/TextareaAutosize";
+=======
+import TextareaAutosize from '@mui/base/TextareaAutosize';
+import Slider from '../components/design/Slider'
+
+>>>>>>> 07a9ed8885df5cce920acefbc9428bd205985545
 
 export default function UserProfile() {
   const auth = useContext(AuthContext);
@@ -69,6 +75,7 @@ export default function UserProfile() {
           sx={{ border: "0.5vw solid " }}
         ></TextareaAutosize>
       </div>
+      
     </div>
   );
 }
