@@ -17,33 +17,52 @@ import SearchPets from "./assets/pages/SearchPets";
 import RequireAuth from "./assets/components/RequireAuth";
 import Footer from "./assets/components/About_Us/Footer";
 import "./App.css";
+import { SignalCellularNullTwoTone } from "@material-ui/icons";
+import BreedForum from './assets/pages/BreedForum'
+
 //import { Tune } from "@mui/icons-material";
 
 function App() {
   //preparing a global state + login + logout functions so that
   //anybody within the whole app can call these functions
   const [user, setUser] = useState(null);
+  const [name, setUserName] = useState(null)
+  const [location, setLocation] = useState(null)
+  const [userId, setUserId] = useState(null)
 
   useEffect(() => {
     const token = localStorage.getItem("token")
+    const username = localStorage.getItem("username")
+    const userLocation = localStorage.getItem("location")
+    const userID = localStorage.getItem("userid")
     if (token) {
+      setUserName(username)
+      setLocation(userLocation)
+      setUserId(userID)
       setUser(true)
     } 
-  },[])
+  },[user])
 
   function login(username, password) {
-    setUser(true);
-    console.log("login");
+    setUser(true)
   }
+
 
   function logout() {
     setUser(false);
+    localStorage.removeItem("username");
     localStorage.removeItem("token");
-    console.log("logout");
+    localStorage.removeItem("location");
+    localStorage.removeItem("userid");
+
+ 
   }
 
   const authObj = {
     user,
+    name,
+    userId,
+    location,
     login,
     logout,
   };
@@ -85,6 +104,8 @@ function App() {
                 </RequireAuth>
               }
             />
+            <Route path="/:breed_id"
+            element={<BreedForum/>}></Route>
           </Routes>
         </div>
         <Footer/>

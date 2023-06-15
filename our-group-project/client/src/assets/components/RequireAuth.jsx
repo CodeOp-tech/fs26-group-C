@@ -8,6 +8,7 @@ export default function RequireAuth({children}) {
 
     const [loading, setLoading] = useState(true)
 
+
     useEffect(() => {
         const token = localStorage.getItem("token");
         if (!token) {

@@ -19,10 +19,12 @@ import PlacesAutocomplete, {
   getLatLng,
 } from "react-google-places-autocomplete";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import { Navigate, useLocation } from "react-router-dom";
+import axios from "axios";
+
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 
-import axios from "axios";
 
 export default function Registration({ dateAdapter }) {
   //to see password value if user wants to
@@ -41,9 +43,6 @@ export default function Registration({ dateAdapter }) {
   const handleVisibility = () => {
     setVisibility(!visibility);
   };
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [selectAdopter, setSelectAdopter] = useState(null); //is this still needed?
-  const [userLocation, setUserLocation] = useState("");
 
   const [userInfo, setUserInfo] = useState({
     name: "",
@@ -55,6 +54,13 @@ export default function Registration({ dateAdapter }) {
     date_of_birth: "",
     adopter: null,
   });
+
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectAdopter, setSelectedAdopter] = useState(null);
+  const [userLocation, setUserLocation] = useState("");
+  const [isRegistered, setIsRegistered] = useState(false);
+
+  const pageLocation = useLocation();
 
   
   useEffect(() => {
@@ -69,13 +75,6 @@ export default function Registration({ dateAdapter }) {
       ...state,
       [name]: value,
     }));
-
-    // setFieldInfo((state) => ({
-    //   ...state,
-    //   [name]: value,
-    // }));
-
-    //console.log(fieldInfo);
   };
 
   const handleDateChange = (selectedDate) => {
@@ -112,35 +111,36 @@ export default function Registration({ dateAdapter }) {
     { label: "No", value: false },
   ];
 
-  // const handleAdopter = (selectAdopter) => {
-  //   setSelectedAdopter(selectAdopter);
+  const handleAdopter = (selectAdopter) => {
+    setSelectedAdopter(selectAdopter);
 
-  //   setUserInfo((state) => ({
-  //     ...state,
-  //     adopter: selectAdopter.value,
-  //   }));
-  // };
+    setUserInfo((state) => ({
+      ...state,
+      adopter: selectAdopter.value,
+    }));
+  };
 
-  const handleAdopter = (e) => {
-    setUserInfo((state) => (
-      {
-        ...state, adopter: e.value 
-      }
-    ))
-  }
+  // const handleAdopter = (e) => {
+  //   setSelectedAdopter(e)
+  //   setUserInfo((state) => (
+  //     {
+  //       ...state, adopter: selectAdopter.value 
+  //     }
+  //   ))
+  // }
 
   function handleRegistration() {
     registerUser();
 
   }
 
-  const registerUser = async () => {
+  const registerUser = async (UserInfo) => {
     try {
       const { data } = await axios("/api/auth/register", {
         method: "POST",
         data: userInfo,
       });
-      console.log(data.message);
+      setIsRegistered(data);
     } catch (error) {
       console.log(error);
     }
@@ -285,6 +285,10 @@ export default function Registration({ dateAdapter }) {
           <Grid item sm={2}></Grid>
         </Grid>
       </Box>
+
+      {isRegistered ? (
+        <Navigate to="/login" state={{ from: pageLocation }} replace />
+      ) : null}
     </Container>
   );
 }

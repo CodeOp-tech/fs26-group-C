@@ -1,3 +1,4 @@
+
 import { useContext, useEffect, useState } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
@@ -23,13 +24,10 @@ import {
   Box,
 } from "@mui/material";
 import AuthContext from "../contexts/AuthContext";
-
-
+import AddPet from '../components/AddPet';
 
 function Forum() {
   const auth = useContext(AuthContext);
-
-
 
   const mainFeaturedPost = {
     title: "Forum",
@@ -52,11 +50,17 @@ function Forum() {
       linkText: (auth.user ?  "Take The Quiz" : "SignUp"),
       linkUrl:(auth.user ?"/quiz" :"/registration")
     }
-  
+
 
   return (
     <>
       <CssBaseline />
+  
+        <div>
+          <h1>Forum</h1>  
+          <AddPet/>
+        </div>
+ 
       <Container maxWidth="xl">
         <main>
           <MainFeaturedPost post={mainFeaturedPost} />

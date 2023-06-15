@@ -1,40 +1,41 @@
-//import axios from "axios";
-//import { useEffect, useState, useContext } from "react";
+import axios from "axios";
+import { useEffect, useState, useContext } from "react";
 import ProfileAvatar from "../components/ProfileAvatar";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import AuthContext from "../contexts/AuthContext";
 //import TextField from "@mui/material/TextField";
-import { IconButton } from "@mui/material";
-//import AuthContext from "../contexts/AuthContext";
+import { IconButton, Button } from "@mui/material";
+import { NearMeOutlined } from "@mui/icons-material";
 
 export default function UserProfile() {
-  // const [data, setData] = useState(null);
-
-  // const auth = useContext(AuthContext)
-  // useEffect(() => {
-  //  // requestPrivateData();
-  //   getUserData(id)
-  // }, []);
-
-  // const requestPrivateData = async () => {
-  //   try {
-  //     const { data } = await axios("/api/auth/profile", {
-  //       headers: {
-  //         authorization: "Bearer" + localStorage.getItem("token"),
-  //       },
-  //     });
-  //     setData(data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  const auth = useContext(AuthContext);
+  
+  useEffect(() => {
+    requestPrivateData();
+  }, []);
+  
+  const [data, setData] = useState({});
+  const requestPrivateData = async () => {
+    try {
+      const { data } = await axios("/api/auth/profile", {
+        headers: {
+          authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      });
+      console.log("data",data)
+      setData({data});
+    } catch (error) {
+      console.log("error",error);
+    }
+  };
 
   // const getUserData = async (id) => {
   //   try {
-  //     const {data} = await axios(`/api/user/${id}`)
+  //     const { data } = await axios(`/api/user/${id}`);
   //   } catch (err) {
-  //     console.log(err)
+  //     console.log(err);
   //   }
-  // }
+  // };
 
   return (
     <div>
@@ -44,22 +45,24 @@ export default function UserProfile() {
         </div>
         <div className="col-4">
           <div className="row" style={{ paddingTop: "2vw" }}>
-            <h3> Some Awesome Name</h3>
+            <h3> {auth.name}</h3>
+            <p> {auth.userId}</p>
             <div className="row" style={{ paddingTop: "2vw" }}>
               <h6> Some catchy Phrase</h6>
             </div>
             <div className="row" style={{ paddingTop: "1vw" }}>
-              <IconButton style={{ width: "35%"}} disabled> 
-                <LocationOnIcon color="secondary" style={{display: "inline"}} /> 
-                Barcelona
+              <IconButton style={{ width: "35%" }} disabled>
+                <LocationOnIcon
+                  color="secondary"
+                  style={{ display: "inline" }}
+                />
+                {auth.location}
               </IconButton>
             </div>
           </div>
         </div>
       </div>
-      <div>
-        
-      </div>
+      <div></div>
     </div>
   );
 }

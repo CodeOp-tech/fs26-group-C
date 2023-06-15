@@ -12,6 +12,7 @@ function userMustBeLoggedIn(req, res, next) {
       if (err) res.status(401).send({ message: err.message });
       else {
         req.user_id = decoded.user_id;
+        //token;
         next();
       }
     });
