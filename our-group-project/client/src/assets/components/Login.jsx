@@ -1,5 +1,4 @@
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
+import { Avatar, Button, InputAdornment, IconButton } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -13,6 +12,8 @@ import Container from "@mui/material/Container";
 import axios from "axios";
 import { useState, useContext } from "react";
 import AuthContext from "../contexts/AuthContext";
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 
 function Copyright(props) {
   return (
@@ -43,6 +44,12 @@ export default function Login() {
     username: "",
     password: "",
   });
+
+  const [visibility, setVisibility] = useState(false);
+
+  const handleVisibility = () => {
+    setVisibility(!visibility);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -102,7 +109,20 @@ export default function Login() {
             fullWidth
             name="password"
             label="Password"
-            type="password"
+            type={visibility ? "text" : "password"}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={handleVisibility}>
+                    {visibility ? (
+                      <VisibilityOutlinedIcon />
+                    ) : (
+                      <VisibilityOffOutlinedIcon />
+                    )}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
             onChange={handleChange}
           />
           {/* IF WE USE THIS WE NEED TO EXTEND THE TOKENS' DURATION FOR LIKE 30DAYS */}
