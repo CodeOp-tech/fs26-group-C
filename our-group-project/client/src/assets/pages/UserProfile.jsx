@@ -4,7 +4,7 @@ import ProfileAvatar from "../components/ProfileAvatar";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import AuthContext from "../contexts/AuthContext";
 //import TextField from "@mui/material/TextField";
-import { IconButton } from "@mui/material";
+import { IconButton, Button } from "@mui/material";
 import { NearMeOutlined } from "@mui/icons-material";
 
 export default function UserProfile() {

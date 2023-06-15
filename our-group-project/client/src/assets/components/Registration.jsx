@@ -111,32 +111,30 @@ export default function Registration({ dateAdapter }) {
     { label: "No", value: false },
   ];
 
-  // const handleAdopter = (selectAdopter) => {
-  //   setSelectedAdopter(selectAdopter);
+  const handleAdopter = (selectAdopter) => {
+    setSelectedAdopter(selectAdopter);
 
-  //   setUserInfo((state) => ({
-  //     ...state,
-  //     adopter: selectAdopter.value,
-  //   }));
-  // };
+    setUserInfo((state) => ({
+      ...state,
+      adopter: selectAdopter.value,
+    }));
+  };
 
-  const handleAdopter = (e) => {
-    console.log("e", e)
-    console.log("e.value", e.value)
-    setSelectedAdopter(e.label)
-    setUserInfo((state) => (
-      {
-        ...state, adopter: e.value 
-      }
-    ))
-  }
+  // const handleAdopter = (e) => {
+  //   setSelectedAdopter(e)
+  //   setUserInfo((state) => (
+  //     {
+  //       ...state, adopter: selectAdopter.value 
+  //     }
+  //   ))
+  // }
 
   function handleRegistration() {
     registerUser();
 
   }
 
-  const registerUser = async () => {
+  const registerUser = async (UserInfo) => {
     try {
       const { data } = await axios("/api/auth/register", {
         method: "POST",
