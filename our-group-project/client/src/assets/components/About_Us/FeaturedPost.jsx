@@ -8,10 +8,7 @@ import {
   Typography,
   CardContent,
   Grid,
-  Divider,
-  CardActions,
   Button,
-  Box,
 } from "@mui/material";
 
 function FeaturedPost(props) {

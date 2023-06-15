@@ -5,12 +5,12 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Header from "../components/About_Us/Header";
+import Header from "../components/Header";
 import MainFeaturedPost from "../components/About_Us/MainFeaturedPost.jsx";
 import FeaturedPost from "../components/About_Us/FeaturedPost.jsx";
 import Main from "../components/About_Us/Main";
 import Sidebar from "../components/About_Us/Sidebar";
-import Footer from "../components/About_Us/Footer.jsx";
+import Footer from "../components/Footer.jsx";
 import {
   Card,
   CardMedia,
@@ -24,11 +24,8 @@ import {
 } from "@mui/material";
 import AuthContext from "../contexts/AuthContext";
 
-
-
 function Home() {
   const auth = useContext(AuthContext);
-
 
   const mainFeaturedPost = {
     title: "Home",
@@ -36,23 +33,21 @@ function Home() {
       "Hi there! We believe that dogs deserve the perfect home. We also believe that the way to do this is through education and encouragement. We want to ensure you find your perfect pooch. Let us help!",
     image: "/public/cover_3.jpg",
     imageText: "main image description",
-    linkText: (auth.user ?  "Find A Paw Friend" : "SignUp"),
-      linkUrl:(auth.user ?"/forum" :"/registration")
+    linkText: auth.user ? "Find A Paw Friend" : "SignUp",
+    linkUrl: auth.user ? "/forum" : "/registration",
   };
 
-  const featuredPost = 
-    {
-      title: "Wanna Find The Best Paw Friend For you?",
-      date: "2022-02-02",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ac arcu mollis, tincidunt erat et, scelerisque leo. Nam commodo felis dolor, eget volutpat ante eleifend aliquet. Sed in viverra odio.",
-      text: 'hello',
-      image: "/public/dog_2.jpg",
-      imageLabel: "Image Text",
-      linkText: (auth.user ?  "Find A Paw Friend" : "SignUp"),
-      linkUrl:(auth.user ?"/forum" :"/registration")
-    }
-  
+  const featuredPost = {
+    title: "Wanna Find The Best Paw Friend For you?",
+    date: "2022-02-02",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ac arcu mollis, tincidunt erat et, scelerisque leo. Nam commodo felis dolor, eget volutpat ante eleifend aliquet. Sed in viverra odio.",
+    text: "hello",
+    image: "/public/dog_2.jpg",
+    imageLabel: "Image Text",
+    linkText: auth.user ? "Find A Paw Friend" : "SignUp",
+    linkUrl: auth.user ? "/forum" : "/registration",
+  };
 
   const about = {
     title: "Title",
@@ -72,23 +67,17 @@ function Home() {
     linkText: "Join Now",
   };
 
-
-
   return (
     <>
       <CssBaseline />
       <Container maxWidth="xl">
         <main>
           <MainFeaturedPost post={mainFeaturedPost} />
-          
-            <Grid> 
-            
-              <FeaturedPost 
-              key={featuredPost.title} 
-              post={featuredPost} />
-  
-            </Grid>
-          
+
+          <Grid>
+            <FeaturedPost key={featuredPost.title} post={featuredPost} />
+          </Grid>
+
           <Grid container={true} spacing={5} sx={{ mt: 3 }}>
             <Grid item xs={12}>
               <Typography variant="h2" component="h2">
@@ -103,9 +92,7 @@ function Home() {
                 nulla, sit amet rutrum lorem dictum vitae.
               </Typography>
             </Grid>
-            <Container>
-            
-            </Container>
+            <Container></Container>
           </Grid>
         </main>
       </Container>
