@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
@@ -16,8 +16,10 @@ import Typography from "@mui/material/Typography";
 import post1FilePath from "../components/About_Us/blog-post.1.md";
 // import post2FilePath from '../components/About_Us/blog-post.2.md';
 // import post3FilePath from '../components/About_Us/blog-post.3.md';
+import AuthContext from "../contexts/AuthContext";
 
 function About() {
+  const auth = useContext(AuthContext);
   const [post1, setPost1] = useState("");
   // const [post2, setPost2] = useState('');
   // const [post3, setPost3] = useState('');
@@ -51,12 +53,13 @@ function About() {
   }, []);
 
   const mainFeaturedPost = {
-    title: "Website Name",
+    title: "About",
     description:
     "Hi there! We believe that dogs deserve the perfect home. We also believe that the way to do this is through education and encouragement. We want to ensure you find your perfect pooch. Let us help! ",
     image: "/public/cover_2.jpg",
     imageText: "main image description",
-    linkText: "Join Now",
+    linkText: (auth.user ?  "Find A Paw Friend" : "SignUp"),
+    linkUrl:(auth.user ?"/forum" :"/forum")
   };
 
   const featuredPosts = [
@@ -75,6 +78,7 @@ function About() {
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ac arcu mollis, tincidunt erat et, scelerisque leo. Nam commodo felis dolor, eget volutpat ante eleifend aliquet. Sed in viverra odio.",
       image: "/public/dog_2.jpg",
       imageLabel: "Image Text",
+
     },
   ];
 
@@ -100,11 +104,10 @@ function About() {
   };
 
   const posts = [post1];
-
-
-
+ 
   return (
     <>
+   
       <CssBaseline />
       <Container maxWidth="xl">
         <main>
