@@ -10,9 +10,7 @@ const userMustBeLoggedIn = require("../guards/userMustBeLoggedIn");
 
 //REGISTRATION
 router.post("/register", async function (req, res, next) {
-  let { username, email, password, name, surname, date_of_birth, location, 
-    adopter
-   } =
+  let { username, email, password, name, surname, date_of_birth, location, adopter } =
     req.body;
   console.log(req.body);
   try {

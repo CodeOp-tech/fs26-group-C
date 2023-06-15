@@ -1,95 +1,82 @@
-import { useContext, useEffect, useState } from "react";
-import CssBaseline from "@mui/material/CssBaseline";
-import Container from "@mui/material/Container";
-import GitHubIcon from "@mui/icons-material/GitHub";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Header from "../components/About_Us/Header";
-import MainFeaturedPost from "../components/About_Us/MainFeaturedPost.jsx";
-import FeaturedPost from "../components/About_Us/FeaturedPost.jsx";
-import Main from "../components/About_Us/Main";
-import Sidebar from "../components/About_Us/Sidebar";
-import Footer from "../components/About_Us/Footer.jsx";
 import {
-  Card,
-  CardMedia,
-  Typography,
-  CardContent,
-  Grid,
-  Divider,
-  CardActions,
+  Checkbox,
+  TextField,
+  FormControlLabel,
+  Avatar,
   Button,
+  InputAdornment,
+  IconButton,
+  CssBaseline,
+  Grid,
   Box,
-} from "@mui/material";
-import AuthContext from "../contexts/AuthContext";
+  Typography,
+  Container,
+} from "@mui/material/";
+import { Link } from "react-router-dom";
+import ContactSupportIcon from "@mui/icons-material/ContactSupport";
+import { TextareaAutosize } from "@mui/material/";
 
-
+function Copyright(props) {
+  return (
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      align="center"
+      {...props}
+    >
+      {"Copyright © "}
+      <Link color="inherit" to="/about">
+        our website name
+      </Link>
+      {new Date().getFullYear()}
+    </Typography>
+  );
+}
 
 function ContactUs() {
-  const auth = useContext(AuthContext);
-
-
-  const mainFeaturedPost = {
-    title: "Contact Us",
-    description:
-      "Hi there! We believe that dogs deserve the perfect home. We also believe that the way to do this is through education and encouragement. We want to ensure you find your perfect pooch. Let us help!",
-    image: "/public/cover_3.jpg",
-    imageText: "main image description",
-    linkText: (auth.user ?  "Find A Paw Friend" : "SignUp"),
-      linkUrl:(auth.user ?"/forum" :"/registration")
-  };
-
-  const featuredPost = 
-    {
-      title: "Wanna Find The Best Paw Friend For you?",
-      date: "2022-02-02",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ac arcu mollis, tincidunt erat et, scelerisque leo. Nam commodo felis dolor, eget volutpat ante eleifend aliquet. Sed in viverra odio.",
-      text: 'hello',
-      image: "/public/dog_2.jpg",
-      imageLabel: "Image Text",
-      linkText: (auth.user ?  "Find A Paw Friend" : "SignUp"),
-      linkUrl:(auth.user ?"/forum" :"/registration")
-    }
-  
-
   return (
-    <>
-      <CssBaseline />
-      <Container maxWidth="xl">
-        <main>
-          <MainFeaturedPost post={mainFeaturedPost} />
-          
-            <Grid> 
-            
-              <FeaturedPost 
-              key={featuredPost.title} 
-              post={featuredPost} />
-  
-            </Grid>
-          
-          {/* <Grid container={true} spacing={5} sx={{ mt: 3 }}>
-            <Grid item xs={12}>
-              <Typography variant="h2" component="h2">
-                About Us
-              </Typography>
-              <Typography textAlign="justify" variant="body1">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                lobortis nibh ac risus venenatis, sed tincidunt est posuere.
-                Nulla facilisi. Morbi vestibulum lorem in elit sagittis
-                vestibulum. Fusce id dolor et turpis semper tristique. Mauris
-                non mauris vitae erat consequat auctor. Mauris malesuada commodo
-                nulla, sit amet rutrum lorem dictum vitae.
-              </Typography>
-            </Grid>
-            <Container>
-            
-            </Container>
-          </Grid> */}
-        </main>
-      </Container>
-    </>
+    <Container component="main" maxWidth="xs">
+      <CssBaseline>
+        <Box
+          sx={{
+            marginTop: 8,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+            <ContactSupportIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            What would you like to know?
+          </Typography>
+          <Box component="form" noValidate sx={{ mt: 1 }}>
+            <Grid container spacing={2}></Grid>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              label="email"
+              name="email"
+            />
+
+            <TextareaAutosize minRows={5} style={{ padding: "2vw 10vw", textAlign:"left" }} placeholder="Talk to us!">
+              
+            </TextareaAutosize>
+
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Submit
+            </Button>
+          </Box>
+        </Box>
+      </CssBaseline>
+    </Container>
   );
 }
 

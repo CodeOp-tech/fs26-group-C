@@ -155,7 +155,8 @@ export default function Registration({ dateAdapter }) {
       }}
     >
       <CssBaseline />
-
+      {console.log("userinfo",userInfo)}
+      {console.log("selectAdopter", selectAdopter)}
       <Box
         sx={{
           marginTop: 8,
@@ -263,6 +264,7 @@ export default function Registration({ dateAdapter }) {
             <Select
               placeholder="Are you joining to adopt?"
               options={options}
+              // value={selectAdopter}
               value={selectAdopter}
               onChange={handleAdopter}
             />
