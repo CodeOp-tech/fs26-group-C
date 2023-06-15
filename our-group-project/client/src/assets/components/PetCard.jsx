@@ -45,7 +45,7 @@ export default function PetCard({name, bio, age, breed, }) {
       </CardContent>
       <CardActions>
         <Box sx={{ mb: '4px'}}>
-        <Button size="small" variant="contained">Learn More</Button>
+        <Button size="small" color="secondary">Learn More</Button>
         </Box>
 
       </CardActions>
