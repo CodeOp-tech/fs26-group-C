@@ -31,6 +31,7 @@
     "mysql2": "^3.3.3",
     "nodemon": "^2.0.22",
     "react-google-places-autocomplete": "^4.0.1",
+    "react-hook-form": "^7.44.3",
     "react-router-dom": "^6.12.1",
     "react-select": "^5.7.3",
     "sequelize": "^6.32.0",
