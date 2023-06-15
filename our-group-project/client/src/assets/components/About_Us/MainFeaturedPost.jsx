@@ -54,7 +54,7 @@ function MainFeaturedPost(props) {
             </Typography>
            
             <Link  variant="subtitle1"
-            onClick={() => navigate("/registration")}>
+            onClick={() => navigate(post.linkUrl)}>
               <Button variant="contained" color="secondary">
               {post.linkText}
               </Button>
