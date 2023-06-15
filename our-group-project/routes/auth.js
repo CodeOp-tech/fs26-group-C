@@ -39,7 +39,7 @@ router.post("/register", async function (req, res, next) {
       location,
     });
     console.log(user);
-    res.send("Registered successfully");
+    res.send(true);
   } catch (err) {
     res.status(400).send({ message: err.message });
   }

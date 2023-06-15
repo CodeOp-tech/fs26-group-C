@@ -1,27 +1,29 @@
-//import axios from "axios";
-//import { useEffect, useState } from "react";
+import axios from "axios";
+import { useEffect, useState, useContext } from "react";
 import ProfileAvatar from "../components/ProfileAvatar";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import AuthContext from "../contexts/AuthContext";
 
 export default function UserProfile() {
-  // const [data, setData] = useState(null);
+  const [userData, setUserData] = useState(null);
+  const auth = useContext(AuthContext);
 
-  // useEffect(() => {
-  //   requestPrivateData();
-  // }, []);
+  useEffect(() => {
+    requestPrivateData();
+  }, []);
 
-  // const requestPrivateData = async () => {
-  //   try {
-  //     const { data } = await axios("/api/auth/profile", {
-  //       headers: {
-  //         authorization: "Bearer" + localStorage.getItem("token"),
-  //       },
-  //     });
-  //     setData(data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  const requestPrivateData = async () => {
+    try {
+      const { data } = await axios("/api/auth/profile", {
+        headers: {
+          authorization: "Bearer" + localStorage.getItem("token"),
+        },
+      });
+      setUserData(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="row" style={{ paddingLeft: "5vw", paddingTop: "2vw" }}>
       <div className="col-5">
