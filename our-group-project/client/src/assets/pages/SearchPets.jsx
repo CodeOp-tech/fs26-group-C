@@ -12,6 +12,7 @@ const [selectedOption, setSelectedOption] = useState("");
 const [ searchLocation, setSearchLocation] = useState('');
 const [searchInput, setSearchInput] = useState({});
 const [ pets, setPets ] = useState([]);
+const [searchIsClicked, setSearchIsClicked ] = useState(null);
 
 useEffect(() => {
   getBreeds();
@@ -61,6 +62,9 @@ async function onChangeGooglePlaces(e) {
 
   const locationLat = latLng.lat;
   const locationLng = latLng.lng;
+  console.log(`latitude: ${locationLat}`);
+  console.log(`latitude: ${locationLng}`);
+
 
   setSearchInput((state) => ({
     ...state,
@@ -68,6 +72,33 @@ async function onChangeGooglePlaces(e) {
     longitude: +locationLng,
     locationname: locationname
   }))}};
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    searchPets(searchInput);
+    console.log(searchInput);
+    setSearchIsClicked(true);
+  }
+
+  const handleClearClick = (e) => {
+    e.preventDefault();
+    setSearchIsClicked(false);
+    getPets();
+    setSearchLocation("");
+    setSelectedOption("");
+  }
+
+  const searchPets = async (searchInput) => {
+    try {
+        const queryParams = new URLSearchParams(searchInput)
+        const response = await fetch(`http://localhost:4000/api/pets/search?${queryParams}`)
+        const data = await response.json();
+        setPets(data);
+  
+      } catch (error) {
+        console.log(error);
+    }
+  }
 
   return (
     <main>
@@ -128,19 +159,34 @@ async function onChangeGooglePlaces(e) {
         onChange={handleBreedChange}
         placeholder="Select a breed."></Select>
           </Grid>
+        {!searchIsClicked &&
           <Grid item xs={12} sm={2}>
             <Button
-            variant='contained'>Search</Button>
-          </Grid>
-          {/* <Grid item xs={12} sm={2}>
+            variant='contained'
+            onClick={handleSubmit}>Search</Button>
+          </Grid> }
+          {searchIsClicked && 
+          <Grid item xs={12} sm={2}>
             <Button
-            variant='contained'>Clear</Button>
-          </Grid> */}
+            variant='contained'
+            onClick={handleClearClick}>Clear</Button>
+          </Grid>}
+
           </Grid>
       </Box>
       </Container >
 
+      {pets.length === 0 &&
+      <Container sx={{mt: 2}}>
+        <Typography color="text.secondary">
+          Sorry! No Results.
+        </Typography>
+
+      </Container>
+        }
+
       <Container sx={{ py: 8 }} maxWidth="lg">
+        
         <Grid container spacing={4}>
           {pets.map((pet) => (
            <Grid item key={pet.id} xs={12} sm={6} md={4}>
@@ -148,7 +194,9 @@ async function onChangeGooglePlaces(e) {
             name={pet.name}
             bio={pet.bio}
             age={pet.age}
-            breed={pet.Breed.breed}/>
+            breed={pet.Breed.breed}
+            location={pet.location}
+            breed_id={pet.breed_id}/>
            </Grid>
           ))}
         </Grid>

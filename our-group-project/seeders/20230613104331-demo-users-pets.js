@@ -85,6 +85,9 @@ module.exports = {
         passport: true,
         bio: "i am not giving him away just advertising his AWESOMENESS",
         diet: "anything but his own kibble please.",
+        location: "London, UK",
+        latitude: 51.5072178,
+        longitude: -0.1275862,
       },
       {
         name: "fluff",
@@ -98,6 +101,9 @@ module.exports = {
         passport: true,
         bio: "not bot but..okay",
         diet: "only strawberries and champagne.",
+        location: "London, UK",
+        latitude: 51.5072178,
+        longitude: -0.1275862,
       },
       {
         name: "sugarpuff",
@@ -111,6 +117,9 @@ module.exports = {
         passport: false,
         bio: "strong independent pet with sugary barks and many fluffs",
         diet: "gluten-free kibble sprinkled with gold.",
+        location: "London, UK",
+        latitude: 51.5072178,
+        longitude: -0.1275862,
       },
       {
         name: "avocado",
@@ -124,6 +133,9 @@ module.exports = {
         passport: true,
         bio: "from a seed to a wooffy fruit",
         diet: "just NOT avocadoes",
+        location: "London, UK",
+        latitude: 51.5072178,
+        longitude: -0.1275862,
       },
     ]);
   },

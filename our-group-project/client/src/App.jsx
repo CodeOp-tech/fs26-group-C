@@ -18,6 +18,8 @@ import RequireAuth from "./assets/components/RequireAuth";
 import Footer from "./assets/components/About_Us/Footer";
 import "./App.css";
 import { SignalCellularNullTwoTone } from "@material-ui/icons";
+import BreedForum from './assets/pages/BreedForum'
+
 //import { Tune } from "@mui/icons-material";
 
 function App() {
@@ -102,6 +104,8 @@ function App() {
                 </RequireAuth>
               }
             />
+            <Route path="/:breed_id"
+            element={<BreedForum/>}></Route>
           </Routes>
         </div>
         <Footer/>
