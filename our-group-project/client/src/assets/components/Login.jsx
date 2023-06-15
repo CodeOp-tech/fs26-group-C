@@ -65,9 +65,13 @@ export default function Login() {
       });
 
       localStorage.setItem("token", data.token);
+      localStorage.setItem("username", data.username)
+      localStorage.setItem("userid", data.user_id)
+      localStorage.setItem("location", data.location)
+
       auth.login();
 
-      console.log(data.message, data.token);
+      //console.log(data.message, data.token, data.username);
     } catch (error) {
       console.log(error);
     }
