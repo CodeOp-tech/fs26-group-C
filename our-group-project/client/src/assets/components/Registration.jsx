@@ -29,7 +29,7 @@ export default function Registration({ dateAdapter }) {
   const [visibility, setVisibility] = useState(false);
 
   //to perform validations on each input?
-  const [fieldInfo, setFieldInfo] = useState();
+  //const [fieldInfo, setFieldInfo] = useState();
 
   /*  
   result -->
@@ -131,6 +131,7 @@ export default function Registration({ dateAdapter }) {
 
   function handleRegistration() {
     registerUser();
+
   }
 
   const registerUser = async () => {

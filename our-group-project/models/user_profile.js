@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       bio: DataTypes.STRING,
       reason_to_adopt: DataTypes.STRING,
       reason_to_give: DataTypes.STRING,
-      extra_ifo: DataTypes.STRING,
+      extra_info: DataTypes.STRING,
       occupation: DataTypes.STRING,
     },
     {

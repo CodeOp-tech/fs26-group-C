@@ -55,12 +55,12 @@ router.post("/login", async function (req, res, next) {
     });
 
     if (user) {
-      const userID = user.id;
+      const user_id = user.id;
       const correctPass = await bcrypt.compare(password, user.password);
       if (!correctPass) throw new Error("Incorrect Password");
       //generating token if username + password is correct
       // useriD is the payload - the middle part - whatever we want to inject in there basically
-      var token = jwt.sign({ userID }, supersecret);
+      var token = jwt.sign({ user_id }, supersecret);
       //var token = jwt.sign({ userID }, supersecret, {expiresIn: 60*60*24*31});
       res.send({ message: `Login successful, get your token`, token });
     } else {
@@ -74,10 +74,20 @@ router.post("/login", async function (req, res, next) {
 //ACCESSING PRIVATE INFO
 router.get("/profile", userMustBeLoggedIn, async function (req, res, next) {
  //filter through data to get the ones where user_id matches
-  
+  const user_id = req.user_id
+  const userData = await models.User.findOne({
+    where: { id: user_id }, 
+    }) 
+  const userPetData = await models.Pet.findAll({
+    where: {user_id}
+  })
+  const userProfileData = await models.User_profile.findOne({
+    where: {user_id}
+  })
   
   res.send({
-    message: "you are logged in",
+    
+    userData, userPetData, userProfileData
     //return private data
 
   })
