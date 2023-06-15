@@ -1,8 +1,9 @@
 import React from 'react'
 import { Card, CardMedia, Typography, CardContent, Grid, Divider, CardActions, Button, Box} from  "@mui/material";
+import  { Link } from 'react-router-dom';
 
 
-export default function PetCard({name, bio, age, breed, }) {
+export default function PetCard({name, bio, age, breed, location, breed_id }) {
   return (
     <Card>
       <CardMedia
@@ -29,7 +30,7 @@ export default function PetCard({name, bio, age, breed, }) {
         <Grid>
           <Box sx={{ mt: '1px'}}>
           <Typography>
-            location
+            {location}
           </Typography>
         <Typography variant='body2' color="text.secondary">
         {age} years
@@ -45,7 +46,10 @@ export default function PetCard({name, bio, age, breed, }) {
       </CardContent>
       <CardActions>
         <Box sx={{ mb: '4px'}}>
-        <Button size="small" color="secondary">Learn More</Button>
+        <Link to={`/${breed_id}`}>
+        <Button size="small" color="secondary">Learn More
+        </Button>
+        </Link>
         </Box>
 
       </CardActions>
