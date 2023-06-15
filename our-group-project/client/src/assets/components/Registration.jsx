@@ -121,6 +121,9 @@ export default function Registration({ dateAdapter }) {
   // };
 
   const handleAdopter = (e) => {
+    console.log("e", e)
+    console.log("e.value", e.value)
+    setSelectedAdopter(e.label)
     setUserInfo((state) => (
       {
         ...state, adopter: e.value 
@@ -154,7 +157,8 @@ export default function Registration({ dateAdapter }) {
       }}
     >
       <CssBaseline />
-
+      {console.log("userinfo",userInfo)}
+      {console.log("selectAdopter", selectAdopter)}
       <Box
         sx={{
           marginTop: 8,
@@ -262,6 +266,7 @@ export default function Registration({ dateAdapter }) {
             <Select
               placeholder="Are you joining to adopt?"
               options={options}
+              // value={selectAdopter}
               value={selectAdopter}
               onChange={handleAdopter}
             />
