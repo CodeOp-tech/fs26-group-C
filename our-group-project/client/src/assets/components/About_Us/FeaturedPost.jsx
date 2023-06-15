@@ -1,13 +1,23 @@
 import PropTypes from 'prop-types';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
-import Card from '@mui/material/Card';
 import CardActionArea from '@mui/material/CardActionArea';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
+import { useNavigate } from 'react-router-dom';
+import Link from '@mui/material/Link';
+import {
+  Card,
+  CardMedia,
+  Typography,
+  CardContent,
+  Grid,
+  Divider,
+  CardActions,
+  Button,
+  Box,
+} from "@mui/material";
 
 function FeaturedPost(props) {
   const { post } = props;
+
+  const navigate = useNavigate();
 
   return (
     <Grid textAlign="justify"  item xs={12} md={6}>
@@ -23,9 +33,17 @@ function FeaturedPost(props) {
             <Typography variant="subtitle1" paragraph>
               {post.description}
             </Typography>
-            <Typography variant="subtitle1" color="primary">
-              Learn More
-            </Typography>
+ 
+            { post.linkText ? (
+            <Link  variant="subtitle1"
+            onClick={() => navigate(post.linkUrl)}>
+              <Button variant="contained" color="secondary">
+              {post.linkText}
+              </Button>
+            </Link>
+            ) :""
+            }
+            
           </CardContent>
           <CardMedia
             component="img"
