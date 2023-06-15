@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import {  useContext } from "react";
 import {
   AppBar,
   Toolbar,
@@ -35,7 +35,7 @@ export default function Navbar() {
             variant="subtitle2"
             component="div"
             sx={{ flexGrow: 1 }}
-            style={{ fontSize: "2rem" }}
+            style={{ fontSize: "2.6vw" }}
           >
             Website Name
           </Typography>

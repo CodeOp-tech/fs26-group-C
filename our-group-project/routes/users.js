@@ -26,7 +26,7 @@ router.get("/:id", async function (req, res, next) {
 });
 
 /* GET users listing by id with their pets*/
-router.get("/:id", async function (req, res, next) {
+router.get("/pets/:id", async function (req, res, next) {
   const { id } = req.params;
   try {
     const user = await models.User.findOne({

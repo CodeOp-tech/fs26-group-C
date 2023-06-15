@@ -7,6 +7,8 @@ import {
   Link,
   Avatar,
   Typography,
+  InputAdornment,
+  IconButton,
 } from "@mui/material";
 import { useState, useEffect } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -20,7 +22,28 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Navigate, useLocation } from "react-router-dom";
 import axios from "axios";
 
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
+
+
 export default function Registration({ dateAdapter }) {
+  //to see password value if user wants to
+  const [visibility, setVisibility] = useState(false);
+
+  //to perform validations on each input?
+  //const [fieldInfo, setFieldInfo] = useState();
+
+  /*  
+  result -->
+  {name:"",
+  surname:"", 
+  email:""..}
+  */
+
+  const handleVisibility = () => {
+    setVisibility(!visibility);
+  };
+
   const [userInfo, setUserInfo] = useState({
     name: "",
     surname: "",
@@ -39,6 +62,7 @@ export default function Registration({ dateAdapter }) {
 
   const pageLocation = useLocation();
 
+  
   useEffect(() => {
     onChangeGooglePlaces(userLocation);
   }, [userLocation]);
@@ -87,17 +111,26 @@ export default function Registration({ dateAdapter }) {
     { label: "No", value: false },
   ];
 
-  const handleAdopter = (selectAdopter) => {
-    setSelectedAdopter(selectAdopter);
+  // const handleAdopter = (selectAdopter) => {
+  //   setSelectedAdopter(selectAdopter);
 
-    setUserInfo((state) => ({
-      ...state,
-      adopter: selectAdopter.value,
-    }));
-  };
+  //   setUserInfo((state) => ({
+  //     ...state,
+  //     adopter: selectAdopter.value,
+  //   }));
+  // };
+
+  const handleAdopter = (e) => {
+    setUserInfo((state) => (
+      {
+        ...state, adopter: e.value 
+      }
+    ))
+  }
 
   function handleRegistration() {
     registerUser();
+
   }
 
   const registerUser = async () => {
@@ -186,8 +219,21 @@ export default function Registration({ dateAdapter }) {
               fullWidth
               name="password"
               label="Password"
-              type="password"
+              type={visibility ? "text" : "password"}
               value={userInfo.password}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton onClick={handleVisibility}>
+                      {visibility ? (
+                        <VisibilityOutlinedIcon />
+                      ) : (
+                        <VisibilityOffOutlinedIcon />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
               onChange={handleFormChange}
             ></TextField>
           </Grid>
