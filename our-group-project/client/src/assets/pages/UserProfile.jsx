@@ -62,11 +62,6 @@ export default function UserProfile() {
               </IconButton>
             </div>
             <div className="row">
-              <label htmlFor="toadopt"> Give a home </label>
-              <input type="radio" id="toadopt" />
-              <label htmlFor="togiveforadoption"> Find a new home</label>
-              <input type="radio" id="togiveforadoption" />
-            
             </div>
           </div>
         </div>
