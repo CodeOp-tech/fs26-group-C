@@ -65,6 +65,8 @@ export default function Login() {
       localStorage.setItem("username", data.username)
       localStorage.setItem("userid", data.user_id)
       localStorage.setItem("location", data.location)
+      localStorage.setItem("adopter", data.adopter)
+
 
       auth.login();
 

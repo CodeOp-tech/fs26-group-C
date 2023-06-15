@@ -29,16 +29,20 @@ function App() {
   const [name, setUserName] = useState(null);
   const [location, setLocation] = useState(null);
   const [userId, setUserId] = useState(null);
+  const [adopter,setAdopter] = useState(null)
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     const username = localStorage.getItem("username");
     const userLocation = localStorage.getItem("location");
     const userID = localStorage.getItem("userid");
+    const adopterB = localStorage.getItem("adopter");
+
     if (token) {
       setUserName(username);
       setLocation(userLocation);
       setUserId(userID);
+      setAdopter(adopterB)
       setUser(true);
     }
   }, [user]);
@@ -53,6 +57,8 @@ function App() {
     localStorage.removeItem("token");
     localStorage.removeItem("location");
     localStorage.removeItem("userid");
+    localStorage.removeItem("adopter");
+
   }
 
   const authObj = {
@@ -60,6 +66,7 @@ function App() {
     name,
     userId,
     location,
+    adopter,
     login,
     logout,
   };

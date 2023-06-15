@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 const models = require("../models/index");
+const { Avatar } = require("@mui/joy");
 
 /* GET users listing. */
 router.get("/", async function (req, res, next) {
@@ -20,6 +21,19 @@ router.get("/:id", async function (req, res, next) {
       where: { id },
     });
     res.send(user);
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+});
+
+//TO UPDATE avatar//
+router.put("/avatar/:id", async function (req, res, next) {
+  const { id, filename } = req.params;
+  try {
+    const user = await models.User.findOne({
+      where: { id },
+    });
+    
   } catch (err) {
     res.status(500).send({ message: err.message });
   }

@@ -26,6 +26,7 @@ module.exports = {
         surname: "testerSurname",
         date_of_birth: "2023-06-13",
         location: "CodeOp Country",
+        avatar: "https://png.pngtree.com/png-vector/20220630/ourmid/pngtree-funny-smiling-cartoon-monster-face-avatar-png-image_5584251.png"
       },
       {
         username: "loginUsername",
@@ -35,6 +36,7 @@ module.exports = {
         surname: "loginSurname",
         date_of_birth: "2023-06-13",
         location: "CodeOp Country",
+        avatar: "https://w7.pngwing.com/pngs/816/721/png-transparent-chick-avatar-funny-thumbnail.png"
       },
       {
         username: "ihavesomanypets",
@@ -44,6 +46,7 @@ module.exports = {
         surname: "Mc Pettison",
         date_of_birth: "2007-02-23",
         location: "Pettyville",
+        avatar: "https://i.fbcd.co/products/original/s221128-cat-head-e05-mainpreview-739cdff1e43d362f66989d28e978dcdf400fd71172d53447cb4e0a250debac6b.jpg"
       },
       {
         username: "adoptthemall",
@@ -53,6 +56,7 @@ module.exports = {
         surname: "T",
         date_of_birth: "2007-02-23",
         location: "woofchesire",
+        avatar:"https://www.shutterstock.com/image-vector/funky-old-gay-beard-summer-260nw-1998371867.jpg"
       },
     ]
     
@@ -88,6 +92,7 @@ module.exports = {
         location: "London, UK",
         latitude: 51.5072178,
         longitude: -0.1275862,
+        avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZVY0VtDzX96_MyUz0THoiDaHWkLCcr7KzsA&usqp=CAU"
       },
       {
         name: "fluff",
@@ -104,6 +109,7 @@ module.exports = {
         location: "London, UK",
         latitude: 51.5072178,
         longitude: -0.1275862,
+        avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-LiBDfyDcPsjf09nP8IfvcKymds1q1kLNdQ&usqp=CAU"
       },
       {
         name: "sugarpuff",
@@ -120,6 +126,7 @@ module.exports = {
         location: "London, UK",
         latitude: 51.5072178,
         longitude: -0.1275862,
+        avatar: "https://storage.googleapis.com/download/storage/v1/b/shiba-world.appspot.com/o/species-thumbnails%2FOCUc5E53r___image_2023-04-04_182112960.webp?generation=1680596489977003&alt=media"
       },
       {
         name: "avocado",
@@ -136,6 +143,7 @@ module.exports = {
         location: "London, UK",
         latitude: 51.5072178,
         longitude: -0.1275862,
+        avatar:"https://t3.ftcdn.net/jpg/05/76/94/70/360_F_576947051_DFT5rJEsF8yturr1DOlB3rxhtxswGSmP.jpg"
       },
     ]);
   },
