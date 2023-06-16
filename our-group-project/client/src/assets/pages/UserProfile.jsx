@@ -61,6 +61,15 @@ export default function UserProfile() {
             <div className="row" style={{ paddingTop: "2vw" }}>
               <h6> Some catchy Phrase</h6>
             </div>
+            <div className="row" style={{ paddingTop: "2vw" }}>
+              {
+                auth.adopter === null ? null :  
+                  auth.adopter ? <p>Looking to adopt!</p>
+                    : <p>Looking for a home!</p>
+                  
+              }
+             
+            </div>
             <div className="row" style={{ paddingTop: "1vw" }}>
               <IconButton style={{ width: "55%" , fontSize:"1.4vw"}} disabled>
                 <LocationOnIcon
