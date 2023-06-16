@@ -1,39 +1,10 @@
-import {
-  Checkbox,
-  TextField,
-  FormControlLabel,
-  Avatar,
-  Button,
-  InputAdornment,
-  IconButton,
-  CssBaseline,
-  Grid,
-  Box,
-  Typography,
-  Container,
-} from "@mui/material/";
-import { Link } from "react-router-dom";
+import React from 'react'
+import { Container, Button, Box, Grid, TextField, Avatar,
+ Typography, CssBaseline } from "@mui/material"
 import ContactSupportIcon from "@mui/icons-material/ContactSupport";
 import { TextareaAutosize } from "@mui/material/";
 
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" to="/about">
-        our website name
-      </Link>
-      {new Date().getFullYear()}
-    </Typography>
-  );
-}
-
-function ContactUs() {
+export default function ContactUs() {
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline>
@@ -81,4 +52,8 @@ function ContactUs() {
   );
 }
 
-export default ContactUs;
+  
+
+      
+
+  
