@@ -1,7 +1,6 @@
 var express = require("express");
 var router = express.Router();
 const models = require("../models/index");
-const { Avatar } = require("@mui/joy");
 
 /* GET users listing. */
 router.get("/", async function (req, res, next) {
