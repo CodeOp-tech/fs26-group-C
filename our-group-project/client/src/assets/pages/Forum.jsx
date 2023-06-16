@@ -21,7 +21,7 @@ function Forum() {
         </main>
       </Container>
       <div>
-        <AddPet />
+        {/* <AddPet /> */}
       </div>
     </>
   );

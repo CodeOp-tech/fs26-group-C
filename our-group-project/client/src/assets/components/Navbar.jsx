@@ -10,7 +10,7 @@ import {
   Link
 } from "@mui/material";
 import Dog from "@mui/icons-material/Pets";
-//import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
 
 export default function Navbar() {
@@ -19,7 +19,7 @@ export default function Navbar() {
   const auth = useContext(AuthContext);
 
   return (
-    <Box marginBothrefm="10px">
+    <Box>
       <AppBar position="static" color="secondary" id="appbar">
         <Toolbar>
           <IconButton
@@ -77,24 +77,24 @@ export default function Navbar() {
               sx={{ flexWrap: "wrap", justifyContent: "flex-end" }}
             >
               {/* <Button color="inherit" style={{ fontSize: "0.75rem" }}> */}
-                <Link href="/">Home </Link>
+                <Link  href="/">HOME</Link>
               {/* </Button> */}
               {/* <Button color="inherit" style={{ fontSize: "0.75rem" }}> */}
-                <Link href="/about">About us </Link>
+                <Link  href="/about">ABOUT US </Link>
               {/* </Button> */}
               {/* <Button color="inherit" style={{ fontSize: "0.75rem" }}> */}
-                <Link href="/forum">Forum </Link>
+                <Link  href="/forum">FORUM </Link>
               {/* </Button> */}
               {/* <Button color="inherit" style={{ fontSize: "0.75rem" }}> */}
-                <Link href="/contact_us">Contact us </Link>
+                <Link  href="/contact_us"> CONTACT US </Link>
               {/* </Button> */}
               <Button variant="contained">
-                <Link href="/login" style={{ fontSize: "0.75rem", color:"black" }}>
+                <Link  href="/login" style={{ fontSize: "0.75rem", color:"black" }}>
                   Login
                 </Link>
               </Button>
               <Button variant="contained">
-                <Link href="/registration" style={{ fontSize: "0.75rem", color:"black" }}>
+                <Link   href="/registration" style={{ fontSize: "0.75rem", color:"black" }}>
                   Sign Up
                 </Link>
               </Button>

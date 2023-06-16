@@ -9,6 +9,7 @@ import { NearMeOutlined } from "@mui/icons-material";
 import TextareaAutosize from '@mui/base/TextareaAutosize';
 import Slider from '../components/design/Slider'
 import PetCard from "../components/PetCard";
+import AddPet from "../components/AddPet";
 
 
 export default function UserProfile() {
@@ -155,6 +156,10 @@ export default function UserProfile() {
         
       </div>
 
+      <Container>
+        <AddPet/>
+      </Container>
+
       <Container sx={{ py: 8 }} maxWidth="lg">
       <Grid container spacing={4}>
         <Grid item xs={12} sm={12}>
@@ -175,6 +180,8 @@ export default function UserProfile() {
         </Grid>
 
       </Container>
+
+      
       
     </div>
   );
