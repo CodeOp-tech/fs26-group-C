@@ -116,7 +116,7 @@ export default function UserProfile() {
         <div className="col" style={{marginTop:"1vw"}}>
           <div >
             <label> Activity Level</label>
-            <Slider  />
+            <Slider color="primary.main"/>
           </div>
           <div >
             <label> Large Space available</label>
