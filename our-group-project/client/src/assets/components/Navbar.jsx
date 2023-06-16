@@ -7,9 +7,10 @@ import {
   Stack,
   Button,
   Box,
+  Link
 } from "@mui/material";
 import Dog from "@mui/icons-material/Pets";
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
 
 export default function Navbar() {
@@ -18,7 +19,7 @@ export default function Navbar() {
   const auth = useContext(AuthContext);
 
   return (
-    <Box marginBottom="10px">
+    <Box marginBothrefm="10px">
       <AppBar position="static" color="secondary" id="appbar">
         <Toolbar>
           <IconButton
@@ -27,7 +28,7 @@ export default function Navbar() {
             color="secondary"
             aria-label="logo"
           >
-            <Link to="/">
+            <Link href="/">
               <Dog color="primary" />
             </Link>
           </IconButton>
@@ -45,26 +46,26 @@ export default function Navbar() {
               spacing={2}
               sx={{ flexWrap: "wrap", justifyContent: "flex-end" }}
             >
-              <Button color="inherit" style={{ fontSize: "0.75rem" }}>
-                <Link to="/">Home </Link>
-              </Button>
-              <Button color="inherit" style={{ fontSize: "0.75rem" }}>
-                <Link to="/user_profile">Profile </Link>
-              </Button>
-              <Button color="inherit" style={{ fontSize: "0.75rem" }}>
-                <Link to="/about">About us </Link>
-              </Button>
-              <Button color="inherit" style={{ fontSize: "0.75rem" }}>
-                <Link to="/forum">Forum </Link>
-              </Button>
-              <Button color="inherit" style={{ fontSize: "0.75rem" }}>
-                <Link to="/contact_us">Contact us </Link>
-              </Button>
-              <Button color="inherit" style={{ fontSize: "0.75rem" }}>
-                <Link to="/search_pets">Find a Pet</Link>
-              </Button>
+              {/* <Button color="inherit" style={{ fontSize: "0.75rem" }}> */}
+                <Link href="/">Home </Link>
+              {/* </Button> */}
+              {/* <Button color="inherit" style={{ fontSize: "0.75rem" }}> */}
+                <Link href="/user_profile">Profile </Link>
+              {/* </Button> */}
+              {/* <Button color="inherit" style={{ fontSize: "0.75rem" }}> */}
+                <Link href="/about">About us </Link>
+              {/* </Button> */}
+              {/* <Button color="inherit" style={{ fontSize: "0.75rem" }}> */}
+                <Link href="/forum">Forum </Link>
+              {/* </Button> */}
+              {/* <Button color="inherit" style={{ fontSize: "0.75rem" }}> */}
+                <Link href="/contact_us">Contact us </Link>
+              {/* </Button> */}
+              {/* <Button color="inherit" style={{ fontSize: "0.75rem" }}> */}
+                <Link href="/search_pets">Find a Pet</Link>
+              {/* </Button> */}
               <Button variant="contained" onClick={auth.logout}>
-                <Link to="/login" style={{ fontSize: "0.75rem" }}>
+                <Link href="/login" style={{ fontSize: "0.75rem" , color:"black"}}>
                   Logout
                 </Link>
               </Button>
@@ -75,25 +76,25 @@ export default function Navbar() {
               spacing={2}
               sx={{ flexWrap: "wrap", justifyContent: "flex-end" }}
             >
-              <Button color="inherit" style={{ fontSize: "0.75rem" }}>
-                <Link to="/">Home </Link>
-              </Button>
-              <Button color="inherit" style={{ fontSize: "0.75rem" }}>
-                <Link to="/about">About us </Link>
-              </Button>
-              <Button color="inherit" style={{ fontSize: "0.75rem" }}>
-                <Link to="/forum">Forum </Link>
-              </Button>
-              <Button color="inherit" style={{ fontSize: "0.75rem" }}>
-                <Link to="/contact_us">Contact us </Link>
-              </Button>
+              {/* <Button color="inherit" style={{ fontSize: "0.75rem" }}> */}
+                <Link href="/">Home </Link>
+              {/* </Button> */}
+              {/* <Button color="inherit" style={{ fontSize: "0.75rem" }}> */}
+                <Link href="/about">About us </Link>
+              {/* </Button> */}
+              {/* <Button color="inherit" style={{ fontSize: "0.75rem" }}> */}
+                <Link href="/forum">Forum </Link>
+              {/* </Button> */}
+              {/* <Button color="inherit" style={{ fontSize: "0.75rem" }}> */}
+                <Link href="/contact_us">Contact us </Link>
+              {/* </Button> */}
               <Button variant="contained">
-                <Link to="/login" style={{ fontSize: "0.75rem" }}>
+                <Link href="/login" style={{ fontSize: "0.75rem", color:"black" }}>
                   Login
                 </Link>
               </Button>
               <Button variant="contained">
-                <Link to="/registration" style={{ fontSize: "0.75rem" }}>
+                <Link href="/registration" style={{ fontSize: "0.75rem", color:"black" }}>
                   Sign Up
                 </Link>
               </Button>
