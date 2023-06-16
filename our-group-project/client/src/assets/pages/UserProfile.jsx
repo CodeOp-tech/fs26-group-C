@@ -4,17 +4,20 @@ import ProfileAvatar from "../components/ProfileAvatar";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import AuthContext from "../contexts/AuthContext";
 //import TextField from "@mui/material/TextField";
-import { IconButton, Button } from "@mui/material";
+import { IconButton, Button, Container, Box, Grid, Typography } from "@mui/material";
 import { NearMeOutlined } from "@mui/icons-material";
 import TextareaAutosize from '@mui/base/TextareaAutosize';
 import Slider from '../components/design/Slider'
+import PetCard from "../components/PetCard";
 
 
 export default function UserProfile() {
   const auth = useContext(AuthContext);
+  const [pets, setPets] = useState([])
   
   useEffect(() => {
     requestPrivateData();
+    getPets();
   }, []);
   
   const [data, setData] = useState({});
@@ -32,13 +35,19 @@ export default function UserProfile() {
     }
   };
 
-  // const getUserData = async (id) => {
-  //   try {
-  //     const { data } = await axios(`/api/user/${id}`);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
+  async function getPets() {
+    try {
+      const response = await fetch(`api/pets/user/${auth.userId}`, {
+        method: "GET",
+      });
+      const data = await response.json();
+      setPets(data);
+    } catch(error) {
+      console.log(error);
+    }
+  }
+
+ 
 
   return (
     <div>
@@ -136,6 +145,27 @@ export default function UserProfile() {
 
         
       </div>
+
+      <Container sx={{ py: 8 }} maxWidth="lg">
+      <Grid container spacing={4}>
+        <Grid item xs={12} sm={12}>
+          <Typography>Your Pets</Typography>
+          </Grid>
+          {pets.map((pet) => (
+           <Grid item key={pet.id} xs={12} sm={6} md={4}>
+            <PetCard
+            name={pet.name}
+            bio={pet.bio}
+            age={pet.age}
+            breed={pet.Breed.breed}
+            location={pet.location}
+            breed_id={pet.breed_id}
+            user_id={pet.user_id}/>
+           </Grid>
+          ))}
+        </Grid>
+
+      </Container>
       
     </div>
   );

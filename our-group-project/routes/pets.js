@@ -21,6 +21,7 @@ router.get("/user/:user_id", async function (req, res, next) {
   const { user_id } = req.params;
   try {
     const pets = await models.Pet.findAll({
+      include: [{ model: models.Breed }],
       where: {
         user_id
       }
