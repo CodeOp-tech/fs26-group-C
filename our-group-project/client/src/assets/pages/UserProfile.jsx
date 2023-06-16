@@ -6,13 +6,9 @@ import AuthContext from "../contexts/AuthContext";
 //import TextField from "@mui/material/TextField";
 import { IconButton, Button } from "@mui/material";
 import { NearMeOutlined } from "@mui/icons-material";
-<<<<<<< HEAD
-import TextareaAutosize from "@mui/base/TextareaAutosize";
-=======
 import TextareaAutosize from '@mui/base/TextareaAutosize';
 import Slider from '../components/design/Slider'
 
->>>>>>> 07a9ed8885df5cce920acefbc9428bd205985545
 
 export default function UserProfile() {
   const auth = useContext(AuthContext);
@@ -56,6 +52,7 @@ export default function UserProfile() {
             <div className="row" style={{ paddingTop: "2vw" }}>
               <h6> Some catchy Phrase</h6>
             </div>
+            </div>
             <div className="row" style={{ paddingTop: "1vw" }}>
               <IconButton style={{ width: "55%", fontSize: "1.4vw" }} disabled>
                 <LocationOnIcon
@@ -65,17 +62,60 @@ export default function UserProfile() {
                 {auth.location}
               </IconButton>
             </div>
+            <div className="row">
             </div>
+      </div>
+      <div className="row" style={{margin:"2vw 5.5vw", display:"flex"}}>
+        <TextareaAutosize placeholder="Let us know who you are!"  minRows={10} sx={{border: "0.5vw solid " }}></TextareaAutosize>
+
+        <div className="col" style={{marginTop:"2vw"}}>
+        {
+          auth.adopter ? <div><TextareaAutosize placeholder="Why do you want to adopt?"  minRows={5} sx={{border: "0.5vw solid " }}></TextareaAutosize>
+          </div> : <div><TextareaAutosize placeholder="Why are you looking fot a new home for your pet(s)?"  minRows={5} sx={{border: "0.5vw solid " }}></TextareaAutosize>
+          </div>
+        }
+       </div>
+
+        <div className="col" style={{marginTop:"2vw"}}>
+        {
+          !auth.adopter ? <div><TextareaAutosize placeholder="Why do you want to adopt?"  minRows={5} sx={{border: "0.5vw solid " }}></TextareaAutosize>
+          </div> : <div><TextareaAutosize placeholder="Why are you looking fot a new home for your pet(s)?"  minRows={5} sx={{border: "0.5vw solid " }}></TextareaAutosize>
+          </div>
+        }
+
         </div>
+
+        <div className="col" style={{marginTop:"2vw"}}>
+        {
+          auth.adopter ? <div><TextareaAutosize placeholder="Why do you want to adopt?"  minRows={5} sx={{border: "0.5vw solid " }}></TextareaAutosize>
+          </div> : <div><TextareaAutosize placeholder="Why are you looking fot a new home for your pet(s)?"  minRows={5} sx={{border: "0.5vw solid " }}></TextareaAutosize>
+          </div>
+        }
+
+        </div>
+
+        <div className="col" style={{marginTop:"2vw"}}>
+        {
+          !auth.adopter ? <div><TextareaAutosize placeholder="Why do you want to adopt?"  minRows={5} sx={{border: "0.5vw solid " }}></TextareaAutosize>
+          </div> : <div><TextareaAutosize placeholder="Why are you looking fot a new home for your pet(s)?"  minRows={5} sx={{border: "0.5vw solid " }}></TextareaAutosize>
+          </div>
+        }
+
+        </div>
+        <div  style={{ marginTop: "1vw" , display:"flex"}}>
+        <div className="col" style={{marginTop:"1vw"}}>
+          <div >
+            <label> Activity Level</label>
+            <Slider  />
+          </div>
+          <div >
+            <label> Large Space available</label>
+            <Slider />
+          </div>
+          
+        </div>
+
       </div>
-      <div className="row" style={{ margin: "2vw 5.5vw" }}>
-        <TextareaAutosize
-          placeholder="Let us know who you are!"
-          minRows={10}
-          sx={{ border: "0.5vw solid " }}
-        ></TextareaAutosize>
-      </div>
-      
     </div>
-  );
-}
+  )
+};
