@@ -1,7 +1,7 @@
 import { useContext, useEffect} from 'react'
 import { Card, CardMedia, Typography, CardContent, Grid, Divider, CardActions, Button, Box} from  "@mui/material";
 import  { Link } from 'react-router-dom';
-import AuthContext from "../contexts/AuthContext";
+import AuthContext from "../../contexts/AuthContext";
 
 
 export default function PetCard({name, bio, age, breed, location, breed_id, user_id }) {
