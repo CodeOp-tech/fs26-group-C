@@ -3,14 +3,30 @@ import AuthContext from '../../contexts/AuthContext';
 import { Container, Box, TextField, Grid, Typography, Button } from '@mui/material';
 import Select from 'react-select';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete'; 
+import axios from 'axios';
 
 
-export default function AddPet() {
+export default function AddPet({ onAddPet }) {
   const auth = useContext(AuthContext);
   const [ breeds, setBreeds ] = useState([]);
   const [selectedBreed, setSelectedBreed] = useState("");
   const [input, setInput] = useState({
-    user_id: auth.userId,
+    user_id: +auth.userId,
+    name: "",
+      breed_id: "",
+      location: "", 
+      medical_issues: "",
+      special_needs: "",
+      diet: "", 
+      latitide: null,
+      chip: null,
+      longitude: null, 
+      vaccination_status: null, 
+      neutered: null, 
+      gender: "", 
+      age: null,
+      passport: null
+
   });
   const [ petLocation, setPetLocation] = useState('');
   const [ passport, setPassport] = useState(null);
@@ -18,12 +34,14 @@ export default function AddPet() {
   const [neutered, setNeutered] = useState(null);
   const [microchipped, setMicrochipped] = useState(null);
   const [gender, setGender] = useState("");
-  const [searchInput, setSearchInput] = useState(null)
+  const [addPetSuccess, setAddPetSuccess] = useState(false);
+
 
 
 useEffect(() => {
   getBreeds();
-}, [])
+  onChangeGooglePlaces(petLocation);
+}, [petLocation])
 
 const getBreeds = async () => {
   try {
@@ -37,18 +55,18 @@ const getBreeds = async () => {
   }
 }
 
-const handleBreedChange = (selectedOption) => {
-  setSelectedBreed(selectedOption);
-  setSearchInput((state) => ({
+const handleBreedChange = (selectedBreed) => {
+  setSelectedBreed(selectedBreed);
+  setInput((state) => ({
     ...state,
-    breed_id: selectedOption.value
+    breed_id: selectedBreed.value
   }))
 }
 
 const genderOptions = [
   { label: "Male", value: "Male"},
   { label: "Female", value: "Female"}
-]
+];
 
 
   const options = [ 
@@ -103,6 +121,85 @@ const genderOptions = [
 
 
 
+  const handleFormChange = (e) => {
+    const value = e.target.value;
+    const name = e.target.name;
+
+    setInput((state) => ({
+      ...state, 
+      [name]: value,
+    }));
+
+  }
+
+  async function onChangeGooglePlaces(e) {
+    console.log(e);
+    if (e) {
+      const result = await geocodeByAddress(e.label);
+      const locationname = result[0].formatted_address;
+      const latLng = await getLatLng(result[0]);
+
+      const locationLat = latLng.lat;
+      const locationLng = latLng.lng;
+      console.log(`latitude: ${locationLat}`);
+      console.log(`latitude: ${locationLng}`);
+
+      setInput((state) => ({
+        ...state,
+        latitude: +locationLat,
+        longitude: +locationLng,
+        location: locationname,
+      }));
+    }
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    addPet(input);
+    setPetLocation("");
+    setSelectedBreed("");
+    setVaccinated(null);
+    setMicrochipped(null);
+    setGender("");
+    setNeutered(null);
+    setPassport(null);
+
+
+    setInput({
+      name: "",
+      breed_id: "",
+      location: "", 
+      medical_issues: "",
+      special_needs: "",
+      diet: "", 
+      latitide: null,
+      chip: null,
+      longitude: null, 
+      vaccination_status: null, 
+      neutered: null, 
+      gender: "", 
+      age: "",
+      passport: null,
+      bio: ""
+      
+    })
+  }
+
+  const addPet = async (input) => {
+    try {
+      await axios.post("/api/pets", input, {
+        "Content-Type": "application/json",
+      });
+      onAddPet();
+      setAddPetSuccess(true);
+    } catch(error) {
+      console.log(error)
+    }
+
+  }
+
+
+
   return (
     <Container maxWidth="sm" >
 
@@ -135,12 +232,18 @@ const genderOptions = [
         <Grid item xs={12} sm={6}>
         <TextField
         placeholder='Name'
+        name="name"
+        value={input.name}
+        onChange={handleFormChange}
         fullWidth></TextField>
         </Grid>
 
         <Grid item xs={12} sm={6}>
         <TextField
         placeholder='Age'
+        name="age"
+        value={input.age}
+        onChange={handleFormChange}
         fullWidth></TextField>
         </Grid>
 
@@ -155,7 +258,7 @@ const genderOptions = [
           placeholder="Breed"/>
         </Grid>
 
-        <Grid item xs={12} sm={6}>
+         <Grid item xs={12} sm={6}>
           <Select 
           value={gender}
           onChange={handleGenderChange}
@@ -169,7 +272,7 @@ const genderOptions = [
           value={vaccinated}
           onChange={handleVaccinatedChange}
           options={options}/>
-        </Grid>
+        </Grid> 
 
         <Grid item xs={12} sm={6}>
           <Select 
@@ -209,45 +312,55 @@ const genderOptions = [
         <Grid item xs={12} sm={6}>
         <TextField
         placeholder='Medical Needs'
-        fullWidth></TextField>
+        fullWidth
+        name="medical_issues"
+        value={input.medical_issues}
+        onChange={handleFormChange}></TextField>
         </Grid>
 
         <Grid item xs={12} sm={6}>
         <TextField
         placeholder='Special Needs'
+        name="special_needs"
+        value={input.special_needs}
+        onChange={handleFormChange}
         fullWidth></TextField>
         </Grid>
 
         <Grid item xs={12} sm={12}>
         <TextField
         placeholder='Dietry Needs'
-        fullWidth></TextField>
+        fullWidth name="diet"
+        value={input.diet}
+        onChange={handleFormChange}></TextField>
         </Grid>
 
         <Grid item xs={12} sm={12}>
         <TextField
         placeholder='Bio'
-        fullWidth></TextField>
+        fullWidth name="bio"
+        value={input.bio}
+        onChange={handleFormChange}
+        ></TextField>
         </Grid>
+      {addPetSuccess === true &&
+        <Grid item xs={12}>
+          <Box textAlign="center">
+            <Typography>Pet Added Successfully</Typography>
+            <Button onClick={() => setAddPetSuccess(false)}>Ok</Button>
+          </Box>
+        </Grid>
+}
 
         <Grid item xs={12} sm={12}>
         <Button variant='contained'
-        fullWidth>Add Pet</Button>
+        fullWidth
+        onClick={handleSubmit}>Add Pet</Button>
         </Grid>
-
-
-
-
-
-
-
-
-
-
       </Grid>
       </Box>
 
-      {/* <div>{auth.userId}</div> */}
+    
     </Container>
     
   )
