@@ -1,6 +1,6 @@
 var express = require("express");
 const cors = require("cors"); // add at the top
-//var path = require("path");
+var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
@@ -12,6 +12,7 @@ var photosRouter = require("./routes/photos");
 var authRouter = require("./routes/auth");
 var breedsRouter = require("./routes/breeds");
 
+
 var app = express();
 
 app.use(cors()); // add after 'app' is created
@@ -19,7 +20,8 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-// app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(express.static("public"));
 
 //app.use("/", indexRouter);
 app.use("/api/users", usersRouter);

@@ -18,7 +18,7 @@ export default function AddPet() {
   const [neutered, setNeutered] = useState(null);
   const [microchipped, setMicrochipped] = useState(null);
   const [gender, setGender] = useState("");
-
+  const [searchInput, setSearchInput] = useState(null)
 
 
 useEffect(() => {

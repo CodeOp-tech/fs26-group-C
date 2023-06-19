@@ -14,10 +14,10 @@ a:visited {
   text-decoration: none;
 
 }
-
+/* 
 input[type="file"] {
   display: none;
-}
+} */
 /* .custom-file-upload {
   background-color: #116A7B;
   border-radius: 7%;

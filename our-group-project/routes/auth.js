@@ -35,7 +35,8 @@ router.post("/register", async function (req, res, next) {
       surname,
       date_of_birth,
       location,
-      adopter
+      adopter,
+      avatar
     });
     console.log(user);
    
