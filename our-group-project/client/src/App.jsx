@@ -19,6 +19,7 @@ import Footer from "./assets/components/design/Footer";
 import "./App.css";
 import { SignalCellularNullTwoTone } from "@material-ui/icons";
 import BreedForum from "./assets/pages/BreedForum";
+import PetProf from "./assets/components/Pets/PetProf";
 
 //import { Tune } from "@mui/icons-material";
 
@@ -100,7 +101,7 @@ function App() {
               }
             />
             <Route
-              path="search_pets"
+              path="/search_pets"
               element={
                 <RequireAuth>
                   <SearchPets />
@@ -108,6 +109,7 @@ function App() {
               }
             />
             <Route path="/:breed_id" element={<BreedForum />}></Route>
+            <Route path="/pet_view" element={<PetProf/>}></Route>
           </Routes>
         </div>
         <Footer />
