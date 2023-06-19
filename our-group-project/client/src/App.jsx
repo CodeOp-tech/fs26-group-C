@@ -8,14 +8,14 @@ import About from "./assets/pages/About";
 import UserProfile from "./assets/pages/UserProfile";
 import ContactUs from "./assets/pages/ContactUs";
 import Forum from "./assets/pages/Forum";
-import PetProfile from "./assets/components/PetProfile";
-import Navbar from "./assets/components/Navbar";
-import Login from "./assets/components/Login";
+import PetProfile from "./assets/pages/PetProfile";
+import Navbar from "./assets/components/design/Navbar";
+import Login from "./assets/components/AuthLoginSignUp/Login";
 import Quiz from "./assets/components/Quiz";
-import Registration from "./assets/components/Registration";
+import Registration from "./assets/components/AuthLoginSignUp/Registration";
 import SearchPets from "./assets/pages/SearchPets";
-import RequireAuth from "./assets/components/RequireAuth";
-import Footer from "./assets/components/Footer";
+import RequireAuth from "./assets/components/AuthLoginSignUp/RequireAuth";
+import Footer from "./assets/components/design/Footer";
 import "./App.css";
 import { SignalCellularNullTwoTone } from "@material-ui/icons";
 import BreedForum from "./assets/pages/BreedForum";
@@ -29,7 +29,7 @@ function App() {
   const [name, setUserName] = useState(null);
   const [location, setLocation] = useState(null);
   const [userId, setUserId] = useState(null);
-  const [adopter,setAdopter] = useState(null)
+  const [adopter, setAdopter] = useState(null);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -42,7 +42,7 @@ function App() {
       setUserName(username);
       setLocation(userLocation);
       setUserId(userID);
-      setAdopter(adopterB)
+      setAdopter(adopterB);
       setUser(true);
     }
   }, [user]);
@@ -58,7 +58,6 @@ function App() {
     localStorage.removeItem("location");
     localStorage.removeItem("userid");
     localStorage.removeItem("adopter");
-
   }
 
   const authObj = {
