@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import Dog from "@mui/icons-material/Pets";
 // import { Link } from "react-router-dom";
-import AuthContext from "../contexts/AuthContext";
+import AuthContext from "../../contexts/AuthContext";
 
 export default function Navbar() {
   // const [isLoggedIn, setIsLoggedIn] = useState(false);

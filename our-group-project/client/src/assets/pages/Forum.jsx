@@ -1,14 +1,13 @@
 import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
 import MainFeaturedPost from "../components/About_Us/MainFeaturedPost.jsx";
-import AddPet from "../components/AddPet";
+import AddPet from "../components/Pets/AddPet.jsx";
 
 function Forum() {
-
   const mainFeaturedPost = {
     title: "Join the Community Talk!!",
     image: "/public/puppy-cover.jpg",
-    imageText: "puppies"
+    imageText: "puppies",
   };
 
   return (
@@ -20,9 +19,7 @@ function Forum() {
           <MainFeaturedPost post={mainFeaturedPost} />
         </main>
       </Container>
-      <div>
-        {/* <AddPet /> */}
-      </div>
+      <div>{/* <AddPet /> */}</div>
     </>
   );
 }

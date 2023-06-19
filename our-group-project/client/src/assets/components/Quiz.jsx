@@ -5,12 +5,12 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Header from "./Header";
+import Header from "./design/Header";
 import MainFeaturedPost from "../components/About_Us/MainFeaturedPost.jsx";
 import FeaturedPost from "../components/About_Us/FeaturedPost.jsx";
 import Main from "../components/About_Us/Main";
 import Sidebar from "../components/About_Us/Sidebar";
-import Footer from "./Footer.jsx";
+import Footer from "./design/Footer.jsx";
 import {
   Card,
   CardMedia,
