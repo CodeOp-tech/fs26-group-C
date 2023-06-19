@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import AuthContext from '../contexts/AuthContext';
+import AuthContext from '../../contexts/AuthContext';
 import { Container, Box, TextField, Grid, Typography, Button } from '@mui/material';
 import Select from 'react-select';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete'; 

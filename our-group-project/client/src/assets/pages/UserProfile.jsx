@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState, useContext } from "react";
-import ProfileAvatar from "../components/ProfileAvatar";
+import ProfileAvatar from "../components/design/ProfileAvatar";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import AuthContext from "../contexts/AuthContext";
 //import TextField from "@mui/material/TextField";
@@ -15,9 +15,9 @@ import {
 import { NearMeOutlined } from "@mui/icons-material";
 import TextareaAutosize from "@mui/base/TextareaAutosize";
 import Slider from "../components/design/Slider";
-import PetCard from "../components/PetCard";
-import AddPet from "../components/AddPet";
-import PetProf from "../components/PetProf";
+import PetCard from "../components/Pets/PetCard";
+import AddPet from "../components/Pets/AddPet";
+import PetProf from "../components/Pets/PetProf";
 
 
 
