@@ -3,36 +3,30 @@ import { useEffect, useState, useContext } from "react";
 import ProfileAvatar from "../components/design/ProfileAvatar";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import AuthContext from "../contexts/AuthContext";
-//import TextField from "@mui/material/TextField";
 import {
   IconButton,
   Button,
-  Container,
   Box,
-  Grid,
-  Typography,
+  RadioGroup,
+  FormControl,
+  FormControlLabel,
+  Radio,
+  Icon
 } from "@mui/material";
-import { NearMeOutlined } from "@mui/icons-material";
 import TextareaAutosize from "@mui/base/TextareaAutosize";
 import Slider from "../components/design/Slider";
-import PetCard from "../components/Pets/PetCard";
-import AddPet from "../components/Pets/AddPet";
 import { useNavigate } from "react-router-dom";
 
-
-
-
 //DO WE NEED AN EDIT PROFILE BUTTON? i THINK SO...BUT NO IDEA HOW TO REALLY IMPLEMENT IT
-
 
 export default function UserProfile() {
   const auth = useContext(AuthContext);
   const [pets, setPets] = useState([]);
   const [typeUser, setTypeUser] = useState(null);
-  const [tempUser, setTempUser] = useState(false)
+  const [tempUser, setTempUser] = useState(false);
   const [saveChanges, setSaveChanges] = useState(null);
   const navigate = useNavigate();
-
+  const [value, setValue] = useState(null);
 
   useEffect(() => {
     requestPrivateData();
@@ -62,35 +56,43 @@ export default function UserProfile() {
   };
 
   const addPet = (newPet) => {
-    setPets((state) => [
-      ...state, newPet
-    ])
-  }
+    setPets((state) => [...state, newPet]);
+  };
+
+  const handleChange = (event) => {
+    val = event.target.value;
+    setValue(event.target.value);
+    if (val === "true") {
+      setTempUser(true);
+    } else {
+      setTempUser(false);
+    }
+
+    console.log(tempUser);
+  };
 
   const handleSave = () => {
     setSaveChanges(true);
     if (tempUser) {
-      setTypeUser(true)
+      setTypeUser(true);
     } else {
-      setTypeUser(false)
+      setTypeUser(false);
     }
 
     localStorage.removeItem("adopter");
-    localStorage.setItem("adopter", typeUser) // to save the change in the whole app
+    localStorage.setItem("adopter", typeUser); // to save the change in the whole app
 
     //will also need to post changes in Backend
-
   };
 
   let val = "";
 
   const handleRadio = (e) => {
     val = e.target.value;
-    if (val === "true") {
-      
-      setTempUser(true)
+    if (val !== "true") {
+      setTempUser(true);
     } else {
-      setTempUser(false)
+      setTempUser(false);
     }
   };
 
@@ -111,46 +113,35 @@ export default function UserProfile() {
       <div className="row" style={{ paddingLeft: "5vw", paddingTop: "2vw" }}>
         <div className="col-5">
           <ProfileAvatar />
-          <div className="row my-3 mx-1" >
-          <div>
-          <Button variant="contained" color="secondary"
-          onClick={() => navigate(`/pet_view`)}>
-            Pet View
-          </Button>
-          </div>
-        </div>
-        
-         
+          <div className="row my-3 mx-1"></div>
         </div>
         <div className="col-4">
           <div className="row" style={{ paddingTop: "2vw" }}>
             <h3> {auth.name}</h3>
-            <div className="row" style={{ paddingTop: "2vw" }}>
-              <h6> Some catchy Phrase</h6>
-            </div>
+          
             <div className="row" style={{ paddingTop: "2vw" }}>
               {typeUser === null ? (
                 <div>
-                  <div className="col">
-                    <label htmlFor="adopt">Looking to adopt!</label>
-                    <input
-                      type="radio"
+                  <FormControl>
+                    <RadioGroup
+                      onChange={handleChange}
+                      value={value}
                       name="adopt"
-                      value="true"
-                      id="adopt"
-                      onClick={handleRadio}
-                    />
-                  </div>
-                  <div className="col">
-                    <label htmlFor="foradoption">Looking for a home!</label>
-                    <input
-                      type="radio"
-                      name="adopt"
-                      value="false"
-                      id="foradoption"
-                      onClick={handleRadio}
-                    />
-                  </div>
+                      size="small"
+                      color="secondary"
+                    >
+                      <FormControlLabel
+                        value="true"
+                        control={<Radio />}
+                        label="Looking to adopt"
+                      />
+                      <FormControlLabel
+                        value="false"
+                        control={<Radio />}
+                        label="Looking for a home"
+                      />
+                    </RadioGroup>
+                  </FormControl>
                 </div>
               ) : null}
             </div>
@@ -158,29 +149,50 @@ export default function UserProfile() {
               {typeUser === true ? <p>Looking to adopt!</p> : null}
               {typeUser === false ? <p>Looking for a home!</p> : null}
             </div>
-            <div className="row" style={{ paddingTop: "1vw" }}>
-              <IconButton style={{ width: "55%", fontSize: "1.4vw" }} disabled>
+            <div className="row" style={{ paddingTop: "1vw" , fontWeight:"bold", fontSize:"1.8vw"}}>
+             
+
                 <LocationOnIcon
                   color="secondary"
                   style={{ display: "inline", margin: "0.5vw" }}
                 />
+              
+                
                 {auth.location}
-              </IconButton>
+                
             </div>
           </div>
         </div>
       </div>
       <div className="row" style={{ margin: "2vw 5.5vw", display: "flex" }}>
+        <div>
+          <Box sx={{ width: "100%", marginBottom: "2vw" }}>
+            <Button
+              variant="outlined"
+              color="secondary"
+              onClick={() => navigate(`/pet_view`)}
+            >
+              {" "}
+              Pet View
+            </Button>
+            <Button
+              variant="outlined"
+              color="secondary"
+              onClick={() => navigate(`/gallery`)}
+            >
+              {" "}
+              Gallery
+            </Button>
+          </Box>
+        </div>
+
         <TextareaAutosize
           placeholder="Let us know who you are!"
           minRows={10}
           sx={{ border: "0.5vw solid " }}
         ></TextareaAutosize>
-
-      
-
-        <div className="col" style={{ marginTop: "2vw" }}>
-          { tempUser ? (
+        <div className="col" style={{ margin: "2vw 5.5vw" }}>
+          {tempUser ? (
             <div>
               <TextareaAutosize
                 placeholder="Why do you want to adopt?"
@@ -200,7 +212,7 @@ export default function UserProfile() {
         </div>
 
         <div className="col" style={{ marginTop: "2vw" }}>
-          { tempUser ? (
+          {tempUser ? (
             <div>
               <TextareaAutosize
                 placeholder="What is your ideal pet?"
@@ -219,11 +231,9 @@ export default function UserProfile() {
           )}
         </div>
 
-  
-
         {tempUser ? (
           <div>
-            <div style={{ marginTop: "1vw", display: "flex" }}>
+            <div style={{ margin: "2vw 5.5vw", display: "flex" }}>
               <div className="col" style={{ marginTop: "1vw" }}>
                 <div>
                   <label> Activity Level</label>
@@ -276,22 +286,19 @@ export default function UserProfile() {
                       breed_id={pet.breed_id}
                       user_id={pet.user_id}
                     /> */}
-                  {/* </Grid>
+            {/* </Grid>
                 ))}
               </Grid>
             </Container> */}
           </div>
         )}
-      </div> 
-      
+      </div>
 
-      <Container>
+      <div style={{ margin: "2vw 5.5vw", display: "flex" }}>
         <Button variant="outlined" color="secondary" onClick={handleSave}>
           Save your changes
         </Button>
-      </Container>
-
-      
+      </div>
     </div>
   );
 }

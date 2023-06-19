@@ -31,11 +31,10 @@ router.post("/profile/:id/upload", upload.single("imagefile"), async (req, res) 
         const user = await models.User.findOne({
             where: {id}
         })
-      console.log("user", user)
-      user.set({
+  
+      user.update({
         avatar: filename
       })
-      console.log("avatar", user.avatar)
       
     } catch (err) {
       res.status(500).send(err);
@@ -78,18 +77,7 @@ router.get("/user/:id/avatar", async function (req, res, next) {
   }
 }) 
 
-//TO UPDATE avatar//
-router.put("/avatar/:id", async function (req, res, next) {
-  const { id, filename } = req.params;
-  try {
-    const user = await models.User.findOne({
-      where: { id },
-    });
-    
-  } catch (err) {
-    res.status(500).send({ message: err.message });
-  }
-});
+
 
 /* GET users listing by id with their pets*/
 router.get("/pets/:id", async function (req, res, next) {
@@ -106,7 +94,5 @@ router.get("/pets/:id", async function (req, res, next) {
   }
 });
 
-/* Post new user listing. */
-// not needed cz of register in auth
 
 module.exports = router;

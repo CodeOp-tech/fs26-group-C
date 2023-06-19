@@ -6,10 +6,10 @@ const path = require("path");
 const { v4: uuidv4 } = require("uuid");
 const mime = require("mime-types");
 const multer = require("multer");
-const upload = multer({ dest: "public/images" });
+const upload = multer({ dest: "public/photos" });
 
 
-router.post("/", upload.single("imagefile"), async (req, res) => {
+router.post("/:type/:id/upload", upload.single("imagefile"), async (req, res) => {
     const imagefile = req.file;
   
     console.log("imagefile",imagefile);
@@ -25,7 +25,7 @@ router.post("/", upload.single("imagefile"), async (req, res) => {
     const tmp_path = imagefile.path;
   
     // construct the new path for the final file
-    const target_path = path.join(__dirname, "../public/images/") + filename;
+    const target_path = path.join(__dirname, "../public/photos/") + filename;
   
     console.log({ filename, tmp_path, target_path });
   
@@ -35,8 +35,8 @@ router.post("/", upload.single("imagefile"), async (req, res) => {
   
       // store image in the DB
       
-        await models.User.create({
-            avatar: `${filename}`
+        await models.Photo.create({
+            
         })
         
         
