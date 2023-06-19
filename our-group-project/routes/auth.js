@@ -38,6 +38,7 @@ router.post("/register", async function (req, res, next) {
       adopter
     });
     console.log(user);
+   
     res.send(true);
   } catch (err) {
     res.status(400).send({ message: err.message });

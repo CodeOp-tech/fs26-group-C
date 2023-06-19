@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 const models = require("../models/index");
 const { Op } = require("sequelize");
+const petMustExist = require("../guards/petMustExist")
 
 /* GET all pets. */
 router.get("/", async function (req, res) {
@@ -105,6 +106,7 @@ router.post("/", async function (req, res, next) {
   } = req.body;
 
   try {
+   
     const pets = await models.Pet.create({
       name,
       breed_id,
@@ -134,7 +136,7 @@ router.post("/", async function (req, res, next) {
 
 
 /*DELETE pet listing */
-router.delete("/:id", async function (req, res, next) {
+router.delete("/:id", petMustExist, async function (req, res, next) {
   const { id } = req.params;
   try {
     const pet = models.Pet.destroy({
