@@ -25,10 +25,10 @@ import axios from "axios";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 
-
 export default function Registration({ dateAdapter }) {
   //to see password value if user wants to
   const [visibility, setVisibility] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   //to perform validations on each input?
   //const [fieldInfo, setFieldInfo] = useState();
@@ -39,6 +39,24 @@ export default function Registration({ dateAdapter }) {
   surname:"", 
   email:""..}
   */
+
+  function handleRegistration() {
+    // Check if all required fields are filled
+    if (
+      userInfo.name === "" ||
+      userInfo.surname === "" ||
+      userInfo.username === "" ||
+      userInfo.email === "" ||
+      userInfo.password === "" ||
+      userInfo.date_of_birth === ""
+    ) {
+      // setErrorMessage("Please fill in all required fields.");
+      return;
+    }
+
+    // Perform registration request
+    registerUser();
+  }
 
   const handleVisibility = () => {
     setVisibility(!visibility);
@@ -62,7 +80,6 @@ export default function Registration({ dateAdapter }) {
 
   const pageLocation = useLocation();
 
-  
   useEffect(() => {
     onChangeGooglePlaces(userLocation);
   }, [userLocation]);
@@ -124,14 +141,13 @@ export default function Registration({ dateAdapter }) {
   //   setSelectedAdopter(e)
   //   setUserInfo((state) => (
   //     {
-  //       ...state, adopter: selectAdopter.value 
+  //       ...state, adopter: selectAdopter.value
   //     }
   //   ))
   // }
 
   function handleRegistration() {
     registerUser();
-
   }
 
   const registerUser = async (UserInfo) => {
@@ -142,9 +158,10 @@ export default function Registration({ dateAdapter }) {
       });
       setIsRegistered(data);
     } catch (error) {
-      console.log(error);
+      setErrorMessage(error.response.data.message);
     }
   };
+  console.log(errorMessage);
 
   return (
     <Container
@@ -152,10 +169,9 @@ export default function Registration({ dateAdapter }) {
       maxWidth="xs"
       sx={{
         mt: 10,
-      }}
-    >
+      }}>
       <CssBaseline />
-      {console.log("userinfo",userInfo)}
+      {console.log("userinfo", userInfo)}
       {console.log("selectAdopter", selectAdopter)}
       <Box
         sx={{
@@ -163,8 +179,7 @@ export default function Registration({ dateAdapter }) {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-        }}
-      >
+        }}>
         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
           <LockOutlinedIcon />
         </Avatar>
@@ -181,8 +196,7 @@ export default function Registration({ dateAdapter }) {
               name="name"
               label="Firstname"
               value={userInfo.name}
-              onChange={handleFormChange}
-            ></TextField>
+              onChange={handleFormChange}></TextField>
           </Grid>
 
           <Grid item xs={12} sm={6}>
@@ -191,8 +205,7 @@ export default function Registration({ dateAdapter }) {
               name="surname"
               label="Surname"
               value={userInfo.surname}
-              onChange={handleFormChange}
-            ></TextField>
+              onChange={handleFormChange}></TextField>
           </Grid>
 
           <Grid item xs={12} sm={6}>
@@ -201,8 +214,7 @@ export default function Registration({ dateAdapter }) {
               name="email"
               label="Email"
               value={userInfo.email}
-              onChange={handleFormChange}
-            ></TextField>
+              onChange={handleFormChange}></TextField>
           </Grid>
 
           <Grid item xs={12} sm={6}>
@@ -211,8 +223,7 @@ export default function Registration({ dateAdapter }) {
               name="username"
               label="Username"
               value={userInfo.username}
-              onChange={handleFormChange}
-            ></TextField>
+              onChange={handleFormChange}></TextField>
           </Grid>
 
           <Grid item xs={12} sm={12}>
@@ -236,8 +247,7 @@ export default function Registration({ dateAdapter }) {
                   </InputAdornment>
                 ),
               }}
-              onChange={handleFormChange}
-            ></TextField>
+              onChange={handleFormChange}></TextField>
           </Grid>
 
           <Grid item xs={12} sm={12}>
@@ -268,6 +278,12 @@ export default function Registration({ dateAdapter }) {
               value={selectAdopter}
               onChange={handleAdopter}
             />
+          </Grid>
+
+          <Grid item xs={12} sm={12}>
+            <Typography color="red">
+              {errorMessage ? <p>{errorMessage}</p> : null}
+            </Typography>
           </Grid>
 
           <Grid item xs={12} sm={12}>

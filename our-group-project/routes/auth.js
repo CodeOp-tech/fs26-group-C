@@ -1,32 +1,65 @@
-var express = require("express");
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
 const models = require("../models/index");
-var jwt = require("jsonwebtoken");
-var bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 const saltRounds = 10;
 require("dotenv").config();
 const supersecret = process.env.SUPER_SECRET;
 const userMustBeLoggedIn = require("../guards/userMustBeLoggedIn");
 
-//REGISTRATION
+// Helper function to calculate age based on date of birth
+function calculateAge(dateOfBirth) {
+  const currentDate = new Date();
+  const ageDiff = currentDate - dateOfBirth;
+  const ageInYears = Math.floor(ageDiff / (1000 * 60 * 60 * 24 * 365)); // Calculating age in years
+  return ageInYears;
+}
+
+// REGISTRATION
 router.post("/register", async function (req, res, next) {
   let { username, email, password, name, surname, date_of_birth, location, adopter } =
     req.body;
+
+  // Check for required fields
+  if (!email || !password || !name || !surname || !date_of_birth) {
+    res.status(400).send({ message: "Please fill in all required fields." });
+    return;
+  }
+
   console.log(req.body);
   try {
+    const existingUser = await models.User.findOne({
+      where: { 
+        [models.Sequelize.Op.or]: [
+          { username: username },
+          { email: email }
+        ]
+      }
+    });
+
+    if (existingUser) {
+      if (existingUser.username === username) {
+        res.status(400).send({message:"Username already exists."})
+        return;
+        // throw new Error("Username already exists.");
+      } else if (existingUser.email === email) {
+        // throw new Error("Email already exists.");
+        res.status(400).send({message:"Email already exists."})
+        return;
+      }
+    }
+
     let hash = await bcrypt.hash(password, saltRounds);
-    // await models.User.findOne({
-    //   where: {
-    //     username: username,
-    //     email: email,
-    //     hash,
-    //     name: name,
-    //     surname: surname,
-    //     date_of_birth,
-    //     location,
-    //   },
-    // });
     password = hash;
+
+    const userDateOfBirth = new Date(date_of_birth);
+    const ageInYears = calculateAge(userDateOfBirth);
+
+    if (ageInYears < 18) {
+      throw new Error("You must be at least 18 years old to register.");
+    }
+
     const user = await models.User.create({
       username,
       email,
@@ -37,15 +70,15 @@ router.post("/register", async function (req, res, next) {
       location,
       adopter
     });
+
     console.log(user);
-   
     res.send(true);
   } catch (err) {
     res.status(400).send({ message: err.message });
   }
 });
 
-//LOGIN
+// LOGIN
 router.post("/login", async function (req, res, next) {
   const { username, password } = req.body;
   console.log(username);
@@ -53,7 +86,6 @@ router.post("/login", async function (req, res, next) {
     const user = await models.User.findOne({
       where: { username },
     });
-    
 
     if (user) {
       const user_id = user.id;
@@ -61,22 +93,18 @@ router.post("/login", async function (req, res, next) {
       const adopter = user.adopter;
       const correctPass = await bcrypt.compare(password, user.password);
       if (!correctPass) throw new Error("Incorrect Password");
-      //generating token if username + password is correct
-      // useriD is the payload - the middle part - whatever we want to inject in there basically
       var token = jwt.sign({ user_id }, supersecret);
-      //var token = jwt.sign({ userID }, supersecret, {expiresIn: 60*60*24*31});
-      res.send({token, username, user_id, location, adopter});
+      res.send({ token, username, user_id, location, adopter });
     } else {
-      throw new Error("user does not exist");
+      throw new Error("User does not exist");
     }
   } catch (err) {
     res.status(400).send({ message: err.message });
   }
 });
 
-//ACCESSING PRIVATE INFO
+// ACCESSING PRIVATE INFO
 router.get("/profile", userMustBeLoggedIn, async function (req, res, next) {
-  //filter through data to get the ones where user_id matches
   const user_id = req.user_id;
   const userData = await models.User.findOne({
     where: { id: user_id },
@@ -89,7 +117,6 @@ router.get("/profile", userMustBeLoggedIn, async function (req, res, next) {
   });
 
   res.send({
-    //return private data
     userData,
     userPetData,
     userProfileData,
