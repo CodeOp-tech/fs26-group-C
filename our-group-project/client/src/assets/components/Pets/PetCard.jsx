@@ -4,7 +4,7 @@ import  { Link } from 'react-router-dom';
 import AuthContext from "../../contexts/AuthContext";
 
 
-export default function PetCard({name, bio, age, breed, location, breed_id, user_id }) {
+export default function PetCard({name, bio, age, breed, location, breed_id, user_id, onDelete }) {
   const auth = useContext(AuthContext);
   return (
     <Card>
@@ -53,7 +53,8 @@ export default function PetCard({name, bio, age, breed, location, breed_id, user
         </Button>
         </Link>
         {user_id == auth.userId &&
-        <Button>Delete</Button>}
+        <Button  size="small" color="secondary"
+        onClick={onDelete}>Delete</Button>}
         </Box>
 
       </CardActions>

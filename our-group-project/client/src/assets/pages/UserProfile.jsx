@@ -17,7 +17,8 @@ import TextareaAutosize from "@mui/base/TextareaAutosize";
 import Slider from "../components/design/Slider";
 import PetCard from "../components/Pets/PetCard";
 import AddPet from "../components/Pets/AddPet";
-import PetProf from "../components/Pets/PetProf";
+import { useNavigate } from "react-router-dom";
+
 
 
 
@@ -30,6 +31,8 @@ export default function UserProfile() {
   const [typeUser, setTypeUser] = useState(null);
   const [tempUser, setTempUser] = useState(false)
   const [saveChanges, setSaveChanges] = useState(null);
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     requestPrivateData();
@@ -108,6 +111,16 @@ export default function UserProfile() {
       <div className="row" style={{ paddingLeft: "5vw", paddingTop: "2vw" }}>
         <div className="col-5">
           <ProfileAvatar />
+          <div className="row my-3 mx-1" >
+          <div>
+          <Button variant="contained" color="secondary"
+          onClick={() => navigate(`/pet_view`)}>
+            Pet View
+          </Button>
+          </div>
+        </div>
+        
+         
         </div>
         <div className="col-4">
           <div className="row" style={{ paddingTop: "2vw" }}>
@@ -243,11 +256,11 @@ export default function UserProfile() {
           </div>
         ) : (
           <div>
-            <Container>
+            {/* <Container>
               <AddPet />
             </Container>
               {/* <PetProf addPet={(newPet) => addPet(newPet)}/> */}
-            <Container sx={{ py: 8 }} maxWidth="lg">
+            {/* <Container sx={{ py: 8 }} maxWidth="lg">
               <Grid container spacing={4}>
                 <Grid item xs={12} sm={12}>
                   <Typography>Your Pets</Typography>
@@ -262,14 +275,15 @@ export default function UserProfile() {
                       location={pet.location}
                       breed_id={pet.breed_id}
                       user_id={pet.user_id}
-                    />
-                  </Grid>
+                    /> */}
+                  {/* </Grid>
                 ))}
               </Grid>
-            </Container>
+            </Container> */}
           </div>
         )}
-      </div>
+      </div> 
+      
 
       <Container>
         <Button variant="outlined" color="secondary" onClick={handleSave}>
@@ -277,27 +291,7 @@ export default function UserProfile() {
         </Button>
       </Container>
 
-      <Container sx={{ py: 8 }} maxWidth="lg">
-      <Grid container spacing={4}>
-        <Grid item xs={12} sm={12}>
-          <Typography>Your Pets</Typography>
-          </Grid>
-          {pets.map((pet) => (
-           <Grid item key={pet.id} xs={12} sm={6} md={4}>
-              <PetCard
-                id= {pet.id}
-            name={pet.name}
-            bio={pet.bio}
-            age={pet.age}
-            breed={pet.Breed.breed}
-            location={pet.location}
-            breed_id={pet.breed_id}
-            user_id={pet.user_id}/>
-           </Grid>
-          ))}
-        </Grid>
-
-      </Container>
+      
     </div>
   );
 }
