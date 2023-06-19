@@ -23,6 +23,11 @@ export default function BreedForum() {
   }
 
   return (
+    <div>
     <div>{breed.breed}</div>
+    <div>
+<img src={breed.image_url} />
+    </div>
+    </div>
   )
 }
