@@ -14,7 +14,8 @@ module.exports = {
       height: d.height.metric,
       weight: d.weight.metric,
       life_expectancy: d.life_span,
-      temperament: d.temperament
+      temperament: d.temperament,
+      image_url: d.image.url
     }));
 
     breedData.push({ breed: 'Other' });
