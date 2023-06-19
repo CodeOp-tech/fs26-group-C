@@ -56,15 +56,6 @@ export default function ProfileAvatar() {
                 <input type="file" onChange={handleChange} />
               </label>
             </Button>
-            <div className="col">
-              <br></br>
-              <div className="col-8">
-                <Button variant="contained" color="secondary" onClick={handleSelect}>
-                  {" "}
-                  Click here if this is the one!
-                </Button>
-              </div>
-            </div>
           </div>
         </div>
       </div>
