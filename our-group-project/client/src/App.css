@@ -35,3 +35,20 @@ input[type="file"] {
   height: 150px;
 }
 
+.side-menu {
+  width: 250px;
+  background-color: #f0f0f0;
+  padding: 10px;
+}
+
+.side-menu ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.side-menu li {
+  margin-bottom: 10px;
+}
+
+

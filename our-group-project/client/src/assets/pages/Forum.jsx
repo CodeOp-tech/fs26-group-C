@@ -1,11 +1,11 @@
 import CssBaseline from "@mui/material/CssBaseline";
-import Container from "@mui/material/Container";
+import {Container, Grid} from "@mui/material/";
 import MainFeaturedPost from "../components/About_Us/MainFeaturedPost.jsx";
-import AddPet from "../components/Pets/AddPet.jsx";
+import BreedMenu from "../components/Breeds/BreedMenu.jsx";
 
 function Forum() {
   const mainFeaturedPost = {
-    title: "Join the Community Talk!!",
+    title: "Join The Community Talk",
     image: "/public/puppy-cover.jpg",
     imageText: "puppies",
   };
@@ -18,8 +18,26 @@ function Forum() {
         <main>
           <MainFeaturedPost post={mainFeaturedPost} />
         </main>
+
+        <Grid container>
+          <Grid item md={3}>
+            <BreedMenu/>
+          </Grid>
+        </Grid>
+
+
+
+
       </Container>
-      <div>{/* <AddPet /> */}</div>
+     
+
+        {/* <Grid container>
+          <Grid item md={3}>
+            <BreedMenu/>
+          </Grid>
+        </Grid> */}
+
+     
     </>
   );
 }
