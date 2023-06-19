@@ -276,6 +276,28 @@ export default function UserProfile() {
           Save your changes
         </Button>
       </Container>
+
+      <Container sx={{ py: 8 }} maxWidth="lg">
+      <Grid container spacing={4}>
+        <Grid item xs={12} sm={12}>
+          <Typography>Your Pets</Typography>
+          </Grid>
+          {pets.map((pet) => (
+           <Grid item key={pet.id} xs={12} sm={6} md={4}>
+              <PetCard
+                id= {pet.id}
+            name={pet.name}
+            bio={pet.bio}
+            age={pet.age}
+            breed={pet.Breed.breed}
+            location={pet.location}
+            breed_id={pet.breed_id}
+            user_id={pet.user_id}/>
+           </Grid>
+          ))}
+        </Grid>
+
+      </Container>
     </div>
   );
 }
