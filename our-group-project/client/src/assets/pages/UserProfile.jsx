@@ -337,17 +337,23 @@ export default function UserProfile() {
           </div>
         </div>
       </div>
-
-      <div style={{ margin: "2vw 5.5vw", textAlign: "center" }}>
-        <Button
-          variant="outlined"
-          color="secondary"
-          size="small"
-          onClick={handleSave}
-        >
-          Save your changes
-        </Button>
+      <div style={{textAlign:"center"}}> 
+                <Grid item>
+                  <Button variant="contained" color="secondary" style={{marginRight:"2vw"}}>
+                    <i className="fa-solid fa-comments"></i> Message User
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    color="secondary"
+                    size="small"
+                    onClick={handleSave}
+                  >
+                    Save Changes
+                  </Button>
+                </Grid>
       </div>
+
+      
     </div>
   );
 }
