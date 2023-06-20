@@ -115,8 +115,8 @@ export default function UserProfile() {
           <ProfileAvatar />
           <div className="row my-3 mx-1"></div>
         </div>
-        <div className="col-4">
-          <div className="row" style={{ paddingTop: "2vw" }}>
+        <div className="col-7" >
+          <div className="row" style={{ paddingTop: "2vw", marginLeft:"6vw" }}>
             <h3> {auth.name}</h3>
           
             <div className="row" style={{ paddingTop: "2vw" }}>

@@ -72,15 +72,15 @@ export default function App() {
               {!avatar ? (
                 <img
                   src={defaultImage}
-                  style={{ width: "60%", height: "95%" }}
+                  style={{ width: "50%", height: "55%" }}
                   className="rounded-circle"
                 />
               ) : (
-                  <div> 
+                  <div style={{textAlign:"center"}}> 
 
                     <img
-                      src={avatar}
-                      style={{ width: "60%", height: "95%" }}
+                      src={`/images/${avatar}`}
+                      style={{ width: "45%", height: "50%" }}
                       className="rounded-circle"
                     />
                     {console.log(avatar)}
@@ -89,7 +89,7 @@ export default function App() {
             </div>
           </div>
         </div>
-        <div className="row" style={{ paddingTop: "1vw" }}>
+        <div className="row" style={{ paddingTop: "1vw", textAlign:"center" }}>
           <div>
             <Button variant="contained">
               <label className="custom-file-upload">
