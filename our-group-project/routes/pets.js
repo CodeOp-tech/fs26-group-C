@@ -3,6 +3,47 @@ var router = express.Router();
 const models = require("../models/index");
 const { Op } = require("sequelize");
 const petMustExist = require("../guards/petMustExist")
+const fs = require("fs/promises");
+const path = require("path");
+const { v4: uuidv4 } = require("uuid");
+const mime = require("mime-types");
+const multer = require("multer");
+const upload = multer({ dest: "public/images" });
+
+
+//UPLOAD AVATAR
+router.post("/profile/:id/upload", upload.single("imagefile"), async (req, res) => {
+  const { id } = req.params;   
+  const imagefile = req.file;  
+  console.log(req.file)
+    // check the extension of the file
+    const extension = mime.extension(imagefile.mimetype);
+    // create a new random name for the file
+    const filename = uuidv4() + "." + extension;
+    // grab the filepath for the temporary file
+    const tmp_path = imagefile.path;
+    // construct the new path for the final file
+    const target_path = path.join(__dirname, "../public/images/") + filename;
+    console.log({ filename, tmp_path, target_path });
+  
+    try {
+      // move the file from tmp folder to the public folder
+      await fs.rename(tmp_path, target_path);
+  
+      // store image in the DB
+      
+        const pet = await models.Pet.findOne({
+            where: {id}
+        })
+  
+      pet.update({
+        avatar: filename
+      })
+      
+    } catch (err) {
+      res.status(500).send(err);
+    }
+});
 
 /* GET all pets. */
 router.get("/", async function (req, res) {
@@ -16,7 +57,20 @@ router.get("/", async function (req, res) {
   }
 });
 
+/* GET pets' avatar by user_id*/
+router.get("/pet/:id/avatar", async function (req, res, next) {
+  const { id } = req.params;
+  console.log(id)
+  try {
+    const pet = await models.Pet.findOne({
+      where: {id}
+    })
 
+    res.send(pet.avatar)
+  } catch (error) {
+    res.status(500).send({message: error.message})
+  }
+}) 
 
 /* GET pets by user_id. */
 router.get("/user/:user_id", async function (req, res, next) {

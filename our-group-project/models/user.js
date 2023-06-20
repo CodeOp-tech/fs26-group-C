@@ -1,6 +1,8 @@
 "use strict";
-
+const fs = require("fs");
+const path = require("path");
 const { Model } = require("sequelize");
+
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -12,6 +14,13 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       User.hasMany(models.Pet, { foreignKey: 'user_id' });
       User.hasOne(models.User_profile, { foreignKey: "user_id" });
+      User.hasMany(models.Photo, {
+        foreignKey: 'external_id',
+        constraints: false,
+        scope: {
+          type: 'user'
+        }
+      })
     }
   }
   User.init(
@@ -26,10 +35,18 @@ module.exports = (sequelize, DataTypes) => {
       adopter: DataTypes.BOOLEAN,
       avatar:DataTypes.STRING
     },
+    
     {
       sequelize,
       modelName: "User",
-    }
+    },
+    {
+      hooks: {
+        afterUpdate: (user, options) => { 
+          console.log(user.name,options)
+        }
+      }
+    },
   );
   return User;
 };
