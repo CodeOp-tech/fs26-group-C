@@ -14,12 +14,15 @@ const channels_client = new Pusher({
   useTLS: true,
 });
 
-router.post("/:sender_id/:receiver_id", (req, res) => {
+router.post("/:senderId/:receiverId", (req, res) => {
   let { senderId, receiverId } = req.params;
+  console.log(req.params);
   let content = req.body.data.message;
 
   const users = [senderId, receiverId].sort();
+  console.log(users)
   const name = `chat-${users[0]}-${users[1]}`;
+  console.log(name);
 
 
 

@@ -26,7 +26,7 @@ export default function Chat() {
   const name = `chat-${users[0]}-${users[1]}`;
 
     var channel = pusher.subscribe(name);
-    channel.bind('message', function(data) {
+    channel.bind("message", function(data) {
       console.log(data);
       setMessages((state) => [...state, data]);
     });
@@ -62,6 +62,7 @@ export default function Chat() {
       <div className="flex-grow-1 p-3">{
         messages.map((message, i) => <div key={i}>{message.content}</div>)
       }</div>
+      
 
       <div className="bg-light p-4 border-top">
         <form onSubmit={sendMessage}>
