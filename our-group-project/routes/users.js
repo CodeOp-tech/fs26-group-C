@@ -36,7 +36,7 @@ router.post("/profile/:id/upload", upload.single("imagefile"), async (req, res) 
       user.update({
         avatar: filename
       })
-      
+      res.send(user.avatar)
     } catch (err) {
       res.status(500).send(err);
     }
