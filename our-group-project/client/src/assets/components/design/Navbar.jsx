@@ -102,6 +102,7 @@ export default function Navbar() {
                 variant="contained"
                 onClick={auth.logout}
                 style={{ fontSize: "0.75rem" }}
+                size="small"
               >
                 Logout
               </Button>
@@ -122,8 +123,8 @@ export default function Navbar() {
               </Button>
 
               <Button
-               variant="outlined"
-               size="small"
+                variant="outlined"
+                size="small"
                 href="/about"
                 style={{ fontSize: "0.75rem" }}
               >
@@ -131,8 +132,8 @@ export default function Navbar() {
               </Button>
 
               <Button
-               variant="outlined"
-               size="small"
+                variant="outlined"
+                size="small"
                 href="/forum"
                 style={{ fontSize: "0.75rem" }}
               >
@@ -143,6 +144,7 @@ export default function Navbar() {
                 variant="contained"
                 href="/login"
                 style={{ fontSize: "0.75rem", color: "black" }}
+                size="small"
               >
                 Login
               </Button>
@@ -151,6 +153,7 @@ export default function Navbar() {
                 variant="contained"
                 href="/registration"
                 style={{ fontSize: "0.75rem", color: "black" }}
+                size="small"
               >
                 Sign Up
               </Button>
