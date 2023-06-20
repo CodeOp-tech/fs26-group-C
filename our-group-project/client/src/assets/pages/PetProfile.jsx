@@ -57,7 +57,7 @@ export default function PetProfile() {
         <Grid container spacing={2}>
 
           <Grid item xs={12} sm={6}>
-          <PetProfileAvatar />
+          <PetProfileAvatar pet_id={pet_id}/>
           </Grid>
 
           <Grid item xs={12} sm={6}>
