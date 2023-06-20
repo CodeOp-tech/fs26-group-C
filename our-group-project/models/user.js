@@ -24,6 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       date_of_birth: DataTypes.DATE,
       location: DataTypes.STRING,
       adopter: DataTypes.BOOLEAN,
+      avatar:DataTypes.STRING
     },
     {
       sequelize,

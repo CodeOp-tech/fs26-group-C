@@ -1,4 +1,4 @@
-import {  useContext } from "react";
+import { useContext } from "react";
 import {
   AppBar,
   Toolbar,
@@ -7,7 +7,8 @@ import {
   Stack,
   Button,
   Box,
-  Link
+  Link,
+  
 } from "@mui/material";
 import Dog from "@mui/icons-material/Pets";
 // import { Link } from "react-router-dom";
@@ -32,13 +33,15 @@ export default function Navbar() {
               <Dog color="primary" />
             </Link>
           </IconButton>
+
           <Typography
-            variant="subtitle2"
             component="div"
             sx={{ flexGrow: 1 }}
-            style={{ fontSize: "2.6vw" }}
+            style={{ fontSize: "2vw" }}
           >
-            Website Name
+            <Link href="/" style={{ textDecoration: "none" }}>
+              Website Name
+            </Link>{" "}
           </Typography>
           {auth.user ? (
             <Stack
@@ -46,28 +49,64 @@ export default function Navbar() {
               spacing={2}
               sx={{ flexWrap: "wrap", justifyContent: "flex-end" }}
             >
-              {/* <Button color="inherit" style={{ fontSize: "0.75rem" }}> */}
-                <Link href="/">Home </Link>
-              {/* </Button> */}
-              {/* <Button color="inherit" style={{ fontSize: "0.75rem" }}> */}
-                <Link href="/user_profile">Profile </Link>
-              {/* </Button> */}
-              {/* <Button color="inherit" style={{ fontSize: "0.75rem" }}> */}
-                <Link href="/about">About us </Link>
-              {/* </Button> */}
-              {/* <Button color="inherit" style={{ fontSize: "0.75rem" }}> */}
-                <Link href="/forum">Forum </Link>
-              {/* </Button> */}
-              {/* <Button color="inherit" style={{ fontSize: "0.75rem" }}> */}
-                <Link href="/contact_us">Contact us </Link>
-              {/* </Button> */}
-              {/* <Button color="inherit" style={{ fontSize: "0.75rem" }}> */}
-                <Link href="/search_pets">Find a Pet</Link>
-              {/* </Button> */}
-              <Button variant="contained" onClick={auth.logout}>
-                <Link href="/login" style={{ fontSize: "0.75rem" , color:"black"}}>
-                  Logout
-                </Link>
+              <Button
+                variant="contained"
+                color="secondary"
+                href="/"
+                style={{ fontSize: "0.75rem" }}
+              >
+                Home{" "}
+              </Button>
+
+              <Button
+                variant="contained"
+                color="secondary"
+                href="/user_profile"
+                style={{ fontSize: "0.75rem" }}
+              >
+                {" "}
+                Profile{" "}
+              </Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                href="/about"
+                style={{ fontSize: "0.75rem" }}
+              >
+                {" "}
+                About Us{" "}
+              </Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                href="/forum"
+                style={{ fontSize: "0.75rem" }}
+              >
+                {" "}
+                Forum{" "}
+              </Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                href="/contact_us"
+                style={{ fontSize: "0.75rem" }}
+              >
+                Contact Us{" "}
+              </Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                href="/search_pets"
+                style={{ fontSize: "0.75rem" }}
+              >
+                Find a Pet
+              </Button>
+              <Button
+                variant="contained"
+                onClick={auth.logout}
+                style={{ fontSize: "0.75rem" }}
+              >
+                Logout
               </Button>
             </Stack>
           ) : (
@@ -76,27 +115,47 @@ export default function Navbar() {
               spacing={2}
               sx={{ flexWrap: "wrap", justifyContent: "flex-end" }}
             >
-              {/* <Button color="inherit" style={{ fontSize: "0.75rem" }}> */}
-                <Link  href="/">HOME</Link>
-              {/* </Button> */}
-              {/* <Button color="inherit" style={{ fontSize: "0.75rem" }}> */}
-                <Link  href="/about">ABOUT US </Link>
-              {/* </Button> */}
-              {/* <Button color="inherit" style={{ fontSize: "0.75rem" }}> */}
-                <Link  href="/forum">FORUM </Link>
-              {/* </Button> */}
-              {/* <Button color="inherit" style={{ fontSize: "0.75rem" }}> */}
-                <Link  href="/contact_us"> CONTACT US </Link>
-              {/* </Button> */}
-              <Button variant="contained">
-                <Link  href="/login" style={{ fontSize: "0.75rem", color:"black" }}>
-                  Login
-                </Link>
+              <Button
+                variant="contained"
+                color="secondary"
+                href="/"
+                style={{ fontSize: "0.75rem" }}
+              >
+                Home
               </Button>
-              <Button variant="contained">
-                <Link   href="/registration" style={{ fontSize: "0.75rem", color:"black" }}>
-                  Sign Up
-                </Link>
+
+              <Button
+                variant="contained"
+                color="secondary"
+                href="/about"
+                style={{ fontSize: "0.75rem" }}
+              >
+                About Us{" "}
+              </Button>
+
+              <Button
+                variant="contained"
+                color="secondary"
+                href="/forum"
+                style={{ fontSize: "0.75rem" }}
+              >
+                Forum{" "}
+              </Button>
+
+              <Button
+                variant="contained"
+                href="/login"
+                style={{ fontSize: "0.75rem", color: "black" }}
+              >
+                Login
+              </Button>
+
+              <Button
+                variant="contained"
+                href="/registration"
+                style={{ fontSize: "0.75rem", color: "black" }}
+              >
+                Sign Up
               </Button>
             </Stack>
           )}
@@ -105,4 +164,3 @@ export default function Navbar() {
     </Box>
   );
 }
-

@@ -1,15 +1,18 @@
 import { useState, useEffect, useContext } from "react";
-import { Container, Grid, Typography, Button } from "@mui/material";
+import { Container, Grid, Typography, Button, Box } from "@mui/material";
 import PetCard from "./PetCard";
 import AuthContext from "../../contexts/AuthContext";
 import AddPet from "./AddPet";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 
 
 export default function PetProf() {
   const [pets, setPets] = useState([]);
   const auth = useContext(AuthContext);
   const [ addPetClicked, setAddPetClicked] = useState(false); 
+  const navigate = useNavigate();
 
   useEffect(() => {
     getPets();
@@ -45,11 +48,17 @@ export default function PetProf() {
 
   return (
     <div>
-
-      <Button variant="contained"
-      onClick={() => setAddPetClicked(true)}>List A Pet</Button>
-      <Button variant="contained"
-      onClick={() => setAddPetClicked(false)}>View Your Pets</Button>
+      
+      <div className="row" style={{ margin: "2vw 5.5vw", display: "flex" }}>
+        <div>
+          <Box sx={{ width: "100%", marginBottom:"2vw"}} >
+        
+              <Button variant="outlined" color="secondary" onClick={() => setAddPetClicked(true)}> List A Pet</Button>
+            <Button variant="outlined" color="secondary" onClick={() => setAddPetClicked(false)}> View Your Pets</Button>
+            <Button variant="outlined"  color="secondary" onClick={() => navigate("/user_profile")}> Back to Profile</Button>
+          </Box>
+         </div>
+        </div>
 
 { addPetClicked ? 
       <AddPet onAddPet={handleAddPet}/> 

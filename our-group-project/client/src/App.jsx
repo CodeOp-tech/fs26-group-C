@@ -8,7 +8,6 @@ import About from "./assets/pages/About";
 import UserProfile from "./assets/pages/UserProfile";
 import ContactUs from "./assets/pages/ContactUs";
 import Forum from "./assets/pages/Forum";
-import PetProfile from "./assets/pages/PetProfile";
 import Navbar from "./assets/components/design/Navbar";
 import Login from "./assets/components/AuthLoginSignUp/Login";
 import Quiz from "./assets/components/Quiz";
@@ -17,11 +16,9 @@ import SearchPets from "./assets/pages/SearchPets";
 import RequireAuth from "./assets/components/AuthLoginSignUp/RequireAuth";
 import Footer from "./assets/components/design/Footer";
 import "./App.css";
-import { SignalCellularNullTwoTone } from "@material-ui/icons";
 import BreedForum from "./assets/pages/BreedForum";
 import PetProf from "./assets/components/Pets/PetProf";
-
-//import { Tune } from "@mui/icons-material";
+import Gallery from "./assets/components/design/Gallery";
 
 function App() {
   //preparing a global state + login + logout functions so that
@@ -93,10 +90,18 @@ function App() {
               }
             />
             <Route
-              path="/pet_profile"
+              path="/pet_view"
               element={
                 <RequireAuth>
-                  <PetProfile />
+                  <PetProf />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/gallery"
+              element={
+                <RequireAuth>
+                  <Gallery/>
                 </RequireAuth>
               }
             />
@@ -109,7 +114,7 @@ function App() {
               }
             />
             <Route path="/:breed_id" element={<BreedForum />}></Route>
-            <Route path="/pet_view" element={<PetProf/>}></Route>
+           
           </Routes>
         </div>
         <Footer />

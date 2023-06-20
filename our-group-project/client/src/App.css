@@ -1,8 +1,7 @@
 body {
   margin:0;
   padding:0;
-  width:100%;
-  
+  width:100%;  
 }
 
 a {
@@ -18,13 +17,7 @@ a:visited {
 input[type="file"] {
   display: none;
 }
-/* .custom-file-upload {
-  background-color: #116A7B;
-  border-radius: 7%;
-  padding: 0.7vw 0.7vw;
-  margin: 0.3vw;
-  cursor: pointer;
-} */
+
 
 #loginline {
   text-decoration: none;
