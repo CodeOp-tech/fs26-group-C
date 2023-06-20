@@ -13,6 +13,7 @@ import {
 import { Link } from "react-router-dom";
 import AuthContext from "../../contexts/AuthContext";
 
+
 export default function PetCard({
   name,
   bio,
@@ -22,16 +23,21 @@ export default function PetCard({
   breed_id,
   user_id,
   onDelete,
-  id
+  id,
+  avatar
 }) {
+  
   const auth = useContext(AuthContext);
+ 
+
   return (
     <Card>
       <CardMedia
         component="img"
         height="200"
-        image="https://picsum.photos/seed/picsum/200/300"
-        alt="placeholder image"
+        image={`/images/${avatar}`}
+        style={{width:"50%"}}
+        alt="pet image"
       />
       <CardContent>
         <Typography variant="h5" component="div">

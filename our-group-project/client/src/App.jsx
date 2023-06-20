@@ -91,6 +91,14 @@ function App() {
               }
             />
             <Route
+              path="/pet/:pet_id"
+              element={
+                <RequireAuth>
+                  <PetProfile />
+                </RequireAuth>
+              }
+            />
+            <Route
               path="/pet_view"
               element={
                 <RequireAuth>
@@ -114,8 +122,8 @@ function App() {
                 </RequireAuth>
               }
             />
+
             <Route path="/:breed_id" element={<BreedForum />}></Route>
-            <Route path="/pet/:pet_id" element={<PetProfile />}></Route>
            
           </Routes>
         </div>

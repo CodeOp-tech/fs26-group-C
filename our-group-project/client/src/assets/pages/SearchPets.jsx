@@ -203,6 +203,7 @@ export default function SearchPets() {
                 location={pet.location}
                 breed_id={pet.breed_id}
                 id={pet.id}
+                avatar={pet.avatar}
               />
             </Grid>
           ))}
