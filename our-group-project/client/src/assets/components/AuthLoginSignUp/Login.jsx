@@ -1,3 +1,4 @@
+import React, { useState, useContext } from "react";
 import { Avatar, Button, InputAdornment, IconButton } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -10,28 +11,21 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import axios from "axios";
-import { useState, useContext } from "react";
 import AuthContext from "../../contexts/AuthContext";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 
-function Copyright(props) {
+function Copyright() {
   return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
+    <Typography variant="body2" color="text.secondary" align="center">
       {"Copyright © "}
       <Link color="inherit" to="/about">
         our website name
-      </Link>
+      </Link>{" "}
       {new Date().getFullYear()}
     </Typography>
   );
 }
-
 
 export default function Login() {
   const auth = useContext(AuthContext); //this will have user, login and logout functions
@@ -43,6 +37,7 @@ export default function Login() {
   });
 
   const [visibility, setVisibility] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleVisibility = () => {
     setVisibility(!visibility);
@@ -50,29 +45,22 @@ export default function Login() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    //console.log(name, value)
     setCredentials({ ...credentials, [name]: value });
   };
 
   const login = async () => {
     try {
-      const { data } = await axios("/api/auth/login", {
-        method: "POST",
-        data: credentials,
-      });
+      const { data } = await axios.post("/api/auth/login", credentials);
 
       localStorage.setItem("token", data.token);
-      localStorage.setItem("username", data.username)
-      localStorage.setItem("userid", data.user_id)
-      localStorage.setItem("location", data.location)
-      localStorage.setItem("adopter", data.adopter)
-
+      localStorage.setItem("username", data.username);
+      localStorage.setItem("userid", data.user_id);
+      localStorage.setItem("location", data.location);
+      localStorage.setItem("adopter", data.adopter);
 
       auth.login();
-
-      //console.log(data.message, data.token, data.username);
     } catch (error) {
-      console.log(error);
+      setErrorMessage(error.response.data.message);
     }
   };
 
@@ -89,8 +77,7 @@ export default function Login() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-        }}
-      >
+        }}>
         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
           <LockOutlinedIcon />
         </Avatar>
@@ -128,18 +115,24 @@ export default function Login() {
             }}
             onChange={handleChange}
           />
+          {errorMessage && (
+            <Grid item xs={12} sm={12}>
+              <Typography color="error">{errorMessage}</Typography>
+            </Grid>
+          )}
+
           {/* IF WE USE THIS WE NEED TO EXTEND THE TOKENS' DURATION FOR LIKE 30DAYS */}
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
+
           <Button
             type="submit"
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
-            onClick={login}
-          >
+            onClick={login}>
             Login
           </Button>
           <Grid container>
@@ -156,11 +149,10 @@ export default function Login() {
           </Grid>
         </Box>
       </Box>
-
       {auth.user ? (
         <Navigate to="/" state={{ from: location }} replace />
       ) : null}
-      <Copyright sx={{ mt: 8, mb: 4 }} />
+      <Copyright />
     </Container>
   );
 }
