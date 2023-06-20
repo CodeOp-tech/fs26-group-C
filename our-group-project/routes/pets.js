@@ -157,7 +157,6 @@ router.post("/", async function (req, res, next) {
     special_needs,
     passport,
     bio,
-    // personality,
     diet,
     location,
     latitude,
@@ -179,7 +178,6 @@ router.post("/", async function (req, res, next) {
       special_needs,
       passport,
       bio,
-      // personality,
       diet,
       location,
       latitude,
@@ -207,17 +205,5 @@ router.delete("/:id", petMustExist, async function (req, res, next) {
   }
 })
 
-/*DELETE pet listing */
-router.delete("/:id", async function (req, res, next) {
-  const { id } = req.params;
-  try {
-    const pet = models.Pet.destroy({
-      where: {id}
-    })
-    res.send({message: "Your pet has been deleted successfully"})
-  } catch (error) {
-    res.status(500).send({ message: error.message });
-  }
-})
 
 module.exports = router;
