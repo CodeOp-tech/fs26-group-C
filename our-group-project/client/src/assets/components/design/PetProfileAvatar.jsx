@@ -1,22 +1,20 @@
 import { Button } from "@mui/material";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import AuthContext from "../../contexts/AuthContext";
 
 export default function PetProfileAvatar( {pet_id }) {
   const [selectedFile, setSelectedFile] = useState(null);
   const [avatar, setAvatar] = useState([]);
   const [defaultImage, setDefaultImage] = useState(null);
-  const auth = useContext(AuthContext);
 
   useEffect(() => {
     getAvatar();
-  }, [selectedFile, auth.userId]);
+  }, []);
 
   async function getAvatar() {
     try {
-      const res = await axios.get(`/api/pets/pet/${auth.userId}/avatar`);
-      setAvatar(res.data);
+      const res = await axios.get(`/api/pets/${pet_id}`);
+      setAvatar(res.data.avatar);
     } catch (err) {
       console.log(err);
     }
@@ -31,7 +29,7 @@ export default function PetProfileAvatar( {pet_id }) {
 
   // On file upload (click the upload button)
   const onFileUpload = async (id) => {
-    id = auth.userId;
+    id = pet_id;
     // Create an object of formData
     const formData = new FormData();
 

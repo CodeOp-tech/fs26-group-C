@@ -71,6 +71,7 @@ export default function Registration({ dateAdapter }) {
     location: "",
     date_of_birth: "",
     adopter: null,
+    avatar: ""
   });
 
   const [selectedDate, setSelectedDate] = useState(null);
@@ -146,9 +147,7 @@ export default function Registration({ dateAdapter }) {
   //   ))
   // }
 
-  function handleRegistration() {
-    registerUser();
-  }
+
 
   const registerUser = async (UserInfo) => {
     try {

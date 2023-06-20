@@ -2,6 +2,7 @@ import { ImageList, ImageListItem, Button } from "@mui/material";
 import { useState, useEffect, useContext } from "react";
 import AuthContext from "../../contexts/AuthContext";
 import axios from "axios";
+import AddIcon from '@mui/icons-material/Add';
 
 export default function Gallery() {
   const auth = useContext(AuthContext);
@@ -9,17 +10,28 @@ export default function Gallery() {
   const [selectedFile, setSelectedFile] = useState(null);
 
   useEffect(() => {
-    getImages();
-  }, );
+    getUserImages();
+    getPetImages();
+  }, [images]);
 
-  async function getImages() {
+  async function getUserImages() {
     try {
-      const res = await axios.get(`api/photos/users/${auth.userId}`);
+      const res = await axios.get(`api/photos/user/${auth.userId}`);
       setImages(res.data);
     } catch (error) {
       console.log(error);
     }
   }
+
+  async function getPetImages() {
+    try {
+      const res = await axios.get(`api/pets/user/${auth.userId}`);
+      setImages(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
 
   // On file select (from the pop up)
   const onFileChange = (event) => {
@@ -57,10 +69,10 @@ export default function Gallery() {
         {!images ? (
           <div>
             <input type="file" onChange={onFileChange} />
-            <Button onClick={onFileUpload}>Select more to upload</Button>
+            <Button onClick={onFileUpload} endIcon={<AddIcon/>}> Add Photo</Button>
           </div>
         ) : (
-          <div>
+          <div style={{}}>
             {images.map((photo) => (
               <div key={photo.id}>
                 <ImageListItem>
@@ -73,14 +85,14 @@ export default function Gallery() {
               </div>
             ))}
             <div>
-              <Button variant="contained" color="secondary">
-                <label className="custom-file-upload">
-                  Select photos here
+                <Button color="secondary" endIcon={<AddIcon />}>
+                  <label className="custom-file-upload">
+                  Add Photo
                   <input type="file" onChange={onFileChange} />
                 </label>
               </Button>
-              <Button variant="contained" onClick={onFileUpload}>
-                Upload
+              <Button variant="outlined" color="secondary" onClick={onFileUpload}>
+                Save Changes
               </Button>
             </div>
           </div>

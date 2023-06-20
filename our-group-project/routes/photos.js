@@ -8,6 +8,29 @@ const mime = require("mime-types");
 const multer = require("multer");
 const upload = multer({ dest: "public/images" });
 
+router.get("/:pet_id", async function (req, res, next) {
+  const { pet_id } = req.params;
+  try {
+    const images = models.Photo.findAll({
+      where: {external_id: pet_id}
+    });
+    res.send(images)
+  } catch (error) {
+    res.status(500).send({message: error.message})
+  } 
+})
+
+router.get("/user/:user_id", async function (req, res, next) {
+  const { user_id } = req.params;
+  try {
+    const images = models.Photo.findAll({
+      where: {external_id: user_id}
+    })
+    res.send(images)
+  } catch (error) {
+    res.status(500).send({message:error.message})
+  }
+})
 
 router.post("/:type/:id/upload", upload.single("imagefile"), async (req, res) => {
     const imagefile = req.file;
