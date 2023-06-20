@@ -15,6 +15,13 @@ module.exports = (sequelize, DataTypes) => {
       Pet.belongsTo(models.User, { foreignKey: "user_id" });
 
       Pet.belongsTo(models.Breed, { foreignKey: "breed_id" });
+      Pet.hasMany(models.Photo, {
+        foreignKey: 'external_id',
+        constraints: false,
+        scope: {
+          type: 'pet'
+        }
+      })
 
       /*
       

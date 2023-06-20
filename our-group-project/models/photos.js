@@ -1,8 +1,10 @@
 "use strict";
 
 const { Model } = require("sequelize");
+
 module.exports = (sequelize, DataTypes) => {
   class Photo extends Model {
+    uppercaseFirst = (str) => `${str[0].toUpperCase()}${str.substr(1)}`;
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -19,13 +21,30 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "external_id",
         constraints: false,
       });
-    }
 
-    // getCommentable(options) {
-    //   if (!this.type) return Promise.resolve(null);
-    //   const mixinMethodName = `get${uppercaseFirst(this.type)}`;
-    //   return this[mixinMethodName](options);
-    // }
+
+      Photo.addHook("afterFind", findResult => {
+        if (!Array.isArray(findResult)) findResult = [findResult];
+        for (const instance of findResult) {
+          if (instance.type === "users" && instance.user !== undefined) {
+            instance.photoTable = instance.user;
+          } else if (instance.type === "pet" && instance.pet !== undefined) {
+            instance.photoTable = instance.pet;
+          }
+          // To prevent mistakes:
+          delete instance.user;
+          delete instance.dataValues.user;
+          delete instance.pet;
+          delete instance.dataValues.pet;
+        }
+      });
+    }
+    
+    getPhotoTable(options) {
+      if (!this.type) return Promise.resolve(null);
+      const mixinMethodName = `get${uppercaseFirst(this.type)}`;
+      return this[mixinMethodName](options);
+    }
   }
   Photo.init(
     {
