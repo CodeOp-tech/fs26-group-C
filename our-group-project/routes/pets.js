@@ -58,12 +58,12 @@ router.get("/", async function (req, res) {
 });
 
 /* GET pets' avatar by user_id*/
-router.get("/pet/:id/avatar", async function (req, res, next) {
-  const { id } = req.params;
+router.get("/pet/:user_id/avatar", async function (req, res, next) {
+  const { user_id } = req.params;
   console.log(id)
   try {
     const pet = await models.Pet.findOne({
-      where: {id}
+      where: {user_id}
     })
 
     res.send(pet.avatar)
