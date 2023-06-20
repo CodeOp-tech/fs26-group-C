@@ -3,7 +3,7 @@ import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import AuthContext from "../../contexts/AuthContext";
 
-export default function PetProfileAvatar() {
+export default function PetProfileAvatar( {pet_id }) {
   const [selectedFile, setSelectedFile] = useState(null);
   const [avatar, setAvatar] = useState([]);
   const [defaultImage, setDefaultImage] = useState(null);
