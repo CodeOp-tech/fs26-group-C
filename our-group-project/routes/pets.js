@@ -16,6 +16,8 @@ router.get("/", async function (req, res) {
   }
 });
 
+
+
 /* GET pets by user_id. */
 router.get("/user/:user_id", async function (req, res, next) {
   const { user_id } = req.params;
@@ -33,16 +35,19 @@ router.get("/user/:user_id", async function (req, res, next) {
   }
 });
 
-/* GET pets by user_id. */
+/* GET pet by id. */
 router.get("/:id", async function (req, res, next) {
   const { id } = req.params;
   try {
     const pet = await models.Pet.findOne({
+      include: [
+        { model: models.Breed },
+        { model: models.User },
+      ],
       where: {
         id,
       },
     });
-
     res.send(pet);
   } catch (err) {
     res.status(500).send({ message: err.message });
