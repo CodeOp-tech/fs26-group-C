@@ -13,7 +13,6 @@ export default defineConfig({
         secure: false,
       },
       "/images": "http://localhost:4000",
-      "/photos": "http://localhost:4000",
     },
   },
 });

@@ -73,6 +73,7 @@ export default function PetProf() {
           {pets.map((pet) => (
             <Grid item key={pet.id} xs={12} sm={6} md={4}>
               <PetCard
+                id={pet.id}
                 name={pet.name}
                 bio={pet.bio}
                 age={pet.age}

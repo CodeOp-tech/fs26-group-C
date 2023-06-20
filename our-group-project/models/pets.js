@@ -60,6 +60,7 @@ module.exports = (sequelize, DataTypes) => {
       passport: DataTypes.BOOLEAN,
       bio: DataTypes.STRING,
       diet: DataTypes.STRING,
+      avatar: DataTypes.STRING,
       location: DataTypes.STRING,
       latitude: DataTypes.DECIMAL(10,8),
       longitude: DataTypes.DECIMAL(11,8)

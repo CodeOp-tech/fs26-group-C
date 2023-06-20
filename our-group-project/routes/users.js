@@ -42,9 +42,10 @@ router.post("/profile/:id/upload", upload.single("imagefile"), async (req, res) 
     }
 });
   
+//POST edits in database
 router.post("/edit/:id", async function (req, res, next) {
   const { id } = req.params;
-  const { name } = req.body;
+  const { name, username, email, surname, location } = req.body;
   try {
     const user= await models.User.findOne({
       where: {id}
@@ -81,6 +82,7 @@ router.get("/:id", async function (req, res, next) {
   }
 });
 
+/* GET users' avatar by id*/
 router.get("/user/:id/avatar", async function (req, res, next) {
   const { id } = req.params;
   try {

@@ -6,7 +6,7 @@ const path = require("path");
 const { v4: uuidv4 } = require("uuid");
 const mime = require("mime-types");
 const multer = require("multer");
-const upload = multer({ dest: "public/photos" });
+const upload = multer({ dest: "public/images" });
 
 
 router.post("/:type/:id/upload", upload.single("imagefile"), async (req, res) => {
@@ -25,7 +25,7 @@ router.post("/:type/:id/upload", upload.single("imagefile"), async (req, res) =>
     const tmp_path = imagefile.path;
   
     // construct the new path for the final file
-    const target_path = path.join(__dirname, "../public/photos/") + filename;
+    const target_path = path.join(__dirname, "../public/images/") + filename;
   
     console.log({ filename, tmp_path, target_path });
   

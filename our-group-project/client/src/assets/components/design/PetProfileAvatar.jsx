@@ -3,19 +3,19 @@ import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import AuthContext from "../../contexts/AuthContext";
 
-export default function ProfileAvatar() {
+export default function PetProfileAvatar() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [avatar, setAvatar] = useState([]);
   const [defaultImage, setDefaultImage] = useState(null);
   const auth = useContext(AuthContext);
 
   useEffect(() => {
-    getAvatar(auth.userId);
+    getAvatar();
   }, [selectedFile, auth.userId]);
 
-  async function getAvatar(id) {
+  async function getAvatar() {
     try {
-      const res = await axios.get(`/api/users/user/${id}/avatar`);
+      const res = await axios.get(`/api/pets/pet/${auth.userId}/avatar`);
       setAvatar(res.data);
     } catch (err) {
       console.log(err);
@@ -42,7 +42,7 @@ export default function ProfileAvatar() {
       // Request made to the backend api
       // Send formData object
       const res = await axios.post(
-        `/api/users/profile/${id}/upload`,
+        `/api/pets/profile/${id}/upload`,
         formData,
         {
           headers: {

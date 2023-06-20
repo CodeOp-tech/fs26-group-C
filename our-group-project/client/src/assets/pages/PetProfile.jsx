@@ -1,4 +1,4 @@
-import ProfileAvatar from "../components/design/ProfileAvatar";
+import PetProfileAvatar from "../components/design/PetProfileAvatar";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Container, Box, Link, Button, Typography, Grid } from "@mui/material";
@@ -56,7 +56,7 @@ export default function PetProfile() {
         <Grid container spacing={2}>
 
           <Grid item xs={12} sm={6}>
-          <ProfileAvatar />
+          <PetProfileAvatar />
           </Grid>
 
           <Grid item xs={12} sm={6}>
