@@ -8,11 +8,11 @@ import {
   Button,
   Box,
   Link,
-  
 } from "@mui/material";
 import Dog from "@mui/icons-material/Pets";
 // import { Link } from "react-router-dom";
 import AuthContext from "../../contexts/AuthContext";
+import ContactSupportIcon from "@mui/icons-material/ContactSupport";
 
 export default function Navbar() {
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -50,56 +50,53 @@ export default function Navbar() {
               sx={{ flexWrap: "wrap", justifyContent: "flex-end" }}
             >
               <Button
-                variant="contained"
-                color="secondary"
+                variant="outlined"
+                size="small"
                 href="/"
                 style={{ fontSize: "0.75rem" }}
               >
-                Home{" "}
+                Home
               </Button>
 
               <Button
-                variant="contained"
-                color="secondary"
+                variant="outlined"
+                size="small"
                 href="/user_profile"
                 style={{ fontSize: "0.75rem" }}
               >
-                {" "}
-                Profile{" "}
+                Profile
               </Button>
               <Button
-                variant="contained"
-                color="secondary"
+                variant="outlined"
+                size="small"
                 href="/about"
                 style={{ fontSize: "0.75rem" }}
               >
-                {" "}
-                About Us{" "}
+                About Us
               </Button>
               <Button
-                variant="contained"
-                color="secondary"
+                variant="outlined"
+                size="small"
                 href="/forum"
                 style={{ fontSize: "0.75rem" }}
               >
-                {" "}
-                Forum{" "}
+                Forum
               </Button>
               <Button
-                variant="contained"
-                color="secondary"
-                href="/contact_us"
-                style={{ fontSize: "0.75rem" }}
-              >
-                Contact Us{" "}
-              </Button>
-              <Button
-                variant="contained"
-                color="secondary"
+                variant="outlined"
+                size="small"
                 href="/search_pets"
                 style={{ fontSize: "0.75rem" }}
               >
                 Find a Pet
+              </Button>
+              <Button
+                variant="standard"
+                size="small"
+                href="/contact_us"
+                style={{ fontSize: "0.75rem" }}
+              >
+                <ContactSupportIcon />
               </Button>
               <Button
                 variant="contained"
@@ -116,8 +113,8 @@ export default function Navbar() {
               sx={{ flexWrap: "wrap", justifyContent: "flex-end" }}
             >
               <Button
-                variant="contained"
-                color="secondary"
+                variant="outlined"
+                size="small"
                 href="/"
                 style={{ fontSize: "0.75rem" }}
               >
@@ -125,21 +122,21 @@ export default function Navbar() {
               </Button>
 
               <Button
-                variant="contained"
-                color="secondary"
+               variant="outlined"
+               size="small"
                 href="/about"
                 style={{ fontSize: "0.75rem" }}
               >
-                About Us{" "}
+                About Us
               </Button>
 
               <Button
-                variant="contained"
-                color="secondary"
+               variant="outlined"
+               size="small"
                 href="/forum"
                 style={{ fontSize: "0.75rem" }}
               >
-                Forum{" "}
+                Forum
               </Button>
 
               <Button

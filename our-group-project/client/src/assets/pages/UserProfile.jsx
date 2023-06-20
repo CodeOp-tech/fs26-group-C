@@ -309,15 +309,18 @@ export default function UserProfile() {
             <Divider textAlign="left" style={{ marginBottom: "2vw" }}>
               <Chip label="Occupation " />
             </Divider>
-            {profileData.occupation ? <Typography variant="p">{ profileData.occupation}</Typography> :
+            {profileData.occupation ? (
+              <Typography variant="p">{profileData.occupation}</Typography>
+            ) : (
               <TextField
-              variant="standard"
-              multiline
-              placeholder="What is your current occupation?"
-              name="occupation"
-              minRows={5}
-              onChange={handleInputChanges}
-            ></TextField>}
+                variant="standard"
+                multiline
+                placeholder="What is your current occupation?"
+                name="occupation"
+                minRows={5}
+                onChange={handleInputChanges}
+              ></TextField>
+            )}
           </div>
         </div>
         <div className="col" style={{ marginTop: "4vw" }}>
@@ -325,35 +328,41 @@ export default function UserProfile() {
             <Divider textAlign="left" style={{ marginBottom: "2vw" }}>
               <Chip label="In Your Words" />
             </Divider>
-            { profileData.extra_info ? <Typography variant="p">{profileData.extra_info}</Typography>   
-           : <TextField
-              variant="standard"
-              multiline
-              placeholder="Anything else you'd like to share??"
-              name="extra_info"
-              minRows={5}
-              onChange={handleInputChanges}
-            ></TextField>}
+            {profileData.extra_info ? (
+              <Typography variant="p">{profileData.extra_info}</Typography>
+            ) : (
+              <TextField
+                variant="standard"
+                multiline
+                placeholder="Anything else you'd like to share??"
+                name="extra_info"
+                minRows={5}
+                onChange={handleInputChanges}
+              ></TextField>
+            )}
           </div>
         </div>
       </div>
-      <div style={{textAlign:"center"}}> 
-                <Grid item>
-                  <Button variant="contained" color="secondary" style={{marginRight:"2vw"}}>
-                    <i className="fa-solid fa-comments"></i> Message User
-                  </Button>
-                  <Button
-                    variant="outlined"
-                    color="secondary"
-                    size="small"
-                    onClick={handleSave}
-                  >
-                    Save Changes
-                  </Button>
-                </Grid>
-      </div>
+      <div style={{ textAlign: "center" }}>
+        <Grid item>
+          <Button
+            variant="contained"
+            color="secondary"
+            style={{ marginRight: "2vw" }}
+          >
+            <i className="fa-solid fa-comments"></i> Message User
+          </Button>
 
-      
+          <Button
+            variant="outlined"
+            color="secondary"
+            size="small"
+            onClick={handleSave}
+          >
+            Save Changes
+          </Button>
+        </Grid>
+      </div>
     </div>
   );
 }
