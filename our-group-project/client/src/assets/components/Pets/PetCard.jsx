@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext,useState } from "react";
 import {
   Card,
   CardMedia,
@@ -9,9 +9,12 @@ import {
   CardActions,
   Button,
   Box,
+  IconButton
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import AuthContext from "../../contexts/AuthContext";
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 
 export default function PetCard({
@@ -28,7 +31,14 @@ export default function PetCard({
 }) {
   
   const auth = useContext(AuthContext);
- 
+  const [favourite, setFavourite] = useState(false);
+
+  const handleFavourite = (e) => {
+    setFavourite(!favourite)
+    const el = e.currentTarget;
+    const attr = el.getAttribute("value")
+    
+  }
 
   return (
     <Card>
@@ -80,6 +90,15 @@ export default function PetCard({
               Delete
             </Button>
           )}
+          {favourite ? <div onClick={handleFavourite} value={id}>
+            <IconButton >
+                <FavoriteIcon style={{color:"#ff0e64"}}/>
+          </IconButton>
+          </div> :
+            <div onClick={handleFavourite} value={id}>
+                <FavoriteBorderIcon/> 
+            </div>
+          }
         </Box>
       </CardActions>
     </Card>
