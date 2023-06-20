@@ -19,6 +19,7 @@ import "./App.css";
 import BreedForum from "./assets/pages/BreedForum";
 import PetProf from "./assets/components/Pets/PetProf";
 import Gallery from "./assets/components/design/Gallery";
+import PetProfile from "./assets/pages/PetProfile";
 
 function App() {
   //preparing a global state + login + logout functions so that
@@ -114,6 +115,7 @@ function App() {
               }
             />
             <Route path="/:breed_id" element={<BreedForum />}></Route>
+            <Route path="/pet/:pet_id" element={<PetProfile />}></Route>
            
           </Routes>
         </div>

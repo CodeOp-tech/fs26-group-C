@@ -202,6 +202,7 @@ export default function SearchPets() {
                 breed={pet.Breed.breed}
                 location={pet.location}
                 breed_id={pet.breed_id}
+                id={pet.id}
               />
             </Grid>
           ))}
