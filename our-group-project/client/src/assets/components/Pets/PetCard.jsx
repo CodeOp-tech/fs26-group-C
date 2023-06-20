@@ -22,6 +22,7 @@ export default function PetCard({
   breed_id,
   user_id,
   onDelete,
+  id
 }) {
   const auth = useContext(AuthContext);
   return (
@@ -58,6 +59,11 @@ export default function PetCard({
       </CardContent>
       <CardActions>
         <Box sx={{ mb: "4px" }}>
+        <Link to={`/pet/${id}`}>
+            <Button size="small" color="secondary">
+              Pet Profile
+            </Button>
+          </Link>
           <Link to={`/${breed_id}`}>
             <Button size="small" color="secondary">
               Breed Info
