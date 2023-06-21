@@ -16,8 +16,6 @@ import {
   Chip,
   TextField,
 } from "@mui/material";
-import TextareaAutosize from "@mui/base/TextareaAutosize";
-import Slider from "../components/design/Slider";
 import { useNavigate } from "react-router-dom";
 
 //DO WE NEED AN EDIT PROFILE BUTTON? i THINK SO...BUT NO IDEA HOW TO REALLY IMPLEMENT IT
@@ -58,6 +56,8 @@ export default function UserProfile() {
     }
   }, []);
 
+
+
   //DYNAMIC CHANGES
   const handleChange = (event) => {
     val = event.target.value;
@@ -67,11 +67,21 @@ export default function UserProfile() {
     } else {
       setTempUser(false);
     }
+
+
   };
 
   const addPet = (newPet) => {
     setPets((state) => [...state, newPet]);
   };
+
+  const setAdopter = async () => {
+    try {
+      await axios.post(`/api/users/adoption/${auth.userId}`, {adopter: tempUser})
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   const handleSave = () => {
     setSaveChanges(true);
@@ -86,6 +96,7 @@ export default function UserProfile() {
     localStorage.setItem("adopter", typeUser); // to save the change in the whole app
 
     //will also need to post changes in Backend
+    setAdopter()
 
     updateProfileInformation();
   };
@@ -147,8 +158,8 @@ export default function UserProfile() {
 
   const updateProfileInformation = async () => {
     try {
-      await axios.post(`api/user_profiles/edit/${user_id}`, inputs);
-      getProfileInformation()
+      await axios.put(`api/user_profiles/edit/${user_id}`, inputs);
+      getProfileInformation();
     } catch (error) {
       console.log(error);
     }
@@ -223,139 +234,146 @@ export default function UserProfile() {
             </div>
             <div className="row" style={{ marginTop: "3vw" }}>
               <Box sx={{ width: "100%", marginBottom: "2vw" }}>
-                <Button
-                  variant="outlined"
-                  size="small"
-                  color="secondary"
-                  style={{ textDecoration: "underline", marginRight: "2vw" }}
-                  onClick={() => navigate(`/pet_view`)}
-                >
-                  Pet View
-                </Button>
-                <Button
+                {
+                  typeUser ? 
+                  <Button
                   variant="outlined"
                   size="small"
                   color="secondary"
                   style={{ textDecoration: "underline" }}
-                  onClick={() => navigate(`/gallery`)}
+                  onClick={() => navigate(`/favourites`)}
                 >
-                  Gallery
-                </Button>
+                  My Favourites
+                    </Button> :
+                        <Button
+                        variant="outlined"
+                        size="small"
+                        color="secondary"
+                        style={{ textDecoration: "underline", marginRight: "2vw" }}
+                        onClick={() => navigate(`/pet_view`)}
+                      >
+                        Pet View
+                      </Button>
+                     
+                }
+            
               </Box>
             </div>
           </div>
         </div>
       </div>
-      {
-        typeUser === null ? null :  <div className="row" style={{ margin: "2vw 5.5vw", display: "flex" }}>
-        <Divider textAlign="left" style={{ marginBottom: "2vw" }}>
-          <Chip label="Bio" />
-        </Divider>
-        {profileData.bio ? (
-          <Typography variant="p"> {profileData.bio}</Typography>
-        ) : (
-          <TextField
-            multiline
-            placeholder="Let us know who you are!"
-            variant="standard"
-            name="bio"
-            onChange={handleInputChanges}
-          ></TextField>
-        )}
-        <div className="col" style={{ margin: "4vw 5.5vw" }}>
-          {typeUser ? (
-            <div>
-              <Divider textAlign="left" style={{ marginBottom: "2vw" }}>
-                <Chip label="Reasons " />
-              </Divider>
-              {profileData.reason_to_adopt ? (
-                <Typography variant="p">
-                  {" "}
-                  {profileData.reason_to_adopt}
-                </Typography>
-              ) : (
-                <TextField
-                  variant="standard"
-                  multiline
-                  placeholder="Why do you want to adopt?"
-                  name="reason_to_adopt"
-                  minRows={5}
-                  onChange={handleInputChanges}
-                ></TextField>
-              )}
-            </div>
+      {typeUser === null ? null : (
+        <div className="row" style={{ margin: "2vw 5.5vw", display: "flex" }}>
+          <Divider textAlign="left" style={{ marginBottom: "2vw" }}>
+            <Chip label="Bio" />
+          </Divider>
+          {profileData.bio ? (
+            <Typography variant="p"> {profileData.bio}</Typography>
           ) : (
+            <TextField
+              multiline
+              placeholder="Let us know who you are!"
+              variant="standard"
+              name="bio"
+              onChange={handleInputChanges}
+            ></TextField>
+          )}
+          <div className="col" style={{ marginTop: "4vw" }}>
             <div>
               <Divider textAlign="left" style={{ marginBottom: "2vw" }}>
-                <Chip label="Reasons " />
+                <Chip label="Occupation " />
               </Divider>
-              {profileData.reason_to_give ? (
-                <Typography variant="p">
-                  {profileData.reason_to_give}
-                </Typography>
+              {profileData.occupation ? (
+                <Typography variant="p">{profileData.occupation}</Typography>
               ) : (
                 <TextField
                   variant="standard"
                   multiline
-                  placeholder="Why are you looking for a new home for your pet(s)?"
-                  name="reason_to_give"
+                  placeholder="What is your current occupation?"
+                  name="occupation"
                   minRows={5}
                   onChange={handleInputChanges}
                 ></TextField>
               )}
             </div>
-          )}
-        </div>
-
-        <div className="col" style={{ marginTop: "4vw" }}>
-          <div>
-            <Divider textAlign="left" style={{ marginBottom: "2vw" }}>
-              <Chip label="Occupation " />
-            </Divider>
-            {profileData.occupation ? (
-              <Typography variant="p">{profileData.occupation}</Typography>
+          </div>
+          <div className="col" style={{ marginTop: "4vw" }}>
+            <div>
+              <Divider textAlign="left" style={{ marginBottom: "2vw" }}>
+                <Chip label="In Your Words" />
+              </Divider>
+              {profileData.extra_info ? (
+                <Typography variant="p">{profileData.extra_info}</Typography>
+              ) : (
+                <TextField
+                  variant="standard"
+                  multiline
+                  placeholder="Anything else you'd like to share??"
+                  name="extra_info"
+                  minRows={5}
+                  onChange={handleInputChanges}
+                ></TextField>
+              )}
+            </div>
+            
+          </div>
+          <div className="col" style={{ margin: "4vw 5.5vw" }}>
+            {console.log(typeUser)}
+            {typeUser ? (
+              <div>
+                <Divider textAlign="left" style={{ marginBottom: "2vw" }}>
+                  <Chip label="Reasons " />
+                </Divider>
+                {profileData.reason_to_adopt ? (
+                  <Typography variant="p">
+                    {profileData.reason_to_adopt}
+                  </Typography>
+                ) : (
+                  <TextField
+                    variant="standard"
+                    multiline
+                    placeholder="Why do you want to adopt?"
+                    name="reason_to_adopt"
+                    minRows={5}
+                    onChange={handleInputChanges}
+                  ></TextField>
+                )}
+              </div>
             ) : (
-              <TextField
-                variant="standard"
-                multiline
-                placeholder="What is your current occupation?"
-                name="occupation"
-                minRows={5}
-                onChange={handleInputChanges}
-              ></TextField>
+              <div>
+                <Divider textAlign="left" style={{ marginBottom: "2vw" }}>
+                  <Chip label="Reasons " />
+                </Divider>
+                {profileData.reason_to_give ? (
+                  <Typography variant="p">
+                    {profileData.reason_to_give}
+                  </Typography>
+                ) : (
+                  <TextField
+                    variant="standard"
+                    multiline
+                    placeholder="Why are you looking for a new home for your pet(s)?"
+                    name="reason_to_give"
+                    minRows={5}
+                    onChange={handleInputChanges}
+                  ></TextField>
+                )}
+              </div>
             )}
           </div>
         </div>
-        <div className="col" style={{ marginTop: "4vw" }}>
-          <div>
-            <Divider textAlign="left" style={{ marginBottom: "2vw" }}>
-              <Chip label="In Your Words" />
-            </Divider>
-            {profileData.extra_info ? (
-              <Typography variant="p">{profileData.extra_info}</Typography>
-            ) : (
-              <TextField
-                variant="standard"
-                multiline
-                placeholder="Anything else you'd like to share??"
-                name="extra_info"
-                minRows={5}
-                onChange={handleInputChanges}
-              ></TextField>
-            )}
-          </div>
-        </div>
-      </div>
-    }
+      )}
       <div style={{ textAlign: "center" }}>
         <Grid item>
-          <Button
-            variant="contained"
-            color="secondary"
-            style={{ marginRight: "2vw" }}
-          >
-            <i className="fa-solid fa-comments"></i> Message User
-          </Button>
+          {user_id !== auth.userId && (
+            <Button
+              variant="contained"
+              color="secondary"
+              style={{ marginRight: "2vw" }}
+            >
+              <i className="fa-solid fa-comments"></i> Message User
+            </Button>
+          )}
 
           <Button
             variant="outlined"

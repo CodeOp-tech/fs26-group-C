@@ -13,15 +13,14 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Pet.belongsTo(models.User, { foreignKey: "user_id" });
-
       Pet.belongsTo(models.Breed, { foreignKey: "breed_id" });
       Pet.hasMany(models.Photo, {
-        foreignKey: 'external_id',
+        foreignKey: "external_id",
         constraints: false,
         scope: {
-          type: 'pet'
-        }
-      })
+          type: "pet",
+        },
+      });
 
       /*
       
@@ -62,8 +61,8 @@ module.exports = (sequelize, DataTypes) => {
       diet: DataTypes.STRING,
       avatar: DataTypes.STRING,
       location: DataTypes.STRING,
-      latitude: DataTypes.DECIMAL(10,8),
-      longitude: DataTypes.DECIMAL(11,8)
+      latitude: DataTypes.DECIMAL(10, 8),
+      longitude: DataTypes.DECIMAL(11, 8),
     },
     {
       sequelize,

@@ -20,6 +20,7 @@ import BreedForum from "./assets/pages/BreedForum";
 import PetProf from "./assets/components/Pets/PetProf";
 import Gallery from "./assets/components/design/Gallery";
 import PetProfile from "./assets/pages/PetProfile";
+import Favourites from "./assets/components/Favourites";
 
 function App() {
   //preparing a global state + login + logout functions so that
@@ -122,7 +123,14 @@ function App() {
                 </RequireAuth>
               }
             />
-
+               <Route
+              path="/favourites"
+              element={
+                <RequireAuth>
+                  <Favourites/>
+                </RequireAuth>
+              }
+            />
             <Route path="/:breed_id" element={<BreedForum />}></Route>
            
           </Routes>

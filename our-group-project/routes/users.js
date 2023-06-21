@@ -7,6 +7,8 @@ const { v4: uuidv4 } = require("uuid");
 const mime = require("mime-types");
 const multer = require("multer");
 const upload = multer({ dest: "public/images" });
+const userMustBeLoggedIn = require("../guards/userMustBeLoggedIn");
+
 
 
 //TO upload avatar
@@ -56,6 +58,70 @@ router.post("/edit/:id", async function (req, res, next) {
       name: name  
     })
     res.send("updated!")
+  } catch (error) {
+    res.status(500).send({message: error.message})
+  }
+})
+
+
+router.get("/favourites/:user_id", async function (req, res, next) {
+  const { user_id } = req.params;
+  console.log(user_id)
+  try {
+    const favourites = await models.Favourite.findAll({
+      where: {
+        user_id
+      }
+    });
+    console.log(favourites)
+    const faves = favourites.map((e) => (
+      models.Pet.findOne({
+        where: {
+          id: e.id
+        }
+      })
+    ))
+    res.send(faves)
+  } catch (error) {
+    res.status(500).send({message: error.message})
+  }
+})
+
+router.post("/favourites", async function (req, res, next) {
+  const { pet_id } = req.body;
+  const { user_id } = req.body;
+  console.log(pet_id, user_id)
+   try {
+     const user = await models.User.findOne({
+      where: { id: user_id}
+     })
+
+     const pet = await models.Pet.findOne({
+      where: {id : pet_id}
+     })
+     
+     const favourites = await models.Favourite.create({
+       user_id,
+       pet_id,
+     })
+
+     res.send(favourites)
+
+  } catch (error) {
+    res.status(500).send({message:error.message})
+  }
+})
+
+router.post("/adoption/:id", async function (req, res, next) {
+  const { adopter } = req.body;
+  const { id } = req.params
+  try {
+    const user = await models.User.findOne({
+      where: {id}
+    })
+    user.update({
+      adopter: adopter
+    })
   } catch (error) {
     res.status(500).send({message: error.message})
   }

@@ -16,11 +16,11 @@ router.get("/:user_id", async function (req, res, next) {
 });
 
 //POST edits in database
-router.post("/edit/:user_id", async function (req, res, next) {
+router.put("/edit/:user_id", async function (req, res, next) {
     const { user_id, bio, reason_to_adopt, reason_to_give, extra_info, occupation } = req.body;
     console.log(occupation)
   try {
-      const user= await models.User_profile.update({
+      const user= await models.User_profile.create({
           user_id,
           bio, 
           reason_to_adopt,
@@ -28,7 +28,8 @@ router.post("/edit/:user_id", async function (req, res, next) {
           extra_info,
           occupation
       })
-      res.send("profile has been updated")
+    console.log(user)
+      res.send(user)
     } catch (error) {
       res.status(500).send({message: error.message})
     }
