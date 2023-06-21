@@ -4,7 +4,6 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
-
 //var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var petsRouter = require("./routes/pets");
@@ -15,6 +14,9 @@ var messagesRouter = require("./routes/messages")
 var profileRouter = require("./routes/userProfiles")
 var contactRouter = require("./routes/contacts")
 
+var profileRouter = require("./routes/userProfiles");
+var contactRouter = require("./routes/contacts");
+var quizRouter = require("./routes/quiz");
 
 var app = express();
 
@@ -36,6 +38,9 @@ app.use("/api/messages", messagesRouter);
 
 app.use("/api/user_profiles/", profileRouter)
 app.use("/api/contact", contactRouter)
+app.use("/api/user_profiles/", profileRouter);
+app.use("/api/contact", contactRouter);
+app.use("/api/quiz", quizRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
