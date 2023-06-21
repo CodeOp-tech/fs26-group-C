@@ -33,7 +33,7 @@ function Home() {
       "Hi there! We believe that dogs deserve the perfect home. We also believe that the way to do this is through education and encouragement. We want to ensure you find your perfect pooch. Let us help!",
     image: "/public/cover_3.jpg",
     imageText: "main image description",
-    linkText: auth.user ? "Find A Paw Friend" : "SignUp",
+    linkText: auth.user ? "See the Forum " : "SignUp",
     linkUrl: auth.user ? "/forum" : "/registration",
   };
 

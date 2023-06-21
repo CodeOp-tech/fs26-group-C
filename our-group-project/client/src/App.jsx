@@ -149,13 +149,15 @@ function App() {
 
 function ChatPage() {
   return (
-    <div className="row h-100 border rounded bg-white shadow">
+    <div className="my-2" style={{ height: '400px'}}>
+    <div className="row h-200 border rounded bg-white shadow"  >
       <div className="col-3 px-0 ">
         <List />
       </div>
       <div className="col-9 px-0 border-left">
         <Outlet />
       </div>
+    </div>
     </div>
   );
 }
