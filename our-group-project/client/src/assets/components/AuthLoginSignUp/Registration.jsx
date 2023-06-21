@@ -150,7 +150,7 @@ export default function Registration({ dateAdapter }) {
     registerUser();
   }
 
-  const registerUser = async (UserInfo) => {
+  const registerUser = async () => {
     try {
       const { data } = await axios("/api/auth/register", {
         method: "POST",
