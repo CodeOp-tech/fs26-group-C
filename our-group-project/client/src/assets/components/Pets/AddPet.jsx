@@ -182,6 +182,7 @@ export default function AddPet({ onAddPet }) {
       age: "",
       passport: null,
       bio: "",
+      
     });
   };
 

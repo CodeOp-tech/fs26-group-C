@@ -31,6 +31,7 @@ export default function ProfileAvatar() {
 
   // On file upload (click the upload button)
   const onFileUpload = async (id) => {
+    console.log("onFileUpload")
     id = auth.userId;
     // Create an object of formData
     const formData = new FormData();
@@ -50,8 +51,9 @@ export default function ProfileAvatar() {
           },
         }
       );
-
-      console.log(res);
+      
+      setAvatar(res.data)
+      //console.log(res);
       getAvatar();
     } catch (err) {
       console.log(err);
@@ -83,7 +85,7 @@ export default function ProfileAvatar() {
                       style={{ width: "45%", height: "50%" }}
                       className="rounded-circle"
                     />
-                    {console.log(avatar)}
+                    
                   </div>
               )}
             </div>
@@ -91,13 +93,13 @@ export default function ProfileAvatar() {
         </div>
         <div className="row" style={{ paddingTop: "1vw", textAlign:"center" }}>
           <div>
-            <Button variant="contained">
+            <Button variant="outlined" size="small" color="secondary" style={{marginRight:"2vw"}}>
               <label className="custom-file-upload">
                 Select new photo here
                 <input type="file" onChange={onFileChange} />
               </label>
             </Button>
-            <Button onClick={onFileUpload} variant="contained">
+            <Button onClick={onFileUpload} variant="contained"  size="small">
               Upload
             </Button>
           </div>

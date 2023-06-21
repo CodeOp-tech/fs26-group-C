@@ -74,6 +74,7 @@ export default function PetProf() {
             <Grid item key={pet.id} xs={12} sm={6} md={4}>
               <PetCard
                 id={pet.id}
+                avatar={pet.avatar}
                 name={pet.name}
                 bio={pet.bio}
                 age={pet.age}

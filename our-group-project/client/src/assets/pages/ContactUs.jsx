@@ -1,12 +1,42 @@
-import React from 'react'
-import { Container, Button, Box, Grid, TextField, Avatar,
- Typography, CssBaseline } from "@mui/material"
-import ContactSupportIcon from "@mui/icons-material/ContactSupport";
-import { TextareaAutosize } from "@mui/material/";
+import {
+  Container,
+  Button,
+  Box,
+  Grid,
+  TextField,
+  Avatar,
+  Typography,
+  CssBaseline,
+} from "@mui/material";
+import {  useState } from "react";
+import axios from "axios";
 
 export default function ContactUs() {
+  
+  const [input, setInput] = useState({})
+
+  const handleMessage = () => {
+    contact()
+  }
+  const contact = async () => {
+    try {
+      await axios.post(`/api/contact`, input)
+      
+    } catch (error) {
+      console.log(error)
+    }
+  } 
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setInput(
+      {...input, [name]:value}
+    )
+  }
+
   return (
     <Container component="main" maxWidth="xs">
+      {console.log(input)}
       <CssBaseline>
         <Box
           sx={{
@@ -17,7 +47,6 @@ export default function ContactUs() {
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <ContactSupportIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             What would you like to know?
@@ -30,11 +59,28 @@ export default function ContactUs() {
               fullWidth
               label="email"
               name="email"
+              onChange={handleChange}
             />
 
-            <TextareaAutosize minRows={5} style={{ padding: "2vw 10vw", textAlign:"left" }} placeholder="Talk to us!">
-              
-            </TextareaAutosize>
+            <TextField
+              margin="normal"
+              required
+              label="name"
+              name="name"
+              onChange={handleChange}
+            ></TextField>
+
+            <TextField
+              margin="normal"
+              label="Your message"
+              name="message"
+              required
+              fullWidth
+              minRows={5}
+              multiline
+              placeholder="Talk to us!"
+              onChange={handleChange}
+            ></TextField>
 
             <Button
               type="submit"
@@ -42,6 +88,7 @@ export default function ContactUs() {
               variant="contained"
               color="primary"
               sx={{ mt: 3, mb: 2 }}
+              onClick={handleMessage}
             >
               Submit
             </Button>
@@ -51,9 +98,3 @@ export default function ContactUs() {
     </Container>
   );
 }
-
-  
-
-      
-
-  

@@ -9,6 +9,7 @@ const multer = require("multer");
 const upload = multer({ dest: "public/images" });
 
 
+//TO upload avatar
 router.post("/profile/:id/upload", upload.single("imagefile"), async (req, res) => {
   const { id } = req.params;   
   const imagefile = req.file;  
@@ -36,13 +37,13 @@ router.post("/profile/:id/upload", upload.single("imagefile"), async (req, res) 
       user.update({
         avatar: filename
       })
-      
+      res.send(user.avatar)
     } catch (err) {
       res.status(500).send(err);
     }
 });
   
-//POST edits in database
+//POST profile edits in database
 router.post("/edit/:id", async function (req, res, next) {
   const { id } = req.params;
   const { name, username, email, surname, location } = req.body;
