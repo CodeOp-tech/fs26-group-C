@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Pusher from "pusher-js";
 import axios from "axios";
+import { Button, Box, TextField, Grid } from "@mui/material";
 
 
 
@@ -74,7 +75,7 @@ export default function Chat() {
           <div className="">
             <span
               className={`px-2 py-1 rounded text-white ${
-                message.senderId == sender ? "bg-primary" : "bg-secondary"
+                message.senderId == sender ? "bg-custom-primary" : "bg-secondary"
               }`}
             >
               {message.content}
@@ -86,18 +87,37 @@ export default function Chat() {
       
 
       <div className="bg-light p-4 border-top">
-        <form onSubmit={sendMessage}>
-          <div className="input-group">
+<Box component="form" onSubmit={sendMessage}>
+        {/* <form onSubmit={sendMessage}> */}
+          {/* <div className="input-group">
             <input
               type="text"
               className="form-control"
               value={input}
               onChange={handleInputChange}
-            />
+            /> */}
+            <Grid container spacing={3}>
+              <Grid item xs={10}>
+              <TextField 
+              variant="standard"
+            type="text"
+            value={input}
+            fullWidth
+              onChange={handleInputChange} />
+              
+              </Grid>
 
-            <button className="btn btn-outline-primary">Send</button>
-          </div>
-        </form>
+              <Grid item xs={2}>
+              <Button variant="contained" onClick={sendMessage}>send</Button>
+              </Grid>
+
+            
+           
+            {/* <button className="btn btn-outline-primary">Send</button> */}
+          {/* </div> */}
+        {/* </form> */}
+        </Grid>
+        </Box>
       </div>
     </div>
   );

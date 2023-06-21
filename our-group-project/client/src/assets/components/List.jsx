@@ -1,24 +1,8 @@
 import { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import axios from "axios";
-// const users = [
-//   {
-//     id: 21,
-//     name: "Grace",
-//   },
-//   {
-//     id: 22,
-//     name: "Jane",
-//   },
-//   {
-//     id: 23,
-//     name: "Natalie",
-//   },
-//   {
-//     id: 24,
-//     name: "John",
-//   },
-// ];
+
+
 
 export default function List() {
   let { sender, receiver } = useParams();
@@ -36,7 +20,7 @@ export default function List() {
           authorization: "Bearer " + localStorage.getItem("token"),
         },
       });
-      //console.log("data", data);
+      
       setUsers(data);
     } catch (error) {
       console.log("error", error);
