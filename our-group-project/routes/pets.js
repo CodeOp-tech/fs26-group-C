@@ -20,6 +20,7 @@ router.post(
     console.log(req.file);
     // check the extension of the file
     const extension = mime.extension(imagefile.mimetype);
+    
     // create a new random name for the file
     const filename = uuidv4() + "." + extension;
     // grab the filepath for the temporary file
@@ -41,7 +42,8 @@ router.post(
       pet.update({
         avatar: filename,
       });
-      res(pet.avatar);
+      console.log(pet.avatar);
+      res.send(pet.avatar)
     } catch (err) {
       res.status(500).send(err);
     }

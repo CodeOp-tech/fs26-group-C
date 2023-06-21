@@ -20,7 +20,7 @@ router.post("/edit/:user_id", async function (req, res, next) {
     const { user_id, bio, reason_to_adopt, reason_to_give, extra_info, occupation } = req.body;
     console.log(occupation)
   try {
-      const user= await models.User_profile.create({
+      const user= await models.User_profile.update({
           user_id,
           bio, 
           reason_to_adopt,

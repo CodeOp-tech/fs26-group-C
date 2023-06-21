@@ -11,7 +11,7 @@ export default function PetProfileAvatar( {pet_id }) {
 
   useEffect(() => {
     getAvatar();
-  });
+  },[avatar]);
 
   async function getAvatar() {
     try {

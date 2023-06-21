@@ -148,6 +148,7 @@ export default function UserProfile() {
   const updateProfileInformation = async () => {
     try {
       await axios.post(`api/user_profiles/edit/${user_id}`, inputs);
+      getProfileInformation()
     } catch (error) {
       console.log(error);
     }
@@ -155,6 +156,7 @@ export default function UserProfile() {
 
   return (
     <div>
+      {console.log(inputs)}
       <div className="row" style={{ paddingLeft: "5vw", paddingTop: "2vw" }}>
         <div className="col-5">
           <ProfileAvatar />
@@ -244,7 +246,8 @@ export default function UserProfile() {
           </div>
         </div>
       </div>
-      <div className="row" style={{ margin: "2vw 5.5vw", display: "flex" }}>
+      {
+        typeUser === null ? null :  <div className="row" style={{ margin: "2vw 5.5vw", display: "flex" }}>
         <Divider textAlign="left" style={{ marginBottom: "2vw" }}>
           <Chip label="Bio" />
         </Divider>
@@ -260,7 +263,7 @@ export default function UserProfile() {
           ></TextField>
         )}
         <div className="col" style={{ margin: "4vw 5.5vw" }}>
-          {tempUser ? (
+          {typeUser ? (
             <div>
               <Divider textAlign="left" style={{ marginBottom: "2vw" }}>
                 <Chip label="Reasons " />
@@ -343,6 +346,7 @@ export default function UserProfile() {
           </div>
         </div>
       </div>
+    }
       <div style={{ textAlign: "center" }}>
         <Grid item>
           <Button

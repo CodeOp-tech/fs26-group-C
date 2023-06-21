@@ -31,7 +31,6 @@ export default function ProfileAvatar() {
 
   // On file upload (click the upload button)
   const onFileUpload = async (id) => {
-    console.log("onFileUpload")
     id = auth.userId;
     // Create an object of formData
     const formData = new FormData();
@@ -54,7 +53,7 @@ export default function ProfileAvatar() {
       
       setAvatar(res.data)
       //console.log(res);
-      getAvatar();
+      
     } catch (err) {
       console.log(err);
     }
