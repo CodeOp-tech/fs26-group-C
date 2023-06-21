@@ -12,15 +12,15 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      User.hasMany(models.Pet, { foreignKey: 'user_id' });
+      User.hasMany(models.Pet, { foreignKey: "user_id" });
       User.hasOne(models.User_profile, { foreignKey: "user_id" });
       User.hasMany(models.Photo, {
-        foreignKey: 'external_id',
+        foreignKey: "external_id",
         constraints: false,
         scope: {
-          type: 'user'
-        }
-      })
+          type: "user",
+        },
+      });
     }
   }
   User.init(
@@ -33,20 +33,20 @@ module.exports = (sequelize, DataTypes) => {
       date_of_birth: DataTypes.DATE,
       location: DataTypes.STRING,
       adopter: DataTypes.BOOLEAN,
-      avatar:DataTypes.STRING
+      avatar: DataTypes.STRING,
     },
-    
+
     {
       sequelize,
       modelName: "User",
     },
     {
       hooks: {
-        afterUpdate: (user, options) => { 
-          console.log(user.name,options)
-        }
-      }
-    },
+        afterUpdate: (user, options) => {
+          console.log(user.name, options);
+        },
+      },
+    }
   );
   return User;
 };
