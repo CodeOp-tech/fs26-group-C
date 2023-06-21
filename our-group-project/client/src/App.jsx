@@ -127,10 +127,16 @@ function App() {
             />
 
             <Route path="/:breed_id" element={<BreedForum />}></Route>
-            <Route path="/pet/:pet_id" element={<PetProfile />}></Route>
+            <Route path="/pet/:pet_id" element={
+            <RequireAuth><PetProfile/></RequireAuth>
+            }></Route>
 
-            <Route path="/chat/:sender" element={<ChatPage />}>
-          <Route path="/chat/:sender/:receiver" element={<Chat />} />
+            <Route path="/chat/:sender" element={
+            <RequireAuth>
+              <ChatPage />
+              </RequireAuth>}>
+          <Route path="/chat/:sender/:receiver" element={
+          <RequireAuth><Chat /></RequireAuth>} />
         </Route>
            
           </Routes>

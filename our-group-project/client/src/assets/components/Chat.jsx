@@ -15,6 +15,7 @@ export default function Chat() {
 
   useEffect(() => {
     setMessages([]);
+    getMessages([])
 
     Pusher.logToConsole = true;
 
@@ -51,7 +52,10 @@ export default function Chat() {
   }
   };
 
-  const getMessages = async () => {};
+  const getMessages = async () => {
+     const {data} = await axios.get(`/api/messages/${sender}/${receiver}`);
+     setMessages(data);
+  };
 
   const handleInputChange = (e) => {
     setInput(e.target.value);

@@ -221,6 +221,7 @@ export default function PetProfile() {
               </Grid>
 
               <Grid sx={{ mt: 2 }} container spacing={2}>
+                {+auth.userId !== +user.id &&
                 <Grid item>
                   <Link to={`/chat/${auth.userId}/${user.id}`}>
                   <Button variant="contained" color="secondary" style={{marginRight:"2vw"}}>
@@ -236,7 +237,7 @@ export default function PetProfile() {
                     {" "}
                     Save Changes
                   </Button>
-                </Grid>
+                </Grid>}
               </Grid>
             </Grid>
           </Grid>

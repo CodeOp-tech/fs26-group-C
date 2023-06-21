@@ -39,4 +39,24 @@ router.post("/:senderId/:receiverId", (req, res) => {
   res.send({ msg: "Sent" });
 });
 
+
+router.get("/:id1/:id2", async (req, res) => {
+  let {id1, id2} = req.params;
+
+  let messages = await models.Message.findAll({
+    where: {
+      senderId: {
+        [Op.in]: [id1, id2],
+      },
+      receiverId: {
+        [Op.in]: [id1, id2],
+      },
+
+    },
+
+    limit: 10,
+    order: [["id", "DESC"]],
+  });
+ res.send(messages.reverse());
+});
 module.exports = router;
