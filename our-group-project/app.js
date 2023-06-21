@@ -11,6 +11,7 @@ var petsRouter = require("./routes/pets");
 var photosRouter = require("./routes/photos");
 var authRouter = require("./routes/auth");
 var breedsRouter = require("./routes/breeds");
+var quizRouter = require("./routes/quiz");
 
 
 var app = express();
@@ -29,6 +30,8 @@ app.use("/api/pets", petsRouter);
 app.use("/api/breeds", breedsRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/photos", photosRouter);
+app.use("/api/quiz", quizRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
