@@ -9,9 +9,11 @@ const multer = require("multer");
 const upload = multer({ dest: "public/images" });
 
 
+//TO upload avatar
 router.post("/profile/:id/upload", upload.single("imagefile"), async (req, res) => {
   const { id } = req.params;   
   const imagefile = req.file;  
+  console.log(req.file)
     // check the extension of the file
     const extension = mime.extension(imagefile.mimetype);
     // create a new random name for the file
@@ -35,12 +37,29 @@ router.post("/profile/:id/upload", upload.single("imagefile"), async (req, res) 
       user.update({
         avatar: filename
       })
-      
+      res.send(user.avatar)
     } catch (err) {
       res.status(500).send(err);
     }
 });
   
+//POST profile edits in database
+router.post("/edit/:id", async function (req, res, next) {
+  const { id } = req.params;
+  const { name, username, email, surname, location } = req.body;
+  try {
+    const user= await models.User.findOne({
+      where: {id}
+    })
+    user.update({
+      name: name  
+    })
+    res.send("updated!")
+  } catch (error) {
+    res.status(500).send({message: error.message})
+  }
+})
+
 /* GET users listing. */
 router.get("/", async function (req, res, next) {
   try {
@@ -64,6 +83,7 @@ router.get("/:id", async function (req, res, next) {
   }
 });
 
+/* GET users' avatar by id*/
 router.get("/user/:id/avatar", async function (req, res, next) {
   const { id } = req.params;
   try {

@@ -15,6 +15,13 @@ module.exports = (sequelize, DataTypes) => {
       Pet.belongsTo(models.User, { foreignKey: "user_id" });
 
       Pet.belongsTo(models.Breed, { foreignKey: "breed_id" });
+      Pet.hasMany(models.Photo, {
+        foreignKey: 'external_id',
+        constraints: false,
+        scope: {
+          type: 'pet'
+        }
+      })
 
       /*
       
@@ -53,6 +60,7 @@ module.exports = (sequelize, DataTypes) => {
       passport: DataTypes.BOOLEAN,
       bio: DataTypes.STRING,
       diet: DataTypes.STRING,
+      avatar: DataTypes.STRING,
       location: DataTypes.STRING,
       latitude: DataTypes.DECIMAL(10,8),
       longitude: DataTypes.DECIMAL(11,8)

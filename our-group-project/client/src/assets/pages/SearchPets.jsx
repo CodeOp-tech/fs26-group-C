@@ -83,6 +83,10 @@ export default function SearchPets() {
     setSearchIsClicked(true);
   };
 
+  const handleFavourites = (e) => {
+    console.log(e.target.id)
+
+  }
   const handleClearClick = (e) => {
     e.preventDefault();
     setSearchIsClicked(false);
@@ -194,7 +198,7 @@ export default function SearchPets() {
       <Container sx={{ py: 8 }} maxWidth="lg">
         <Grid container spacing={4}>
           {pets.map((pet) => (
-            <Grid item key={pet.id} xs={12} sm={6} md={4}>
+            <Grid item key={pet.id} xs={12} sm={6} md={4} >
               <PetCard
                 name={pet.name}
                 bio={pet.bio}
@@ -203,6 +207,7 @@ export default function SearchPets() {
                 location={pet.location}
                 breed_id={pet.breed_id}
                 id={pet.id}
+                avatar={pet.avatar}
               />
             </Grid>
           ))}

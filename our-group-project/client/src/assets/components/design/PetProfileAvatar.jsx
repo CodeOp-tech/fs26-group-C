@@ -3,19 +3,19 @@ import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import AuthContext from "../../contexts/AuthContext";
 
-export default function ProfileAvatar() {
+export default function PetProfileAvatar( {pet_id }) {
   const [selectedFile, setSelectedFile] = useState(null);
   const [avatar, setAvatar] = useState([]);
   const [defaultImage, setDefaultImage] = useState(null);
   const auth = useContext(AuthContext);
 
   useEffect(() => {
-    getAvatar(auth.userId);
-  }, [selectedFile, auth.userId]);
+    getAvatar();
+  });
 
-  async function getAvatar(id) {
+  async function getAvatar() {
     try {
-      const res = await axios.get(`/api/users/user/${id}/avatar`);
+      const res = await axios.get(`/api/pets/pet/${auth.userId}/avatar`);
       setAvatar(res.data);
     } catch (err) {
       console.log(err);
@@ -30,9 +30,7 @@ export default function ProfileAvatar() {
   };
 
   // On file upload (click the upload button)
-  const onFileUpload = async (id) => {
-    console.log("onFileUpload")
-    id = auth.userId;
+  const onFileUpload = async () => {
     // Create an object of formData
     const formData = new FormData();
 
@@ -43,7 +41,7 @@ export default function ProfileAvatar() {
       // Request made to the backend api
       // Send formData object
       const res = await axios.post(
-        `/api/users/profile/${id}/upload`,
+        `/api/pets/profile/${pet_id}/upload`,
         formData,
         {
           headers: {
@@ -51,9 +49,7 @@ export default function ProfileAvatar() {
           },
         }
       );
-      
       setAvatar(res.data)
-      //console.log(res);
       getAvatar();
     } catch (err) {
       console.log(err);
@@ -85,7 +81,6 @@ export default function ProfileAvatar() {
                       style={{ width: "45%", height: "50%" }}
                       className="rounded-circle"
                     />
-                    
                   </div>
               )}
             </div>

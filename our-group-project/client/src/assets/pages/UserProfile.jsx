@@ -4,14 +4,17 @@ import ProfileAvatar from "../components/design/ProfileAvatar";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import AuthContext from "../contexts/AuthContext";
 import {
-  IconButton,
+  Grid,
   Button,
   Box,
   RadioGroup,
   FormControl,
   FormControlLabel,
   Radio,
-  Icon
+  Typography,
+  Divider,
+  Chip,
+  TextField,
 } from "@mui/material";
 import TextareaAutosize from "@mui/base/TextareaAutosize";
 import Slider from "../components/design/Slider";
@@ -20,17 +23,32 @@ import { useNavigate } from "react-router-dom";
 //DO WE NEED AN EDIT PROFILE BUTTON? i THINK SO...BUT NO IDEA HOW TO REALLY IMPLEMENT IT
 
 export default function UserProfile() {
+  //STATE
   const auth = useContext(AuthContext);
-  const [pets, setPets] = useState([]);
-  const [typeUser, setTypeUser] = useState(null);
-  const [tempUser, setTempUser] = useState(false);
-  const [saveChanges, setSaveChanges] = useState(null);
+  const user_id = auth.userId;
   const navigate = useNavigate();
-  const [value, setValue] = useState(null);
 
+  const [pets, setPets] = useState([]);
+  const [typeUser, setTypeUser] = useState(null); //if adopting or gives for adoption
+  const [tempUser, setTempUser] = useState(false); // needs an in between value in case someone has not registered with a t/f value
+  const [saveChanges, setSaveChanges] = useState(false); //to upload image, create user inputs in fields for user profile
+  const [value, setValue] = useState(null);
+  const [data, setData] = useState({}); //getting private data
+  const [profileData, setProfileData] = useState({});
+  const [inputs, setInputs] = useState({
+    user_id: user_id,
+    bio: "",
+    reason_to_adopt: "",
+    reason_to_give: "",
+    occupation: "",
+    extra_info: "",
+  });
+
+  //USEEFFECT
   useEffect(() => {
     requestPrivateData();
     getPets();
+    getProfileInformation();
     if (auth.adopter === "true") {
       setTypeUser(true);
     } else if (auth.adopter === "false") {
@@ -40,25 +58,7 @@ export default function UserProfile() {
     }
   }, []);
 
-  const [data, setData] = useState({});
-  const requestPrivateData = async () => {
-    try {
-      const { data } = await axios("/api/auth/profile", {
-        headers: {
-          authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      });
-      console.log("data", data);
-      setData({ data });
-    } catch (error) {
-      console.log("error", error);
-    }
-  };
-
-  const addPet = (newPet) => {
-    setPets((state) => [...state, newPet]);
-  };
-
+  //DYNAMIC CHANGES
   const handleChange = (event) => {
     val = event.target.value;
     setValue(event.target.value);
@@ -67,12 +67,15 @@ export default function UserProfile() {
     } else {
       setTempUser(false);
     }
+  };
 
-    console.log(tempUser);
+  const addPet = (newPet) => {
+    setPets((state) => [...state, newPet]);
   };
 
   const handleSave = () => {
     setSaveChanges(true);
+    console.log(saveChanges);
     if (tempUser) {
       setTypeUser(true);
     } else {
@@ -83,6 +86,8 @@ export default function UserProfile() {
     localStorage.setItem("adopter", typeUser); // to save the change in the whole app
 
     //will also need to post changes in Backend
+
+    updateProfileInformation();
   };
 
   let val = "";
@@ -96,6 +101,15 @@ export default function UserProfile() {
     }
   };
 
+  const handleInputChanges = (e) => {
+    const { name, value } = e.target;
+    setInputs({
+      ...inputs,
+      [name]: value,
+    });
+  };
+
+  //CALLS TO BACKEND
   async function getPets() {
     try {
       const response = await fetch(`api/pets/user/${auth.userId}`, {
@@ -108,6 +122,37 @@ export default function UserProfile() {
     }
   }
 
+  const requestPrivateData = async () => {
+    try {
+      const { data } = await axios("/api/auth/profile", {
+        headers: {
+          authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      });
+      //console.log("data", data);
+      setData({ data });
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+
+  const getProfileInformation = async () => {
+    try {
+      const { data } = await axios.get(`/api/user_profiles/${auth.userId}`);
+      setProfileData(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const updateProfileInformation = async () => {
+    try {
+      await axios.post(`api/user_profiles/edit/${user_id}`, inputs);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div>
       <div className="row" style={{ paddingLeft: "5vw", paddingTop: "2vw" }}>
@@ -115,10 +160,18 @@ export default function UserProfile() {
           <ProfileAvatar />
           <div className="row my-3 mx-1"></div>
         </div>
-        <div className="col-4">
-          <div className="row" style={{ paddingTop: "2vw" }}>
-            <h3> {auth.name}</h3>
-          
+        <div className="col-7">
+          <div className="row" style={{ paddingTop: "2vw", marginLeft: "6vw" }}>
+            <Typography variant="h3"> {auth.name}</Typography>
+            <div className="row" style={{ paddingTop: "2vw" }}>
+              {pets.map((pet) => (
+                <Typography variant="h6" key={pet.id}>
+                  {" "}
+                  <i className="fa-solid fa-dog"></i>
+                  {pet.name}
+                </Typography>
+              ))}
+            </div>
             <div className="row" style={{ paddingTop: "2vw" }}>
               {typeUser === null ? (
                 <div>
@@ -149,155 +202,166 @@ export default function UserProfile() {
               {typeUser === true ? <p>Looking to adopt!</p> : null}
               {typeUser === false ? <p>Looking for a home!</p> : null}
             </div>
-            <div className="row" style={{ paddingTop: "1vw" , fontWeight:"bold", fontSize:"1.8vw"}}>
-             
-
-                <LocationOnIcon
-                  color="secondary"
-                  style={{ display: "inline", margin: "0.5vw" }}
-                />
-              
-                
+            <div
+              className="row"
+              style={{
+                paddingTop: "1vw",
+                fontWeight: "bold",
+                fontSize: "1.8vw",
+                display: "flex",
+              }}
+            >
+              <Typography variant="h6">
+                <i
+                  className="fa-solid fa-location-dot"
+                  style={{ fontSize: "1.5vw" }}
+                ></i>
                 {auth.location}
-                
+              </Typography>
+            </div>
+            <div className="row" style={{ marginTop: "3vw" }}>
+              <Box sx={{ width: "100%", marginBottom: "2vw" }}>
+                <Button
+                  variant="outlined"
+                  size="small"
+                  color="secondary"
+                  style={{ textDecoration: "underline", marginRight: "2vw" }}
+                  onClick={() => navigate(`/pet_view`)}
+                >
+                  Pet View
+                </Button>
+                <Button
+                  variant="outlined"
+                  size="small"
+                  color="secondary"
+                  style={{ textDecoration: "underline" }}
+                  onClick={() => navigate(`/gallery`)}
+                >
+                  Gallery
+                </Button>
+              </Box>
             </div>
           </div>
         </div>
       </div>
       <div className="row" style={{ margin: "2vw 5.5vw", display: "flex" }}>
-        <div>
-          <Box sx={{ width: "100%", marginBottom: "2vw" }}>
-            <Button
-              variant="outlined"
-              color="secondary"
-              onClick={() => navigate(`/pet_view`)}
-            >
-              {" "}
-              Pet View
-            </Button>
-            <Button
-              variant="outlined"
-              color="secondary"
-              onClick={() => navigate(`/gallery`)}
-            >
-              {" "}
-              Gallery
-            </Button>
-          </Box>
-        </div>
-
-        <TextareaAutosize
-          placeholder="Let us know who you are!"
-          minRows={10}
-          sx={{ border: "0.5vw solid " }}
-        ></TextareaAutosize>
-        <div className="col" style={{ margin: "2vw 5.5vw" }}>
-          {tempUser ? (
-            <div>
-              <TextareaAutosize
-                placeholder="Why do you want to adopt?"
-                minRows={5}
-                sx={{ border: "0.5vw solid " }}
-              ></TextareaAutosize>
-            </div>
-          ) : (
-            <div>
-              <TextareaAutosize
-                placeholder="Why are you looking fot a new home for your pet(s)?"
-                minRows={5}
-                sx={{ border: "0.5vw solid " }}
-              ></TextareaAutosize>
-            </div>
-          )}
-        </div>
-
-        <div className="col" style={{ marginTop: "2vw" }}>
-          {tempUser ? (
-            <div>
-              <TextareaAutosize
-                placeholder="What is your ideal pet?"
-                minRows={5}
-                sx={{ border: "0.5vw solid " }}
-              ></TextareaAutosize>
-            </div>
-          ) : (
-            <div>
-              <TextareaAutosize
-                placeholder="What is the ideal home for your pet(s)?"
-                minRows={5}
-                sx={{ border: "0.5vw solid " }}
-              ></TextareaAutosize>
-            </div>
-          )}
-        </div>
-
-        {tempUser ? (
-          <div>
-            <div style={{ margin: "2vw 5.5vw", display: "flex" }}>
-              <div className="col" style={{ marginTop: "1vw" }}>
-                <div>
-                  <label> Activity Level</label>
-                  <Slider />
-                </div>
-                <div>
-                  <label> Large Space available</label>
-                  <Slider />
-                </div>
-                <div>
-                  <label> Something else</label>
-                  <Slider />
-                </div>
-              </div>
-              <div className="col" style={{ marginTop: "1vw" }}>
-                <div>
-                  <label> More things</label>
-                  <Slider />
-                </div>
-                <div>
-                  <label> We love slidin</label>
-                  <Slider />
-                </div>
-                <div>
-                  <label> *Drake said it best* </label>
-                  <Slider />
-                </div>
-              </div>
-            </div>
-          </div>
+        <Divider textAlign="left" style={{ marginBottom: "2vw" }}>
+          <Chip label="Bio" />
+        </Divider>
+        {profileData.bio ? (
+          <Typography variant="p"> {profileData.bio}</Typography>
         ) : (
-          <div>
-            {/* <Container>
-              <AddPet />
-            </Container>
-              {/* <PetProf addPet={(newPet) => addPet(newPet)}/> */}
-            {/* <Container sx={{ py: 8 }} maxWidth="lg">
-              <Grid container spacing={4}>
-                <Grid item xs={12} sm={12}>
-                  <Typography>Your Pets</Typography>
-                </Grid>
-                {pets.map((pet) => (
-                  <Grid item key={pet.id} xs={12} sm={6} md={4}>
-                    <PetCard
-                      name={pet.name}
-                      bio={pet.bio}
-                      age={pet.age}
-                      breed={pet.Breed.breed}
-                      location={pet.location}
-                      breed_id={pet.breed_id}
-                      user_id={pet.user_id}
-                    /> */}
-            {/* </Grid>
-                ))}
-              </Grid>
-            </Container> */}
-          </div>
+          <TextField
+            multiline
+            placeholder="Let us know who you are!"
+            variant="standard"
+            name="bio"
+            onChange={handleInputChanges}
+          ></TextField>
         )}
-      </div>
+        <div className="col" style={{ margin: "4vw 5.5vw" }}>
+          {tempUser ? (
+            <div>
+              <Divider textAlign="left" style={{ marginBottom: "2vw" }}>
+                <Chip label="Reasons " />
+              </Divider>
+              {profileData.reason_to_adopt ? (
+                <Typography variant="p">
+                  {" "}
+                  {profileData.reason_to_adopt}
+                </Typography>
+              ) : (
+                <TextField
+                  variant="standard"
+                  multiline
+                  placeholder="Why do you want to adopt?"
+                  name="reason_to_adopt"
+                  minRows={5}
+                  onChange={handleInputChanges}
+                ></TextField>
+              )}
+            </div>
+          ) : (
+            <div>
+              <Divider textAlign="left" style={{ marginBottom: "2vw" }}>
+                <Chip label="Reasons " />
+              </Divider>
+              {profileData.reason_to_give ? (
+                <Typography variant="p">
+                  {profileData.reason_to_give}
+                </Typography>
+              ) : (
+                <TextField
+                  variant="standard"
+                  multiline
+                  placeholder="Why are you looking for a new home for your pet(s)?"
+                  name="reason_to_give"
+                  minRows={5}
+                  onChange={handleInputChanges}
+                ></TextField>
+              )}
+            </div>
+          )}
+        </div>
 
-      <div style={{ margin: "2vw 5.5vw", display: "flex" }}>
-        <Button variant="outlined" color="secondary" onClick={handleSave}>
-          Save your changes
-        </Button>
+        <div className="col" style={{ marginTop: "4vw" }}>
+          <div>
+            <Divider textAlign="left" style={{ marginBottom: "2vw" }}>
+              <Chip label="Occupation " />
+            </Divider>
+            {profileData.occupation ? (
+              <Typography variant="p">{profileData.occupation}</Typography>
+            ) : (
+              <TextField
+                variant="standard"
+                multiline
+                placeholder="What is your current occupation?"
+                name="occupation"
+                minRows={5}
+                onChange={handleInputChanges}
+              ></TextField>
+            )}
+          </div>
+        </div>
+        <div className="col" style={{ marginTop: "4vw" }}>
+          <div>
+            <Divider textAlign="left" style={{ marginBottom: "2vw" }}>
+              <Chip label="In Your Words" />
+            </Divider>
+            {profileData.extra_info ? (
+              <Typography variant="p">{profileData.extra_info}</Typography>
+            ) : (
+              <TextField
+                variant="standard"
+                multiline
+                placeholder="Anything else you'd like to share??"
+                name="extra_info"
+                minRows={5}
+                onChange={handleInputChanges}
+              ></TextField>
+            )}
+          </div>
+        </div>
+      </div>
+      <div style={{ textAlign: "center" }}>
+        <Grid item>
+          <Button
+            variant="contained"
+            color="secondary"
+            style={{ marginRight: "2vw" }}
+          >
+            <i className="fa-solid fa-comments"></i> Message User
+          </Button>
+
+          <Button
+            variant="outlined"
+            color="secondary"
+            size="small"
+            onClick={handleSave}
+          >
+            Save Changes
+          </Button>
+        </Grid>
       </div>
     </div>
   );

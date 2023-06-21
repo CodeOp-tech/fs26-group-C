@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext,useState } from "react";
 import {
   Card,
   CardMedia,
@@ -9,9 +9,13 @@ import {
   CardActions,
   Button,
   Box,
+  IconButton
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import AuthContext from "../../contexts/AuthContext";
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+
 
 export default function PetCard({
   name,
@@ -22,16 +26,28 @@ export default function PetCard({
   breed_id,
   user_id,
   onDelete,
-  id
+  id,
+  avatar
 }) {
+  
   const auth = useContext(AuthContext);
+  const [favourite, setFavourite] = useState(false);
+
+  const handleFavourite = (e) => {
+    setFavourite(!favourite)
+    const el = e.currentTarget;
+    const attr = el.getAttribute("value")
+    
+  }
+
   return (
     <Card>
       <CardMedia
         component="img"
         height="200"
-        image="https://picsum.photos/seed/picsum/200/300"
-        alt="placeholder image"
+        image={`/images/${avatar}`}
+        style={{width:"50%"}}
+        alt="pet image"
       />
       <CardContent>
         <Typography variant="h5" component="div">
@@ -74,6 +90,15 @@ export default function PetCard({
               Delete
             </Button>
           )}
+          {favourite ? <div onClick={handleFavourite} value={id}>
+            <IconButton >
+                <FavoriteIcon style={{color:"#ff0e64"}}/>
+          </IconButton>
+          </div> :
+            <div onClick={handleFavourite} value={id}>
+                <FavoriteBorderIcon/> 
+            </div>
+          }
         </Box>
       </CardActions>
     </Card>

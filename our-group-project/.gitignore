@@ -2,3 +2,5 @@
 .env 
 .DS_Store
 /config 
+/public/images
+/public/photos

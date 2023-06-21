@@ -1,8 +1,7 @@
 "use strict";
-
-const { Model } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
+const { Model } = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
@@ -15,6 +14,13 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       User.hasMany(models.Pet, { foreignKey: "user_id" });
       User.hasOne(models.User_profile, { foreignKey: "user_id" });
+      User.hasMany(models.Photo, {
+        foreignKey: "external_id",
+        constraints: false,
+        scope: {
+          type: "user",
+        },
+      });
     }
   }
   User.init(
@@ -29,24 +35,15 @@ module.exports = (sequelize, DataTypes) => {
       adopter: DataTypes.BOOLEAN,
       avatar: DataTypes.STRING,
     },
+
     {
       sequelize,
       modelName: "User",
+    },
+    {
       hooks: {
         afterUpdate: (user, options) => {
-          console.log({ user, options });
-          // remove the file pointed by user.avatar
-          // if a new file is uploaded, it will be saved with the same name
-          // if (user.avatar && user.changed("avatar")) {
-          //   const filePath = path.join(
-          //     __dirname,
-          //     "..",
-          //     "public",
-          //     "images",
-          //     user.avatar
-          //   );
-          //   fs.unlinkSync(filePath);
-          // }
+          console.log(user.name, options);
         },
       },
     }
