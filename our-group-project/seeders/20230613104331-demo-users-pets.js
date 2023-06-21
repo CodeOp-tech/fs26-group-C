@@ -26,7 +26,7 @@ module.exports = {
         surname: "testerSurname",
         date_of_birth: "2023-06-13",
         location: "CodeOp Country",
-        avatar: "https://png.pngtree.com/png-vector/20220630/ourmid/pngtree-funny-smiling-cartoon-monster-face-avatar-png-image_5584251.png"
+        avatar: ""
       },
       {
         username: "loginUsername",
@@ -36,7 +36,7 @@ module.exports = {
         surname: "loginSurname",
         date_of_birth: "2023-06-13",
         location: "CodeOp Country",
-        avatar: "https://w7.pngwing.com/pngs/816/721/png-transparent-chick-avatar-funny-thumbnail.png"
+        avatar: ""
       },
       {
         username: "ihavesomanypets",
@@ -46,7 +46,7 @@ module.exports = {
         surname: "Mc Pettison",
         date_of_birth: "2007-02-23",
         location: "Pettyville",
-        avatar: "https://i.fbcd.co/products/original/s221128-cat-head-e05-mainpreview-739cdff1e43d362f66989d28e978dcdf400fd71172d53447cb4e0a250debac6b.jpg"
+        avatar: ""
       },
       {
         username: "adoptthemall",
@@ -56,7 +56,7 @@ module.exports = {
         surname: "T",
         date_of_birth: "2007-02-23",
         location: "woofchesire",
-        avatar:"https://www.shutterstock.com/image-vector/funky-old-gay-beard-summer-260nw-1998371867.jpg"
+        avatar:""
       },
     ]
     

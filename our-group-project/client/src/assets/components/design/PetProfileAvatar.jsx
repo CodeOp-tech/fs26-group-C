@@ -11,7 +11,7 @@ export default function PetProfileAvatar( {pet_id }) {
 
   useEffect(() => {
     getAvatar();
-  }, [selectedFile, auth.userId]);
+  });
 
   async function getAvatar() {
     try {
@@ -30,8 +30,7 @@ export default function PetProfileAvatar( {pet_id }) {
   };
 
   // On file upload (click the upload button)
-  const onFileUpload = async (id) => {
-    id = auth.userId;
+  const onFileUpload = async () => {
     // Create an object of formData
     const formData = new FormData();
 
@@ -42,7 +41,7 @@ export default function PetProfileAvatar( {pet_id }) {
       // Request made to the backend api
       // Send formData object
       const res = await axios.post(
-        `/api/pets/profile/${id}/upload`,
+        `/api/pets/profile/${pet_id}/upload`,
         formData,
         {
           headers: {
@@ -50,8 +49,7 @@ export default function PetProfileAvatar( {pet_id }) {
           },
         }
       );
-
-      console.log(res);
+      setAvatar(res.data)
       getAvatar();
     } catch (err) {
       console.log(err);
@@ -83,7 +81,6 @@ export default function PetProfileAvatar( {pet_id }) {
                       style={{ width: "45%", height: "50%" }}
                       className="rounded-circle"
                     />
-                    {console.log(avatar)}
                   </div>
               )}
             </div>
@@ -91,13 +88,13 @@ export default function PetProfileAvatar( {pet_id }) {
         </div>
         <div className="row" style={{ paddingTop: "1vw", textAlign:"center" }}>
           <div>
-            <Button variant="contained">
+            <Button variant="outlined" size="small" color="secondary" style={{marginRight:"2vw"}}>
               <label className="custom-file-upload">
                 Select new photo here
                 <input type="file" onChange={onFileChange} />
               </label>
             </Button>
-            <Button onClick={onFileUpload} variant="contained">
+            <Button onClick={onFileUpload} variant="contained"  size="small">
               Upload
             </Button>
           </div>
