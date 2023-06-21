@@ -45,7 +45,7 @@ router.get("/:id/pets", async (req, res) => {
   }
 });
 
-router.put("/", async (req, res) => {
+router.get("/update/all", async (req, res) => {
   // populate the new columns with the data from the old weight column
   const breeds = await models.Breed.findAll();
   // generate a new array of breeds, in which the minWeidht and maxWeight are set
