@@ -189,7 +189,10 @@ export default function AddPet({ onAddPet }) {
   const addPet = async (input) => {
     try {
       await axios.post("/api/pets", input, {
+        headers:{
         "Content-Type": "application/json",
+        authorization: "Bearer " + localStorage.getItem("token"),
+        }
       });
       onAddPet();
       setAddPetSuccess(true);

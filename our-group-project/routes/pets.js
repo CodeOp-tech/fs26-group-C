@@ -3,6 +3,7 @@ var router = express.Router();
 const models = require("../models/index");
 const { Op } = require("sequelize");
 const petMustExist = require("../guards/petMustExist");
+const userMustBeLoggedIn = require("../guards/userMustBeLoggedIn");
 const fs = require("fs/promises");
 const path = require("path");
 const { v4: uuidv4 } = require("uuid");
@@ -141,7 +142,7 @@ router.get(`/search`, async function (req, res, next) {
 
 /* Post new pet listing. */
 // true = 1 , false = 0 for boolean values
-router.post("/", async function (req, res, next) {
+router.post("/", userMustBeLoggedIn, async function (req, res, next) {
   const {
     name,
     breed_id,
@@ -207,7 +208,7 @@ router.post("/edit/:id", async function (req, res, next) {
 });
 
 /*DELETE pet listing */
-router.delete("/:id", petMustExist, async function (req, res, next) {
+router.delete("/:id", petMustExist, userMustBeLoggedIn, async function (req, res, next) {
   const { id } = req.params;
   try {
     const pet = models.Pet.destroy({

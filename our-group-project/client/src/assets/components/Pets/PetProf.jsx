@@ -36,7 +36,12 @@ export default function PetProf() {
 
   const handleDelete = async (petId) => {
     try {
-      await axios.delete(`/api/pets/${petId}`);
+      await axios.delete(`/api/pets/${petId}`,{
+        headers:{
+        "Content-Type": "application/json",
+        authorization: "Bearer " + localStorage.getItem("token"),
+    }
+  });
   
       // Update the state to remove the deleted pet
       setPets((prevPets) => prevPets.filter((pet) => pet.id !== petId));

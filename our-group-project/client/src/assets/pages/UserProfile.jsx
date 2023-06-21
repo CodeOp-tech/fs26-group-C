@@ -18,7 +18,7 @@ import {
 } from "@mui/material";
 import TextareaAutosize from "@mui/base/TextareaAutosize";
 import Slider from "../components/design/Slider";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 //DO WE NEED AN EDIT PROFILE BUTTON? i THINK SO...BUT NO IDEA HOW TO REALLY IMPLEMENT IT
 
@@ -345,13 +345,15 @@ export default function UserProfile() {
       </div>
       <div style={{ textAlign: "center" }}>
         <Grid item>
+          <Link to={`/chat/${auth.userId}/`}>
           <Button
             variant="contained"
             color="secondary"
             style={{ marginRight: "2vw" }}
           >
-            <i className="fa-solid fa-comments"></i> Message User
+            <i className="fa-solid fa-comments"></i> Messages
           </Button>
+          </Link>
 
           <Button
             variant="outlined"
