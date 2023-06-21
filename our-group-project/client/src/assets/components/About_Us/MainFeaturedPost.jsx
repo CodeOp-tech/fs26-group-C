@@ -55,9 +55,10 @@ function MainFeaturedPost(props) {
            
             <Link  variant="subtitle1"
             onClick={() => navigate(post.linkUrl)}>
+              {post.linkText &&
               <Button variant="contained" color="secondary">
               {post.linkText}
-              </Button>
+              </Button>}
             </Link>
             
           </Box>

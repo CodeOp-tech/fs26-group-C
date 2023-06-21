@@ -59,7 +59,7 @@ function About() {
     image: "/public/cover_2.jpg",
     imageText: "main image description",
     linkText: auth.user ? "Find A Paw Friend" : "SignUp",
-    linkUrl: auth.user ? "/forum" : "/forum",
+    linkUrl: auth.user ? "/search_pets" : "/registration",
   };
 
   const featuredPosts = [

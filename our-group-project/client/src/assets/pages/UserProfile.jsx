@@ -16,7 +16,13 @@ import {
   Chip,
   TextField,
 } from "@mui/material";
+
 import { useNavigate } from "react-router-dom";
+
+import TextareaAutosize from "@mui/base/TextareaAutosize";
+import Slider from "../components/design/Slider";
+import { useNavigate, Link } from "react-router-dom";
+
 
 //DO WE NEED AN EDIT PROFILE BUTTON? i THINK SO...BUT NO IDEA HOW TO REALLY IMPLEMENT IT
 
@@ -365,6 +371,7 @@ export default function UserProfile() {
       )}
       <div style={{ textAlign: "center" }}>
         <Grid item>
+
           {user_id !== auth.userId && (
             <Button
               variant="contained"
@@ -374,6 +381,17 @@ export default function UserProfile() {
               <i className="fa-solid fa-comments"></i> Message User
             </Button>
           )}
+
+          <Link to={`/chat/${auth.userId}/`}>
+          <Button
+            variant="contained"
+            color="secondary"
+            style={{ marginRight: "2vw" }}
+          >
+            <i className="fa-solid fa-comments"></i> Messages
+          </Button>
+          </Link>
+
 
           <Button
             variant="outlined"
