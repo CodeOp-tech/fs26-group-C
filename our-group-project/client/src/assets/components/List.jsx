@@ -2,24 +2,20 @@ import { NavLink, useParams } from "react-router-dom";
 
 const users = [
   {
-    id: 1,
+    id: 21,
     name: "Grace",
   },
   {
-    id: 2,
+    id: 22,
     name: "Jane",
   },
   {
-    id: 3,
+    id: 23,
     name: "Natalie",
   },
   {
-    id: 4,
+    id: 24,
     name: "John",
-  },
-  {
-    id: 5,
-    name: "Roger",
   },
 ];
 

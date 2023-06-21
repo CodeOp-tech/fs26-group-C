@@ -19,10 +19,16 @@ router.post("/:senderId/:receiverId", (req, res) => {
   console.log(req.params);
   let content = req.body.data.message;
 
+
+  try {
+    models.Message.create({ content, senderId, receiverId })
+  } catch (err) {
+    res.status(500).send(err);
+  }
+
   const users = [senderId, receiverId].sort();
-  console.log(users)
   const name = `chat-${users[0]}-${users[1]}`;
-  console.log(name);
+  
 
 
 

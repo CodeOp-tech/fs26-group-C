@@ -59,9 +59,26 @@ export default function Chat() {
 
   return (
     <div className="d-flex flex-column h-100">
-      <div className="flex-grow-1 p-3">{
-        messages.map((message, i) => <div key={i}>{message.content}</div>)
-      }</div>
+      <div className="flex-grow-1 p-3">
+       {messages.map((message, index) => (
+        <div
+          key={index}
+          className={
+            message.senderId == sender ? "text-end my-2" : "text-start my-2"
+          }
+        >
+          <div className="">
+            <span
+              className={`px-2 py-1 rounded text-white ${
+                message.senderId == sender ? "bg-primary" : "bg-secondary"
+              }`}
+            >
+              {message.content}
+            </span>
+          </div>
+        </div>
+      ))}
+      </div>
       
 
       <div className="bg-light p-4 border-top">
