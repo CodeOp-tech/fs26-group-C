@@ -16,9 +16,6 @@ import {
   Chip,
   TextField,
 } from "@mui/material";
-
-import { useNavigate } from "react-router-dom";
-
 import TextareaAutosize from "@mui/base/TextareaAutosize";
 import Slider from "../components/design/Slider";
 import { useNavigate, Link } from "react-router-dom";
