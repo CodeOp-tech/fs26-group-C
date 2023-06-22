@@ -19,8 +19,11 @@ module.exports = (sequelize, DataTypes) => {
         constraints: false,
         scope: {
           type: "pet",
-        },
+        }
       });
+
+      Pet.belongsToMany(models.User, {through: models.Favourite, as: "favouritePets",foreignKey: "pet_id"})
+
 
       /*
       
