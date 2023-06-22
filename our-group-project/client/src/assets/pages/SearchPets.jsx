@@ -7,6 +7,7 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from "react-google-places-autocomplete";
+import { useLocation } from 'react-router-dom';
 
 export default function SearchPets() {
   const [breeds, setBreeds] = useState([]);
@@ -16,6 +17,9 @@ export default function SearchPets() {
   const [searchInput, setSearchInput] = useState({});
   const [pets, setPets] = useState([]);
   const [searchIsClicked, setSearchIsClicked] = useState(null);
+
+  const location = useLocation();
+  const currentLocation = location.pathname;
 
   useEffect(() => {
     getBreeds();
@@ -208,6 +212,7 @@ export default function SearchPets() {
                 breed_id={pet.breed_id}
                 id={pet.id}
                 avatar={pet.avatar}
+                currentLocation={currentLocation}
               />
             </Grid>
           ))}
