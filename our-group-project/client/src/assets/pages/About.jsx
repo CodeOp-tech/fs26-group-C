@@ -53,9 +53,7 @@ function About() {
   }, []);
 
   const mainFeaturedPost = {
-    title: "About",
-    description:
-      "Hi there! We believe that dogs deserve the perfect home. We also believe that the way to do this is through education and encouragement. We want to ensure you find your perfect pooch. Let us help! ",
+    title: "About Us",
     image: "/public/cover_2.jpg",
     imageText: "main image description",
     // linkText: auth.user ? "Find A Paw Friend" : "SignUp",
@@ -110,18 +108,37 @@ function About() {
       <Container maxWidth="xl">
         <main>
           <MainFeaturedPost post={mainFeaturedPost} />
-          <Grid container={true} spacing={4}>
+          <Grid container={true} spacing={4} style={{marginTop:"1vw"}}>
             {featuredPosts.map((post) => (
               <FeaturedPost key={post.title} post={post} />
             ))}
           </Grid>
 
           <Grid container={true} spacing={5} sx={{ mt: 3 }}>
-            <Grid item xs={12} md={8}>
-              <Typography variant="h2" component="h2">
-                About Us
-              </Typography>
-              <Typography textAlign="justify" variant="body1">
+            <Grid item xs={12} md={12}>
+              
+              <Typography textAlign="justify" variant="subtitle1" style={{fontSize:"1.5vw"}}>
+              Hi there! We believe that dogs deserve the perfect home. We also
+                believe that the way to do this is through education and
+                encouragement. We want to ensure you find your perfect pooch.
+                Let us help!
+                <br></br>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+                lobortis nibh ac risus venenatis, sed tincidunt est posuere.
+                Nulla facilisi. Morbi vestibulum lorem in elit sagittis
+                vestibulum. Fusce id dolor et turpis semper tristique. Mauris
+                non mauris vitae erat consequat auctor. Mauris malesuada commodo
+                nulla, sit amet rutrum lorem dictum vitae.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+                lobortis nibh ac risus venenatis, sed tincidunt est posuere.
+                Nulla facilisi. Morbi vestibulum
+                <br></br>
+                lorem in elit sagittis
+                vestibulum. Fusce id dolor et turpis semper tristique. Mauris
+                non mauris vitae erat consequat auctor. Mauris malesuada commodo
+                nulla, sit amet rutrum lorem dictum vitae.
+                <br></br>
+                <br></br> 
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
                 lobortis nibh ac risus venenatis, sed tincidunt est posuere.
                 Nulla facilisi. Morbi vestibulum lorem in elit sagittis
@@ -129,18 +146,6 @@ function About() {
                 non mauris vitae erat consequat auctor. Mauris malesuada commodo
                 nulla, sit amet rutrum lorem dictum vitae.
               </Typography>
-            </Grid>
-
-            <Grid item xs={12} md={8} textAlign="justify">
-              <Main title="Forum" posts={posts} />
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <Sidebar
-                title={sidebar.title}
-                description={sidebar.description}
-                archives={sidebar.archives}
-                social={sidebar.social}
-              />
             </Grid>
           </Grid>
         </main>

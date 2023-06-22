@@ -40,7 +40,7 @@ export default function Navbar() {
             style={{ fontSize: "2vw" }}
           >
             <Link href="/" style={{ textDecoration: "none" }}>
-              Website Name
+              Pawse, Adopt
             </Link>{" "}
           </Typography>
           {auth.user ? (

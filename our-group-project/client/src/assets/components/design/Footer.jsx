@@ -40,7 +40,7 @@ export default function Footer() {
           }}
         >
           <Typography variant="caption" color="initial">
-            Copyright ©2023
+            Pawse, Adopt© Copyright 2023
           </Typography>
         </Box>
       </Container>
