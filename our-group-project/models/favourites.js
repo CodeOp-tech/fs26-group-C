@@ -13,6 +13,9 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Favourite.belongsTo(models.User, {
         foreignKey: "user_id"
+      }),
+      Favourite.belongsTo(models.Pet, {
+        foreignKey: "pet_id"
       })
     }
   }

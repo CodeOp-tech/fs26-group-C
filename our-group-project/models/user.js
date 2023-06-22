@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
           type: "user",
         },
       });
+      User.belongsToMany(models.Pet, {through: models.Favourite, foreignKey: "user_id"})
     }
   }
   User.init(
