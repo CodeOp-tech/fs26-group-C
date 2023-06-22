@@ -161,7 +161,7 @@ export default function UserProfile() {
 
   const updateProfileInformation = async () => {
     try {
-      await axios.put(`api/user_profiles/edit/${user_id}`, inputs);
+      await axios.post(`api/user_profiles/edit/${user_id}`, inputs);
       getProfileInformation();
     } catch (error) {
       console.log(error);
