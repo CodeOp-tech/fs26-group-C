@@ -33,12 +33,16 @@ router.get("/", async function (req, res) {
         [models.Sequelize.Op.like]: `%${type}%`,
       },
       // https://sequelize.org/docs/v6/core-concepts/model-querying-basics/#operators
-      // maxWeight: {}
+      // maxWeight: {
+      // }
     },
+    //get only 20 breeds for presentation 
+    limit:20
   });
 
   res.send({
-    message: `finding a dog of type ${type} and size ${size}`,
+    message: `finding a dog of type ${type}`,
+    // and size ${size}
     data: breeds,
   });
 });

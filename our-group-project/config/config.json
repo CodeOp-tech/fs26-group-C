@@ -2,7 +2,11 @@
 {
   "development": {
     "username": "root",
+<<<<<<< HEAD
+    "password": "Root123!@",
+=======
     "password": "rootloretta",
+>>>>>>> master
     "database": "groupproject",
     "host": "127.0.0.1",
     "dialect": "mysql"
@@ -22,5 +26,8 @@
     "dialect": "mysql"
   }
 }
+<<<<<<< HEAD
+=======
 
 
+>>>>>>> master
