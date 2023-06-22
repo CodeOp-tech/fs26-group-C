@@ -206,6 +206,7 @@ export default function SearchPets() {
         <Grid container spacing={4}>
           {pets.map((pet) => (
             <Grid item key={pet.id} xs={12} sm={6} md={4} >
+              {/* in future, pass the pet object rather than the individual properties */}
               <PetCard
                 name={pet.name}
                 bio={pet.bio}
