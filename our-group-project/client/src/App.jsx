@@ -36,6 +36,8 @@ function App() {
   const [location, setLocation] = useState(null);
   const [userId, setUserId] = useState(null);
   const [adopter, setAdopter] = useState(null);
+  const [avatar, setAvatar] = useState(null);
+
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -43,6 +45,8 @@ function App() {
     const userLocation = localStorage.getItem("location");
     const userID = localStorage.getItem("userid");
     const adopterB = localStorage.getItem("adopter");
+    const avatarB = localStorage.getItem("avatar");
+
 
     if (token) {
       setUserName(username);
@@ -74,6 +78,7 @@ function App() {
     adopter,
     login,
     logout,
+    avatar
   };
 
   return (
