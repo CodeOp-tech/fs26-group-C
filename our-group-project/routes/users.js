@@ -68,20 +68,14 @@ router.get("/favourites/:user_id", async function (req, res, next) {
   const { user_id } = req.params;
   console.log(user_id)
   try {
-    const favourites = await models.Favourite.findAll({
-      where: {
-        user_id
+   const userAll=  await models.User.findAll({
+      where: { id: user_id },
+      include: [{
+        model: models.Pet,
       }
-    });
-    console.log(favourites)
-    const faves = favourites.map((e) => (
-      models.Pet.findOne({
-        where: {
-          id: e.id
-        }
-      })
-    ))
-    res.send(faves)
+      ]
+    })
+    res.send(userAll)
   } catch (error) {
     res.status(500).send({message: error.message})
   }
