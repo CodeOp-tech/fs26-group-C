@@ -20,6 +20,7 @@ import BreedForum from "./assets/pages/BreedForum";
 import PetProf from "./assets/components/Pets/PetProf";
 import Gallery from "./assets/components/design/Gallery";
 import PetProfile from "./assets/pages/PetProfile";
+import { Container } from '@mui/material'
 
 import Favourites from "./assets/components/Favourites";
 
@@ -160,7 +161,8 @@ function App() {
 
 function ChatPage() {
   return (
-    <div className="my-2" style={{ height: '400px'}}>
+    <Container component="main" >
+    <div className="mt-2" style={{ height: '400px'}}>
     <div className="row h-200 border rounded bg-white shadow"  >
       <div className="col-3 px-0 ">
         <List />
@@ -170,6 +172,7 @@ function ChatPage() {
       </div>
     </div>
     </div>
+    </Container>
   );
 }
 

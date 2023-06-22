@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Pusher from "pusher-js";
 import axios from "axios";
-import { Button, Box, TextField, Grid } from "@mui/material";
+import { Button, Box, TextField, Grid, Typography } from "@mui/material";
 
 
 
@@ -64,6 +64,7 @@ export default function Chat() {
 
   return (
     <div className="d-flex flex-column h-100">
+      
       <div className="flex-grow-1 p-3">
        {messages.map((message, index) => (
         <div
@@ -88,14 +89,7 @@ export default function Chat() {
 
       <div className="bg-light p-4 border-top">
 <Box component="form" onSubmit={sendMessage}>
-        {/* <form onSubmit={sendMessage}> */}
-          {/* <div className="input-group">
-            <input
-              type="text"
-              className="form-control"
-              value={input}
-              onChange={handleInputChange}
-            /> */}
+       
             <Grid container spacing={3}>
               <Grid item xs={10}>
               <TextField 
@@ -111,11 +105,6 @@ export default function Chat() {
               <Button variant="contained" onClick={sendMessage}>send</Button>
               </Grid>
 
-            
-           
-            {/* <button className="btn btn-outline-primary">Send</button> */}
-          {/* </div> */}
-        {/* </form> */}
         </Grid>
         </Box>
       </div>

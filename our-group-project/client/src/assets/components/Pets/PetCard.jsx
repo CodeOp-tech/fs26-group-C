@@ -66,7 +66,7 @@ export default function PetCard({
         component="img"
         height="200"
         image={`/images/${avatar}`}
-        style={{width:"50%"}}
+        style={{width:"200px"}}
         alt="pet image"
       />
       <CardContent>
@@ -110,9 +110,9 @@ export default function PetCard({
               Delete
             </Button>
           )}
-          <div onClick={handleFavourite} value={id}>
+          <div >
 
-          <Button size="small" color="secondary"  >
+          <Button size="small" color="secondary" onClick={handleFavourite} value={id} >
             Add To Favourites
           </Button> 
           </div>
