@@ -56,7 +56,17 @@ function Forum() {
       "Hi there! We believe that dogs deserve the perfect home. We also believe that the way to do this is through education and encouragement. We want to ensure you find your perfect pooch. Let us help!",
     image: "/public/cover_3.jpg",
     imageText: "main image description",
-   
+  };
+
+  const featuredPost = {
+    title: "Are You Ready?",
+    date: "2022-02-02",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ac arcu mollis, tincidunt erat et, scelerisque leo. Nam commodo felis dolor, eget volutpat ante eleifend aliquet. Sed in viverra odio.",
+    image: "/public/dog_2.jpg",
+    imageLabel: "Image Text",
+    linkText: auth.user ? "Start" : "SignUp",
+    linkUrl: auth.user ? "/quiz" : "/#",
   };
 
   return (

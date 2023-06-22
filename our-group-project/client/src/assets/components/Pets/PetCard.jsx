@@ -1,4 +1,4 @@
-import { useContext,useState } from "react";
+import { useContext,useState, useEffect } from "react";
 import {
   Card,
   CardMedia,
@@ -27,24 +27,27 @@ export default function PetCard({
   user_id,
   onDelete,
   id,
-  avatar
+  avatar,
+  currentLocation,
+  updateFavorites,
 }) {
   
   const auth = useContext(AuthContext);
   const [favouritePetId, setFavouritePetId] = useState();
   const [myFavourite, setMyFavourite] = useState(false)
 
-  const handleFavourite = (e) => {
-    console.log(e.currentTarget)
-    const el = e.currentTarget
-    const attr = el.getAttribute("value")
-    console.log(attr)
-      setFavouritePetId(attr)
-      addFavourite();
-    
+  const handleFavourite = (id) => {
+    setFavouritePetId(id);
   }
 
-  const addFavourite = async () => {
+  useEffect(() => {
+    if (favouritePetId) {
+      console.log(favouritePetId);
+      addFavourite(favouritePetId);
+    }
+  }, [favouritePetId]);
+
+  const addFavourite = async (favouritePetId) => {
     const user_id = auth.userId
    
     const body = {
@@ -53,12 +56,45 @@ export default function PetCard({
     }
 
     try {
-      await axios.post(`api/users/favourites`, body)
+      await axios.post(`api/users/favourites`, body, {
+        headers:{
+          "Content-Type": "application/json",
+          authorization: "Bearer " + localStorage.getItem("token"),
+          }
+      })
       console.log("success")
     } catch (error) {
       console.log(error)
     }
   }
+
+  const handleRemoveFavorite = async (petId) => {
+    const user_id = auth.userId
+
+    const body = {
+      user_id: user_id,
+      pet_id: petId
+  }
+
+  console.log(body);
+
+
+    try {
+      await axios.delete(`api/users/favourites`, {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        params: body
+      });
+      console.log("Successfully removed from favorites");
+      updateFavorites();
+      // Perform any additional actions after removing from favorites
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
 
   return (
     <Card>
@@ -66,7 +102,9 @@ export default function PetCard({
         component="img"
         height="200"
         image={`/images/${avatar}`}
-        style={{width:""}}
+
+        style={{width:"200px"}}
+
         alt="pet image"
       />
       <CardContent>
@@ -110,13 +148,22 @@ export default function PetCard({
               Delete
             </Button>
           )}
-          <div onClick={handleFavourite} value={id}>
+          <div >
 
-          <Button size="small" color="secondary"  >
-            Add To Favourites
-          </Button> 
+            {currentLocation === "/favourites" && 
+            <Button size="small" onClick={() => handleRemoveFavorite(id)} >Remove From Favourites</Button>}
+  
+          { auth.userId != user_id 
+          && currentLocation === "/search_pets" 
+          ? (<Button size="small" color="secondary" onClick={(event) => handleFavourite(event.target.value)} value={id} >
+          Add To Favourites
+        </Button> ) :
+          null }
+
           </div>
-         
+          
+           
+
         </Box>
       </CardActions>
     </Card>

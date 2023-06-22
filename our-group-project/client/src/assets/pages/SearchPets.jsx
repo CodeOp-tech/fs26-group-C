@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Container, Box, Typography, Stack, Grid, Button } from "@mui/material";
 import Select from "react-select";
 import PetCard from "../components/Pets/PetCard";
@@ -7,6 +7,8 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from "react-google-places-autocomplete";
+import { useLocation } from 'react-router-dom';
+import AuthContext from "../contexts/AuthContext";
 
 export default function SearchPets() {
   const [breeds, setBreeds] = useState([]);
@@ -16,6 +18,11 @@ export default function SearchPets() {
   const [searchInput, setSearchInput] = useState({});
   const [pets, setPets] = useState([]);
   const [searchIsClicked, setSearchIsClicked] = useState(null);
+
+  const location = useLocation();
+  const currentLocation = location.pathname;
+
+  const auth = useContext(AuthContext);
 
   useEffect(() => {
     getBreeds();
@@ -199,6 +206,7 @@ export default function SearchPets() {
         <Grid container spacing={4}>
           {pets.map((pet) => (
             <Grid item key={pet.id} xs={12} sm={6} md={4} >
+              {/* in future, pass the pet object rather than the individual properties */}
               <PetCard
                 name={pet.name}
                 bio={pet.bio}
@@ -207,7 +215,9 @@ export default function SearchPets() {
                 location={pet.location}
                 breed_id={pet.breed_id}
                 id={pet.id}
+                user_id={pet.user_id}
                 avatar={pet.avatar}
+                currentLocation={currentLocation}
               />
             </Grid>
           ))}

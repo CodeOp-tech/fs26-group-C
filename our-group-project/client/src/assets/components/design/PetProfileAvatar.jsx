@@ -11,11 +11,11 @@ export default function PetProfileAvatar( {pet_id }) {
 
   useEffect(() => {
     getAvatar();
-  },[avatar]);
+  },[]);
 
   async function getAvatar() {
     try {
-      const res = await axios.get(`/api/pets/pet/${auth.userId}/avatar`);
+      const res = await axios.get(`/api/pets/pet/${pet_id}/avatar`);
       setAvatar(res.data);
     } catch (err) {
       console.log(err);

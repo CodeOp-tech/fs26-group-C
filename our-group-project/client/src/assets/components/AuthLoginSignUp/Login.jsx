@@ -57,6 +57,7 @@ export default function Login() {
       localStorage.setItem("userid", data.user_id);
       localStorage.setItem("location", data.location);
       localStorage.setItem("adopter", data.adopter);
+      localStorage.setItem("avatar", data.avatar);
 
       auth.login();
     } catch (error) {

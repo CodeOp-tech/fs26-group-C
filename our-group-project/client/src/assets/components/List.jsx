@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import axios from "axios";
+import { Typography } from "@mui/material";
 
 
 
@@ -29,8 +30,9 @@ export default function List() {
 
   return (
     <div className="list-group users-list">
+      {users.length === 0 && <Typography>You have no messages </Typography> 
+      }
       {users
-        // .filter((e) => e.id != sender)
         .map((user) => (
           <NavLink
             to={`/chat/${sender}/${user.id}`}
