@@ -21,7 +21,7 @@ router.post(
     console.log(req.file);
     // check the extension of the file
     const extension = mime.extension(imagefile.mimetype);
-    
+
     // create a new random name for the file
     const filename = uuidv4() + "." + extension;
     // grab the filepath for the temporary file
@@ -44,7 +44,7 @@ router.post(
         avatar: filename,
       });
       console.log(pet.avatar);
-      res.send(pet.avatar)
+      res.send(pet.avatar);
     } catch (err) {
       res.status(500).send(err);
     }
@@ -64,11 +64,11 @@ router.get("/", async function (req, res) {
 });
 
 /* GET pets' avatar by user_id*/
-router.get("/pet/:user_id/avatar", async function (req, res, next) {
-  const { user_id } = req.params;
+router.get("/pet/:id/avatar", async function (req, res, next) {
+  const { id } = req.params;
   try {
     const pet = await models.Pet.findOne({
-      where: { user_id },
+      where: { id },
     });
 
     res.send(pet.avatar);
@@ -197,7 +197,7 @@ router.post("/edit/:id", async function (req, res, next) {
     const pet = await models.Pet.findOne({
       where: { id },
     });
-    
+
     pet.update({
       bio,
       diet,
@@ -210,16 +210,21 @@ router.post("/edit/:id", async function (req, res, next) {
 });
 
 /*DELETE pet listing */
-router.delete("/:id", petMustExist, userMustBeLoggedIn, async function (req, res, next) {
-  const { id } = req.params;
-  try {
-    const pet = models.Pet.destroy({
-      where: { id },
-    });
-    res.send({ message: "Your pet has been deleted successfully" });
-  } catch (error) {
-    res.status(500).send({ message: error.message });
+router.delete(
+  "/:id",
+  petMustExist,
+  userMustBeLoggedIn,
+  async function (req, res, next) {
+    const { id } = req.params;
+    try {
+      const pet = models.Pet.destroy({
+        where: { id },
+      });
+      res.send({ message: "Your pet has been deleted successfully" });
+    } catch (error) {
+      res.status(500).send({ message: error.message });
+    }
   }
-});
+);
 
 module.exports = router;
