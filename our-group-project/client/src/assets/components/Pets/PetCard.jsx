@@ -150,12 +150,18 @@ export default function PetCard({
 
             {currentLocation === "/favourites" && 
             <Button size="small" onClick={() => handleRemoveFavorite(id)} >Remove From Favourites</Button>}
-          {user_id !== auth.userId && currentLocation === "/search_pets" &&
-          <Button size="small" color="secondary" onClick={(event) => handleFavourite(event.target.value)} value={id} >
-            Add To Favourites
-          </Button> }
+  
+          { auth.userId != user_id 
+          && currentLocation === "/search_pets" 
+          ? (<Button size="small" color="secondary" onClick={(event) => handleFavourite(event.target.value)} value={id} >
+          Add To Favourites
+        </Button> ) :
+          null }
+
           </div>
-         
+          
+           
+
         </Box>
       </CardActions>
     </Card>
