@@ -12,6 +12,10 @@ const multer = require("multer");
 const upload = multer({ dest: "public/images" });
 
 //UPLOAD AVATAR
+
+
+
+
 router.post(
   "/profile/:id/upload",
   upload.single("imagefile"),
@@ -50,6 +54,38 @@ router.post(
     }
   }
 );
+
+/* GET pets by location or breed . */
+router.get("/search", async function (req, res, next) {
+  const queryParams = req.query;
+  const conditions = {};
+
+  if (queryParams.latitude && queryParams.longitude) {
+    conditions.latitude = {
+      [Op.between]: [queryParams.latitude - 0.1, queryParams.latitude + 0.1],
+    };
+    conditions.longitude = {
+      [Op.between]: [queryParams.longitude - 0.1, queryParams.longitude + 0.1],
+    };
+  }
+
+  if (queryParams.id) {
+    conditions.breed_id = {
+      [Op.eq]: queryParams.id,
+    };
+  }
+
+  try {
+    const pets = await models.Pet.findAll({
+      include: [{ model: models.Breed }],
+      where: conditions,
+    });
+    
+    res.send(pets);
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+});
 
 /* GET all pets. */
 router.get("/", async function (req, res) {
@@ -110,37 +146,41 @@ router.get("/:id", async function (req, res, next) {
   }
 });
 
-/* GET pets by location or breed . */
+// /* GET pets by location or breed . */
+// router.get("/search", async function (req, res, next) {
+//   const queryParams = req.query;
+//   const conditions = {};
 
-router.get(`/search`, async function (req, res, next) {
-  const queryParams = req.query;
-  const conditions = {};
+//   if (queryParams.latitude && queryParams.longitude) {
+//     conditions.latitude = {
+//       [Op.between]: [queryParams.latitude - 0.1, queryParams.latitude + 0.1],
+//     };
+//     conditions.longitude = {
+//       [Op.between]: [queryParams.longitude - 0.1, queryParams.longitude + 0.1],
+//     };
+//   }
 
-  if (queryParams.latitude && queryParams.longitude) {
-    conditions.latitude = {
-      [Op.between]: [queryParams.latitude - 0.1, queryParams.latitude + 0.1],
-    };
-    conditions.longitude = {
-      [Op.between]: [queryParams.longitude - 0.1, queryParams.longitude + 0.1],
-    };
-  }
+//   if (queryParams.id) {
+//     conditions.breed_id = {
+//       [Op.eq]: queryParams.id,
+//     };
+//   }
 
-  if (queryParams.id) {
-    conditions.breed_id = {
-      [Op.eq]: queryParams.id,
-    };
-  }
+//   try {
+//     const pets = await models.Pet.findAll({
+//       include: [{ model: models.Breed }],
+//       where: conditions,
+//     });
+    
+//     res.send(pets);
+//   } catch (err) {
+//     res.status(500).send({ message: err.message });
+//   }
+// });
 
-  try {
-    const pets = await models.Pet.findAll({
-      include: [{ model: models.Breed }],
-      where: conditions,
-    });
-    res.send(pets);
-  } catch (err) {
-    res.status(500).send({ message: err.message });
-  }
-});
+
+
+
 
 /* Post new pet listing. */
 // true = 1 , false = 0 for boolean values

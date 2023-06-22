@@ -78,7 +78,7 @@ export default function SearchPets() {
         ...state,
         latitude: +locationLat,
         longitude: +locationLng,
-        locationname: locationname,
+        // locationname: locationname,
       }));
     }
   }
@@ -100,6 +100,7 @@ export default function SearchPets() {
     getPets();
     setSearchLocation("");
     setSelectedOption("");
+    setSearchInput({});
   };
 
   const searchPets = async (searchInput) => {
@@ -110,6 +111,7 @@ export default function SearchPets() {
       );
       const data = await response.json();
       setPets(data);
+      
     } catch (error) {
       console.log(error);
     }

@@ -103,11 +103,17 @@ export default function PetProfile() {
               <Grid item sm={3}>
                 <Typography variant="h6">
                   <i className="fa-solid fa-location-dot"></i> {pet.location}
+        
                 </Typography>
               </Grid>
-              <Grid item sm={6}>
+              <Grid item sm={4}>
                 <Typography variant="h6">
                   <i className="fa-solid fa-dog"></i> {breed.breed}
+                </Typography>
+              </Grid>
+              <Grid item sm={2}>
+                <Typography variant="h6">
+                  <i className="fa-solid fa-dog"></i> {pet.gender}
                 </Typography>
               </Grid>
 
