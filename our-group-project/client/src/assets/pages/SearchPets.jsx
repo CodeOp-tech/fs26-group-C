@@ -144,7 +144,7 @@ export default function SearchPets() {
             sx={{ justifyContent: "center" }}
           >
             Hello! And thank you for taking the steps to join us. Here at
-            "name", we want to ensure that all dogs are given a safe home.
+            Pawse, Adopt , we want to ensure that all dogs are given a safe home.
             Browse below.
           </Typography>
 
