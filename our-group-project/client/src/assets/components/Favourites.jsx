@@ -3,10 +3,14 @@ import { useEffect, useState, useContext } from 'react'
 import AuthContext from "../contexts/AuthContext";
 import { Container, Grid, Chip, Divider, Button } from '@mui/material'
 import PetCard from "./Pets/PetCard";
+import { useLocation } from "react-router-dom";
 
 export default function Favourites() {
     
     const [favouritePets, setFavouritePets] = useState([]);
+
+    const location = useLocation();
+    const currentLocation = location.pathname;
     
 
     const auth = useContext(AuthContext)
@@ -14,9 +18,18 @@ export default function Favourites() {
         getFavourites();
     },[])
 
+    const updateFavorites = async () => {
+      
+      getFavourites();
+    }
+
     const getFavourites = async () => {
         try {
-            const res = await axios.get(`api/users/favourites/${auth.userId}`)
+            const res = await axios.get(`api/users/favourites/${auth.userId}`, { headers: {
+              "Content-Type": "application/json",
+              authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          });
             console.log(res.data[0].Pets) //object of pet_id/user_id
             setFavouritePets(res.data[0].Pets)
         }catch(error){
@@ -45,9 +58,12 @@ export default function Favourites() {
                 breed_id={pet.breed_id}
                 id={pet.id}
                 avatar={pet.avatar}
+                currentLocation={currentLocation}
+                updateFavorites={updateFavorites}
+
+               
               />
-              <Button size="small">Remove from Favourites</Button>
-              {/* //NOT FUNCTIONAL */}
+             
             </Grid>
             
           ))}

@@ -64,7 +64,7 @@ router.post("/edit/:id", async function (req, res, next) {
 })
 
 
-router.get("/favourites/:user_id", async function (req, res, next) {
+router.get("/favourites/:user_id", userMustBeLoggedIn, async function (req, res, next) {
   const { user_id } = req.params;
   console.log(user_id)
   try {
@@ -81,7 +81,7 @@ router.get("/favourites/:user_id", async function (req, res, next) {
   }
 })
 
-router.post("/favourites", async function (req, res, next) {
+router.post("/favourites", userMustBeLoggedIn, async function (req, res, next) {
   const { pet_id } = req.body;
   const { user_id } = req.body;
   console.log(pet_id, user_id)
@@ -100,6 +100,31 @@ router.post("/favourites", async function (req, res, next) {
      })
 
      res.send(favourites)
+
+  } catch (error) {
+    res.status(500).send({message:error.message})
+  }
+})
+
+
+// DELETE A FAVORITE
+router.delete("/favourites", async function (req, res, next) {
+  const pet_id = req.query.pet_id;
+  const user_id = req.query.user_id;
+  console.log(pet_id, user_id);
+   try {
+    const deletedFavorite = await models.Favourite.destroy({
+      where: {
+        pet_id: pet_id,
+        user_id: user_id,
+      },
+    });
+
+    if (deletedFavorite) {
+      res.send({ message: "Favorite removed successfully" });
+    } else {
+      res.status(404).send({ message: "Favorite not found" });
+    }
 
   } catch (error) {
     res.status(500).send({message:error.message})

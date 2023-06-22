@@ -58,8 +58,8 @@ function About() {
       "Hi there! We believe that dogs deserve the perfect home. We also believe that the way to do this is through education and encouragement. We want to ensure you find your perfect pooch. Let us help! ",
     image: "/public/cover_2.jpg",
     imageText: "main image description",
-    linkText: auth.user ? "Find A Paw Friend" : "SignUp",
-    linkUrl: auth.user ? "/search_pets" : "/registration",
+    // linkText: auth.user ? "Find A Paw Friend" : "SignUp",
+    // linkUrl: auth.user ? "/search_pets" : "/registration",
   };
 
   const featuredPosts = [
