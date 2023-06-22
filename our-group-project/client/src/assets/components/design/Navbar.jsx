@@ -13,6 +13,7 @@ import Dog from "@mui/icons-material/Pets";
 // import { Link } from "react-router-dom";
 import AuthContext from "../../contexts/AuthContext";
 import ContactSupportIcon from "@mui/icons-material/ContactSupport";
+import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 
 export default function Navbar() {
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -89,6 +90,14 @@ export default function Navbar() {
                 style={{ fontSize: "0.75rem" }}
               >
                 Find a Pet
+              </Button>
+              <Button
+                size="small"
+                href={`/chat/${auth.userId}`}
+                style={{ fontSize: "0.75rem" }}
+              >
+                <ChatBubbleOutlineIcon/>
+                
               </Button>
               <Button
                 variant="standard"
