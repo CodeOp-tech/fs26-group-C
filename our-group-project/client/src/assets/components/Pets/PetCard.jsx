@@ -66,7 +66,7 @@ export default function PetCard({
         component="img"
         height="200"
         image={`/images/${avatar}`}
-        style={{width:"50%"}}
+        style={{width:""}}
         alt="pet image"
       />
       <CardContent>
