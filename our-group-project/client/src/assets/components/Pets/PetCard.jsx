@@ -15,7 +15,7 @@ import { Link } from "react-router-dom";
 import AuthContext from "../../contexts/AuthContext";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-
+import axios from "axios";
 
 export default function PetCard({
   name,
@@ -31,13 +31,33 @@ export default function PetCard({
 }) {
   
   const auth = useContext(AuthContext);
-  const [favourite, setFavourite] = useState(false);
+  const [favouritePetId, setFavouritePetId] = useState();
+  const [myFavourite, setMyFavourite] = useState(false)
 
   const handleFavourite = (e) => {
-    setFavourite(!favourite)
-    const el = e.currentTarget;
+    console.log(e.currentTarget)
+    const el = e.currentTarget
     const attr = el.getAttribute("value")
+    console.log(attr)
+      setFavouritePetId(attr)
+      addFavourite();
     
+  }
+
+  const addFavourite = async () => {
+    const user_id = auth.userId
+   
+    const body = {
+        user_id: user_id,
+        pet_id: favouritePetId
+    }
+
+    try {
+      await axios.post(`api/users/favourites`, body)
+      console.log("success")
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -90,15 +110,13 @@ export default function PetCard({
               Delete
             </Button>
           )}
-          {favourite ? <div onClick={handleFavourite} value={id}>
-            <IconButton >
-                <FavoriteIcon style={{color:"#ff0e64"}}/>
-          </IconButton>
-          </div> :
-            <div onClick={handleFavourite} value={id}>
-                <FavoriteBorderIcon/> 
-            </div>
-          }
+          <div onClick={handleFavourite} value={id}>
+
+          <Button size="small" color="secondary"  >
+            Add To Favourites
+          </Button> 
+          </div>
+         
         </Box>
       </CardActions>
     </Card>

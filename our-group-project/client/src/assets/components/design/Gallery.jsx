@@ -5,86 +5,109 @@ import axios from "axios";
 
 export default function Gallery() {
   const auth = useContext(AuthContext);
-  const [images, setImages] = useState([]);
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [images, setImages] = useState();
+  const [image, setImage] = useState([]);
+  const [selectedFile, setSelectedFile] = useState([]);
 
   useEffect(() => {
-    getImages();
-  }, );
+    if (images) {
+      getPhotos(auth.userId);
+    }
+  }, []);
 
-  async function getImages() {
+  const getPhotos = async () => {
     try {
-      const res = await axios.get(`api/photos/users/${auth.userId}`);
-      setImages(res.data);
+      const res = axios.get(`/api/photos/${auth.userId}`);
+      setImages(() => [res.data]);
+      console.log(images);
     } catch (error) {
       console.log(error);
     }
-  }
-
-  // On file select (from the pop up)
-  const onFileChange = (event) => {
-    // Update the state
-    setSelectedFile(event.target.files[0]);
   };
 
-  const onFileUpload = async (id) => {
-    id = auth.userId;
-    // Create an object of formData
+  const onFileChange = (event) => {
+    setSelectedFile(event.target.files[0]);
+
+    /*
+     setSelectedFile(() => [
+     ...event.target.files
+     ])
+    */
+    // [File,File]
+    /*
+        File {
+        name,
+        lastModified,
+        etc
+        }
+        */
+  };
+
+  const onFileUpload = async () => {
     const formData = new FormData();
 
-    // Update the formData object
     formData.append("imagefile", selectedFile, selectedFile.name);
 
+    console.log("here");
     try {
-      // Request made to the backend api
-      // Send formData object
-      const res = await axios.post(`/api/photos/users/${id}/upload`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-
+      const res = await axios.post(
+        `api/photos/uploads/user/${auth.userId}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      setImage(() => [
+        ...image, res.data
+      ])
       console.log(res);
-      getImages();
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.log(error.message);
     }
   };
 
   return (
     <div>
       <ImageList sx={{}} cols={4} rowHeight={164}>
-        {!images ? (
-          <div>
-            <input type="file" onChange={onFileChange} />
-            <Button onClick={onFileUpload}>Select more to upload</Button>
-          </div>
-        ) : (
-          <div>
-            {images.map((photo) => (
-              <div key={photo.id}>
-                <ImageListItem>
-                  <img
-                    src={`${photo.img}?w=164&h=164&fit=crop&auto=format`}
-                    srcSet={`${photo.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                  />
-                </ImageListItem>
+        {/* {images ? (
+        <div>
+          <input type="file" multiple onChange={onFileChange} />
+          <Button onClick={onFileUpload}>Select more to upload</Button>
+        </div>
+      ) : ( */}
+        <div>
+          {/* {images.map((photo,i) => (
+            <div key={i}>
+                  <ImageList sx={{}} cols={4} rowHeight={164}>
+
+              <ImageListItem>
+                <img
+                  src={`/images/${photo}?w=164&h=164&fit=crop&auto=format`}
+                  srcSet={`/images/${photo}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                />
+              </ImageListItem>
                 <Button>Delete image</Button>
-              </div>
-            ))}
-            <div>
-              <Button variant="contained" color="secondary">
-                <label className="custom-file-upload">
-                  Select photos here
-                  <input type="file" onChange={onFileChange} />
-                </label>
-              </Button>
-              <Button variant="contained" onClick={onFileUpload}>
-                Upload
-              </Button>
+                </ImageList >
+
             </div>
+          ))} */}
+
+          <img src={`/images/${image}`} alt="" />
+          <div>
+            <Button variant="contained" color="secondary">
+              <label className="custom-file-upload">
+                Select photos here
+                <input type="file" multiple onChange={onFileChange} />
+              </label>
+            </Button>
+            <Button variant="contained" onClick={onFileUpload}>
+              Upload
+            </Button>
           </div>
-        )}
+        </div>
+        {/* )} */}
       </ImageList>
     </div>
   );

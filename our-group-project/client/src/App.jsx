@@ -21,6 +21,13 @@ import PetProf from "./assets/components/Pets/PetProf";
 import Gallery from "./assets/components/design/Gallery";
 import PetProfile from "./assets/pages/PetProfile";
 
+import Favourites from "./assets/components/Favourites";
+
+import Chat from "./assets/components/Chat";
+import List from "./assets/components/List";
+import { Outlet } from "react-router-dom";
+
+
 function App() {
   //preparing a global state + login + logout functions so that
   //anybody within the whole app can call these functions
@@ -122,14 +129,47 @@ function App() {
                 </RequireAuth>
               }
             />
-
+               <Route
+              path="/favourites"
+              element={
+                <RequireAuth>
+                  <Favourites/>
+                </RequireAuth>
+              }
+            />
             <Route path="/:breed_id" element={<BreedForum />}></Route>
+            <Route path="/pet/:pet_id" element={
+            <RequireAuth><PetProfile/></RequireAuth>
+            }></Route>
+
+            <Route path="/chat/:sender" element={
+            <RequireAuth>
+              <ChatPage />
+              </RequireAuth>}>
+          <Route path="/chat/:sender/:receiver" element={
+          <RequireAuth><Chat /></RequireAuth>} />
+        </Route>
            
           </Routes>
         </div>
         <Footer />
       </LocalizationProvider>
     </AuthContext.Provider>
+  );
+}
+
+function ChatPage() {
+  return (
+    <div className="my-2" style={{ height: '400px'}}>
+    <div className="row h-200 border rounded bg-white shadow"  >
+      <div className="col-3 px-0 ">
+        <List />
+      </div>
+      <div className="col-9 px-0 border-left">
+        <Outlet />
+      </div>
+    </div>
+    </div>
   );
 }
 

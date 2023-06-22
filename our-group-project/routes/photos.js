@@ -9,42 +9,69 @@ const multer = require("multer");
 const upload = multer({ dest: "public/images" });
 
 
-router.post("/:type/:id/upload", upload.single("imagefile"), async (req, res) => {
-    const imagefile = req.file;
-  
-    console.log("imagefile",imagefile);
-  
-    // check the extension of the file
-    const extension = mime.extension(imagefile.mimetype);
-    console.log("extension",extension);
 
-    // create a new random name for the file
-    const filename = uuidv4() + "." + extension;
-  
-    // grab the filepath for the temporary file
-    const tmp_path = imagefile.path;
-  
-    // construct the new path for the final file
-    const target_path = path.join(__dirname, "../public/images/") + filename;
-  
-    console.log({ filename, tmp_path, target_path });
-  
-    try {
-      // move the file from tmp folder to the public folder
-      await fs.rename(tmp_path, target_path);
-  
-      // store image in the DB
-      
-        await models.Photo.create({
-            
-        })
-        
-        
-        
-    } catch (err) {
-      res.status(500).send(err);
-    }
-  });
-  
+router.get("/:user_id", async function (req, res, next) {
+  const { user_id } = req.params;
+  try {
+    const images = await models.Photo.findAll({
+      where: {external_id: user_id}
+    })
+    res.send(images)
+  } catch (error) {
+    res.status(500).send({message:error.message})
+  }
+})
+
+// router.post("/upload/user/:user_id", upload.array("imagefiles", 10), async function (req, res, next) {
+//   const imagefiles = req.files;
+//   console.log(imagefiles)
+//   const { user_id } = req.params;
+//   console.log(user_id)
+//   try {
+//      await imagefiles.map((file) => {
+//       let extension = mime.extension(file.mimetype);
+//       let filename = uuidv4() + "." + extension;
+//       let tmp_path = file.path;
+//       let target_path = path.join(__dirname, "../public/images/") + filename;
+//       fs.rename(tmp_path, target_path);
+
+//       models.Photo.create({
+//         filename,
+//         external_id: user_id,
+//         type: "user"
+
+//       })
+//     })
+//     res.send("success")
+//   } catch (error) {
+//     res.status(500).send({message:error.message})
+//   }
+// })
+
+router.post("/upload/user/:user_id", upload.single("imagefile"), async function (req, res, next) {
+  const { user_id } = req.params;
+  const imagefile = req.file;
+
+  const extension = mime.extension(imagefile.mimetype);
+  const filename = uuidv4() + "." + extension;
+  const tmp_path = imagefile.path;
+  const target_path = path.join(__dirname, "../public/images/") + filename;
+
+  try {
+    await fs.rename(tmp_path, target_path);
+
+    const photo = await models.Photo.create({
+      filename: filename,
+      external_id: user_id,
+      type: "user"
+    })
+
+    res.send(photo)
+  } catch (error) {
+    res.status(500).send({message:error.message})
+  }
+
+
+})
 
 module.exports = router;

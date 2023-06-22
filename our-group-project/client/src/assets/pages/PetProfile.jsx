@@ -1,10 +1,9 @@
 import PetProfileAvatar from "../components/design/PetProfileAvatar";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import {
   Container,
   Box,
-  Link,
   Button,
   Typography,
   Grid,
@@ -13,6 +12,8 @@ import {
   TextField,
 } from "@mui/material";
 import axios from 'axios'
+import { Link } from 'react-router-dom'
+import AuthContext from "../contexts/AuthContext";
 
 export default function PetProfile() {
   const { pet_id } = useParams();
@@ -20,6 +21,7 @@ export default function PetProfile() {
   const [user, setUser] = useState({});
   const [breed, setBreed] = useState({});
   const [input, setInput] = useState({});
+  const auth = useContext(AuthContext);
 
   useEffect(() => {
     loadPet();
@@ -219,10 +221,13 @@ export default function PetProfile() {
               </Grid>
 
               <Grid sx={{ mt: 2 }} container spacing={2}>
+                {+auth.userId !== +user.id &&
                 <Grid item>
+                  <Link to={`/chat/${auth.userId}/${user.id}`}>
                   <Button variant="contained" color="secondary" style={{marginRight:"2vw"}}>
                     <i className="fa-solid fa-comments"></i> Message User
                   </Button>
+                  </Link>
                   <Button
                     variant="outlined"
                     color="secondary"
@@ -232,7 +237,7 @@ export default function PetProfile() {
                     {" "}
                     Save Changes
                   </Button>
-                </Grid>
+                </Grid>}
               </Grid>
             </Grid>
           </Grid>
