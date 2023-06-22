@@ -3,7 +3,7 @@ import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import AuthContext from "../../contexts/AuthContext";
 
-export default function PetProfileAvatar( {pet_id }) {
+export default function PetProfileAvatar( {pet_id, user_id }) {
   const [selectedFile, setSelectedFile] = useState(null);
   const [avatar, setAvatar] = useState([]);
   const [defaultImage, setDefaultImage] = useState(null);
@@ -11,7 +11,7 @@ export default function PetProfileAvatar( {pet_id }) {
 
   useEffect(() => {
     getAvatar();
-  },[]);
+  },[avatar]);
 
   async function getAvatar() {
     try {
@@ -87,6 +87,7 @@ export default function PetProfileAvatar( {pet_id }) {
           </div>
         </div>
         <div className="row" style={{ paddingTop: "1vw", textAlign:"center" }}>
+          {auth.userId == user_id &&
           <div>
             <Button variant="outlined" size="small" color="secondary" style={{marginRight:"2vw"}}>
               <label className="custom-file-upload">
@@ -98,6 +99,7 @@ export default function PetProfileAvatar( {pet_id }) {
               Upload
             </Button>
           </div>
+}
         </div>
       </div>
     </div>

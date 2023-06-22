@@ -86,7 +86,7 @@ export default function PetProfile() {
       <Container component="main" maxWidth="lg" sx={{ mt: 5 }}>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6}>
-            <PetProfileAvatar pet_id={pet_id} />
+            <PetProfileAvatar pet_id={pet_id} user_id={pet.user_id} />
           </Grid>
 
           <Grid item xs={12} sm={6}>
@@ -221,14 +221,17 @@ export default function PetProfile() {
               </Grid>
 
               <Grid sx={{ mt: 2 }} container spacing={2}>
-                {auth.userId != user.id &&
+                {auth.userId != user.id ? 
                 <Grid item>
                   <Link to={`/chat/${auth.userId}/${user.id}`}>
                   <Button variant="contained" color="secondary" style={{marginRight:"2vw"}}>
                     <i className="fa-solid fa-comments"></i> Message User
                   </Button>
                   </Link>
-                  <Button
+                  
+                </Grid>: 
+                <Grid item>
+                <Button
                     variant="outlined"
                     color="secondary"
                     size="small"
@@ -237,7 +240,7 @@ export default function PetProfile() {
                     {" "}
                     Save Changes
                   </Button>
-                </Grid>}
+                  </Grid> }
               </Grid>
             </Grid>
           </Grid>
