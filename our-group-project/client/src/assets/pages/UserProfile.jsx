@@ -161,7 +161,7 @@ export default function UserProfile() {
 
   const updateProfileInformation = async () => {
     try {
-      await axios.post(`api/user_profiles/edit/${user_id}`, inputs);
+      await axios.post(`api/user_profiles/create/${user_id}`, inputs);
       getProfileInformation();
     } catch (error) {
       console.log(error);
@@ -265,7 +265,6 @@ export default function UserProfile() {
           </div>
         </div>
       </div>
-      {typeUser === null ? null : (
         <div className="row" style={{ margin: "2vw 5.5vw", display: "flex" }}>
           <Divider textAlign="left" style={{ marginBottom: "2vw" }}>
             <Chip label="Bio" />
@@ -365,7 +364,6 @@ export default function UserProfile() {
             )}
           </div>
         </div>
-      )}
       <div style={{ textAlign: "center" }}>
         <Grid item>
 
