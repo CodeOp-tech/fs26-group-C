@@ -32,7 +32,7 @@ function Home() {
   const mainFeaturedPost = {
     description:
       "We believe that dogs deserve the perfect home. We also believe that the way to do this is through education and encouragement. We want to ensure you find your perfect pooch. Let us help!",
-    image: "/public/cover_3.jpg",
+    image: "/cover_3.jpg",
     imageText: "main image description",
     linkText: auth.user ? "Take Quiz " : "SignUp",
     linkUrl: auth.user ? "/quiz" : "/registration",
@@ -41,7 +41,7 @@ function Home() {
   const anotherHero = {
     description:
       "Would you like to Start Browsing for Pets?",
-    image: "/public/puppy-cover.jpg",
+    image: "/puppy-cover.jpg",
     imageText: "main image description",
     linkText:  "Find Pets " ,
     linkUrl: auth.user ? "/search_pets" : "/registration",
@@ -53,7 +53,7 @@ function Home() {
     title: "Title",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ac arcu mollis, tincidunt erat et, scelerisque leo. Nam commodo felis dolor, eget volutpat ante eleifend aliquet. ",
-    image: "/public/cover_2.jpg",
+    image: "/cover_2.jpg",
     imageText: "main image description",
     linkText: "Join Now",
   };
@@ -62,7 +62,7 @@ function Home() {
     title: "Title",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ac arcu mollis, tincidunt erat et, scelerisque leo. Nam commodo felis dolor, eget volutpat ante eleifend aliquet. ",
-    image: "/public/cover_2.jpg",
+    image: "/cover_2.jpg",
     imageText: "main image description",
     linkText: "Join Now",
   };
