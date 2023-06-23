@@ -108,7 +108,7 @@ function Home() {
             sx={{ justifyContent: "center" }}
           >
             Hello! Nice to meet you *sniffs butt*. Whether you're here looking to adopt or to part from your paw-ish friend, here at
-            "name" is the place to be!
+            Pawse, Adopt is the place to be!
           </Typography>
 
           <Stack
