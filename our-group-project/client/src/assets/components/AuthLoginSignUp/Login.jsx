@@ -17,7 +17,7 @@ import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="text.secondary" align="center">
+    <Typography variant="body2" color="text.secondary" align="center" style={{marginTop:"1.5vw"}}>
       {"Copyright © "}
       <Link color="inherit" to="/about">
         Pawse, Adopt
