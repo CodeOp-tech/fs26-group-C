@@ -70,6 +70,8 @@ export default function UserProfile() {
     } else {
       setTempUser(false);
     }
+    localStorage.setItem("adopter", tempUser);
+
 
 
   };
