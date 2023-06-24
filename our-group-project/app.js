@@ -13,9 +13,6 @@ var breedsRouter = require("./routes/breeds");
 var messagesRouter = require("./routes/messages");
 var profileRouter = require("./routes/userProfiles");
 var contactRouter = require("./routes/contacts");
-
-var profileRouter = require("./routes/userProfiles");
-var contactRouter = require("./routes/contacts");
 var quizRouter = require("./routes/quiz");
 var friendsRouter = require("./routes/friends");
 
@@ -36,9 +33,6 @@ app.use("/api/breeds", breedsRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/photos", photosRouter);
 app.use("/api/messages", messagesRouter);
-
-app.use("/api/user_profiles/", profileRouter);
-app.use("/api/contact", contactRouter);
 app.use("/api/user_profiles/", profileRouter);
 app.use("/api/contact", contactRouter);
 app.use("/api/quiz", quizRouter);

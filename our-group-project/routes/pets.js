@@ -11,50 +11,6 @@ const mime = require("mime-types");
 const multer = require("multer");
 const upload = multer({ dest: "public/images" });
 
-//UPLOAD AVATAR
-
-
-
-
-router.post(
-  "/profile/:id/upload",
-  upload.single("imagefile"),
-  async (req, res) => {
-    const { id } = req.params;
-    const imagefile = req.file;
-    console.log(req.file);
-    // check the extension of the file
-    const extension = mime.extension(imagefile.mimetype);
-
-    // create a new random name for the file
-    const filename = uuidv4() + "." + extension;
-    // grab the filepath for the temporary file
-    const tmp_path = imagefile.path;
-    // construct the new path for the final file
-    const target_path = path.join(__dirname, "../public/images/") + filename;
-    console.log({ filename, tmp_path, target_path });
-
-    try {
-      // move the file from tmp folder to the public folder
-      await fs.rename(tmp_path, target_path);
-
-      // store image in the DB
-
-      const pet = await models.Pet.findOne({
-        where: { id },
-      });
-
-      pet.update({
-        avatar: filename,
-      });
-      console.log(pet.avatar);
-      res.send(pet.avatar);
-    } catch (err) {
-      res.status(500).send(err);
-    }
-  }
-);
-
 /* GET pets by location or breed . */
 router.get("/search", async function (req, res, next) {
   const queryParams = req.query;
@@ -99,7 +55,7 @@ router.get("/", async function (req, res) {
   }
 });
 
-/* GET pets' avatar by user_id*/
+/* GET pets' avatar by pet id*/
 router.get("/pet/:id/avatar", async function (req, res, next) {
   const { id } = req.params;
   try {
@@ -113,6 +69,7 @@ router.get("/pet/:id/avatar", async function (req, res, next) {
   }
 });
 
+//do we need this if we can get users WITH  their pets?
 /* GET pets by user_id. */
 router.get("/user/:user_id", async function (req, res, next) {
   const { user_id } = req.params;
@@ -180,7 +137,38 @@ router.get("/:id", async function (req, res, next) {
 
 
 
+//UPLOAD AVATAR
+router.post(
+  "/profile/:id/upload",
+  upload.single("imagefile"),
+  async (req, res) => {
+    const { id } = req.params;
+    const imagefile = req.file;
+    // check the extension of the file
+    const extension = mime.extension(imagefile.mimetype);
 
+    // create a new random name for the file
+    const filename = uuidv4() + "." + extension;
+    // grab the filepath for the temporary file
+    const tmp_path = imagefile.path;
+    // construct the new path for the final file
+    const target_path = path.join(__dirname, "../public/images/") + filename;
+    try {
+      // move the file from tmp folder to the public folder
+      await fs.rename(tmp_path, target_path);
+      // store image in the DB
+      const pet = await models.Pet.findOne({
+        where: { id },
+      });
+      pet.update({
+        avatar: filename,
+      });
+      res.send(pet.avatar);
+    } catch (err) {
+      res.status(500).send(err);
+    }
+  }
+);
 
 /* Post new pet listing. */
 // true = 1 , false = 0 for boolean values

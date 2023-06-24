@@ -1,14 +1,12 @@
 import { useContext, useState } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Header from "./design/Header";
 import MainFeaturedPost from "../components/About_Us/MainFeaturedPost.jsx";
 import FeaturedPost from "../components/About_Us/FeaturedPost.jsx";
 import { Grid, Box, Typography, Button, FormControl, FormControlLabel, Radio, RadioGroup, FormLabel } from "@mui/material";
 import AuthContext from "../contexts/AuthContext";
 
-function Forum() {
+export default function Quiz() {
   const auth = useContext(AuthContext);
   const [showQuizForm, setShowQuizForm] = useState(false);
   const [type, setType] = useState("");
@@ -58,16 +56,6 @@ function Forum() {
     imageText: "main image description",
   };
 
-  const featuredPost = {
-    title: "Are You Ready?",
-    date: "2022-02-02",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ac arcu mollis, tincidunt erat et, scelerisque leo. Nam commodo felis dolor, eget volutpat ante eleifend aliquet. Sed in viverra odio.",
-    image: "/public/dog_2.jpg",
-    imageLabel: "Image Text",
-    linkText: auth.user ? "Start" : "SignUp",
-    linkUrl: auth.user ? "/quiz" : "/#",
-  };
 
   return (
     <>
@@ -82,6 +70,9 @@ function Forum() {
               </Button>
             </Box>
           )}
+
+          {/*Routes need to be created for Questions + Answers to be displayed 
+          so that there is no need for hardcoding them in FE*/}
 
           {showQuizForm && (
             <Box sx={{ mt: 4 }}>
@@ -129,4 +120,3 @@ function Forum() {
   );
 }
 
-export default Forum;

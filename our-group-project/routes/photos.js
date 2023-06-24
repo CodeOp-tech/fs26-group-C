@@ -8,13 +8,13 @@ const mime = require("mime-types");
 const multer = require("multer");
 const upload = multer({ dest: "public/images" });
 
-
-
 router.get("/:user_id", async function (req, res, next) {
   const { user_id } = req.params;
   try {
     const images = await models.Photo.findAll({
-      where: {external_id: user_id}
+      where: {
+        external_id: user_id,
+      type: "users"}
     })
     res.send(images)
   } catch (error) {

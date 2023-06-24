@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Pusher from "pusher-js";
 import axios from "axios";
-import { Button, Box, TextField, Grid, Typography } from "@mui/material";
+import { Button, Box, TextField, Grid } from "@mui/material";
 
 
 
