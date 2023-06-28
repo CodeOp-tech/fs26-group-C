@@ -3,8 +3,6 @@ import { NavLink, useParams } from "react-router-dom";
 import axios from "axios";
 import { Typography } from "@mui/material";
 
-
-
 export default function List() {
   let { sender, receiver } = useParams();
 
@@ -21,7 +19,7 @@ export default function List() {
           authorization: "Bearer " + localStorage.getItem("token"),
         },
       });
-      
+
       setUsers(data);
     } catch (error) {
       console.log("error", error);
@@ -30,18 +28,16 @@ export default function List() {
 
   return (
     <div className="list-group users-list">
-      {users.length === 0 && <Typography>You have no messages </Typography> 
-      }
-      {users
-        .map((user) => (
-          <NavLink
-            to={`/chat/${sender}/${user.id}`}
-            key={user.id}
-            className="list-group-item list-group-item-action border-right-0 border-left-0 rounded-0"
-          >
-            <h6 className="my-0">{user.username}</h6>
-          </NavLink>
-        ))}
+      {users.length === 0 && <Typography>You have no messages </Typography>}
+      {users.map((user) => (
+        <NavLink
+          to={`/chat/${sender}/${user.id}`}
+          key={user.id}
+          className="list-group-item list-group-item-action border-right-0 border-left-0 rounded-0"
+        >
+          <h6 className="my-0">{user.username}</h6>
+        </NavLink>
+      ))}
     </div>
   );
 }
